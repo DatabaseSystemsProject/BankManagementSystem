@@ -16,14 +16,14 @@
 </head>
 
 <body>
-  <main-header></main-header>
+
 
   <main>
 
   </main>
 
 
-  <main-footer></main-footer>
+ 
 
 
   <!-- Optional JavaScript -->
