@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css">
     <title>Login</title>
 </head>
-<body>
+<body class="" style="background: url('https://img.freepik.com/free-vector/online-banking-money-transaction-concept-foreign-exchange-bank-icon-dark-blue-background_387612-67.jpg?w=1060') no-repeat; background-size:cover;">
 </html><main-header></main-header>
-<div class="container">
+<div class="container mt-5">
         <div class="row">
             <div class="col-md-4 offset-md-4">
                 <div class="login-form bg-light mt-4 p-4">
                     <form action="" method="" class="row g-3">
-                        <h4>Welcome to Bank A</h4>
+                        <h4>Welcome to Phoenix Trust Bank</h4>
                         <div class="col-12">
                             <label>Username</label>
                             <input type="text" name="username" class="form-control" placeholder="Username">
@@ -35,9 +35,6 @@
                         </div>
                     </form>
                     <hr class="mt-4">
-                    <!-- <div class="col-12">
-                        <p class="text-center mb-0">Have not account yet? <a href="#">Signup</a></p>
-                    </div> -->
                 </div>
             </div>
         </div>
