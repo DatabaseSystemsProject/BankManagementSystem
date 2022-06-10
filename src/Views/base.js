@@ -29,7 +29,7 @@ class Header extends HTMLElement {
         
       </ul> 
 
-      <span id="notif"><i class="fa fa-envelope fa-lg" ></span></i><span class="badge"> 50 </span>
+      
     <a class="nav-link " id="icon-profile" onclick="display_notification()" ><i class="fa fa-fw fa-user fa-lg"></i></a>
    
     </div>
@@ -39,6 +39,7 @@ class Header extends HTMLElement {
           `
     }
 }
+
 function display_notification() {
     var x = document.getElementById("notification-list");
     if (x.style.display === "none") {
