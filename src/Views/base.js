@@ -1,7 +1,7 @@
 class Header extends HTMLElement {
-    connectedCallback() {
-        this.innerHTML = `
-              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  connectedCallback() {
+    this.innerHTML = `
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" >
     <a class="navbar-brand mb-0 h1" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,21 +37,21 @@ class Header extends HTMLElement {
 
   </nav>
           `
-    }
+  }
 }
 
 function display_notification() {
-    var x = document.getElementById("notification-list");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
+  var x = document.getElementById("notification-list");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
 }
 class Footer extends HTMLElement {
-    connectedCallback() {
-        this.innerHTML =
-            `
+  connectedCallback() {
+    this.innerHTML =
+      `
           <!-- Footer -->
   <footer class="page-footer font-small blue pt-4">
   
@@ -138,7 +138,7 @@ class Footer extends HTMLElement {
   
         `
 
-    }
+  }
 }
 
 
