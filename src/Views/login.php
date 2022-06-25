@@ -9,10 +9,10 @@
     <title>Login</title>
 </head>
 <body class="" style="background: url('https://img.freepik.com/free-vector/online-banking-money-transaction-concept-foreign-exchange-bank-icon-dark-blue-background_387612-67.jpg?w=1060') no-repeat; background-size:cover;">
-</html><main-header></main-header>
+</html>
 <div class="container mt-5">
         <div class="row">
-            <div class="col-md-4 offset-md-4">
+            <div class="col-md-4 offset-md-4" >
                 <div class="login-form bg-light mt-4 p-4">
                     <form action="" method="" class="row g-3">
                         <h4>Welcome to Phoenix Trust Bank</h4>
