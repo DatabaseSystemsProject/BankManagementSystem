@@ -11,9 +11,9 @@
     <title>FD form</title>
 </head>
 
-<body style="background-color: rgb(0,0,205);">
+<body style="background-color: rgb(0,0,205);display:flex;flex-direction:column; ">
     <main-header></main-header>
-    <div class="container border border-2 m-5 p-5 mx-auto bg-light ">
+    <div class="container border border-2 m-5 p-5 mx-auto bg-light " style="margin-top: 50px;">
         <h2>First, check customers' eligibility for applying a loan </h2>
         <form>
             <div class="form-row mt-3">
