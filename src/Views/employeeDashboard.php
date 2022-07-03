@@ -109,6 +109,16 @@
                         </div>
 
                     </a>
+
+                    <a href="fdForm.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
+                                <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -70%; margin-bottom:-15%">Create FD</p>
+                            </div>
+                        </div>
+
+                    </a>
                 </div>
 
             </div>
