@@ -35,7 +35,6 @@
                     <div class="col-md-2">
                         <label for="inputLoanAmount">Loan Amount</label>
                     </div>
-
                     <div class="input-group-prepend">
                         <span class="input-group-text">Rs.</span>
                     </div>
@@ -114,7 +113,7 @@
                     </select>
                 </div>
                 <div class="input-group mb-3">
-                <div class="col-md-2">
+                    <div class="col-md-2">
                         <label for="inputLoanAmount">Loan Amount</label>
                     </div>
                     <div class="input-group-prepend">
@@ -123,6 +122,15 @@
                     <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="inputLoanAmount">
                     <div class="input-group-append">
                         <span class="input-group-text">.00</span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="col-md-2">
+                        <label for="inputLoanAmount">Loan Duration</label>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration" id="inputLoanDuration">
+                    <div class="input-group-append">
+                        <span class="input-group-text">Months</span>
                     </div>
                 </div>
             </div>

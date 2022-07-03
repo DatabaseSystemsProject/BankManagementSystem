@@ -11,10 +11,6 @@ class Connector
 
     private function __construct()
     {
-        $this->host = "localhost";
-        $this->user = "root";
-        $this->password = "";
-        $this->db = "myscholar2";
         $connection = mysqli_connect("localhost", "root", "", "phoenix_trust_bank");
         $this->connec = $connection;
         if (!$connection) {

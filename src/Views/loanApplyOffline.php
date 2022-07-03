@@ -86,6 +86,15 @@
                         <span class="input-group-text">.00</span>
                     </div>
                 </div>
+                <div class="input-group mb-3">
+                    <div class="col-md-2">
+                        <label for="inputLoanAmount">Loan Duration</label>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration" id="inputLoanDuration">
+                    <div class="input-group-append">
+                        <span class="input-group-text">Months</span>
+                    </div>
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
