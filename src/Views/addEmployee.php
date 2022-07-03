@@ -16,8 +16,8 @@
 
 <body>
 
-</html>
 <main-header></main-header>
+<br>
 <div class="container border border-2 m-5 p-5 mx-auto ">
     <h2> Add Employee </h2> <br>
     <form>
@@ -45,6 +45,10 @@
             <div class="form-group col-md-6">
                 <label for="inputUserName">User Name</label>
                 <input type="text" class="form-control" id="inputUserName" placeholder="User Name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputNIC"> NIC </label>
+                <input type="text" class="form-control" id="inputNIC" placeholder="NIC">
             </div>
         </div>
         <div class="form-row">

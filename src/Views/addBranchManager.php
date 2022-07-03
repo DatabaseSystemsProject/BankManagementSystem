@@ -11,12 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Employee</title>
+    <title>Add Branch Manager</title>
 </head>
 
 <body>
 
-</html>
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto ">
     <h2> Add Branch Manager </h2> <br>
@@ -45,6 +44,10 @@
             <div class="form-group col-md-6">
                 <label for="inputUserName">User Name</label>
                 <input type="text" class="form-control" id="inputUserName" placeholder="User Name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputNIC"> NIC </label>
+                <input type="text" class="form-control" id="inputNIC" placeholder="NIC">
             </div>
         </div>
         <div class="form-row">

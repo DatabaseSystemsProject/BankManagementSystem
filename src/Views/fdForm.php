@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Onlin Loan</title>
+    <title>FD form</title>
 </head>
 
-<body style="background-color: rgb(0,0,205);">
+<body style="background-color: rgb(0,0,205);display:flex;flex-direction:column; ">
     <main-header></main-header>
-    <div class="container border border-2 m-5 p-5 mx-auto bg-light ">
-        <h2>First, check your eligibility for applying a loan </h2>
+    <div class="container border border-2 m-5 p-5 mx-auto bg-light " style="margin-top: 50px;">
+        <h2>First, check customers' eligibility for applying a loan </h2>
         <form>
             <div class="form-row mt-3">
                 <div class="form-group col-md-6">
@@ -22,7 +22,7 @@
                     <input type="text" class="form-control" id="inputAccNo" placeholder="">
                 </div>
             </div>
-            <div class="form-row ">
+            <!-- <div class="form-row ">
                 <div class="form-group ">
                     <label for="inputLoanType">Loan Type</label>
                     <select id="inputLoanType" class="custom-select mr-sm-2">
@@ -35,6 +35,7 @@
                     <div class="col-md-2">
                         <label for="inputLoanAmount">Loan Amount</label>
                     </div>
+
                     <div class="input-group-prepend">
                         <span class="input-group-text">Rs.</span>
                     </div>
@@ -43,7 +44,7 @@
                         <span class="input-group-text">.00</span>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <button type="submit" class="btn btn-primary">Check</button>
         </form>
@@ -52,7 +53,7 @@
 
 
     <div class="container border border-2 m-5 p-5 mx-auto bg-light " id="div3" hidden>
-        <h2>Loan Application Form</h2>
+        <h2>FD Form</h2>
         <form>
             <div class="form-group mt-3 ">
                 <label for="inputFullName">Full Name</label>
@@ -64,8 +65,8 @@
                     <input type="text" class="form-control" id="inputNIC" placeholder="NIC">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputPassNo">Passport Number</label>
-                    <input type="text" class="form-control" id="inputPassNo" placeholder="Passport Number (Optional)">
+                    <label for="birthday">Birthday</label>
+                    <input type="text" class="form-control" id="birthday" placeholder="dd/mm/yyyy">
                 </div>
             </div>
 
@@ -80,7 +81,16 @@
                     <input type="text" class="form-control" id="inputMobile" placeholder="07********">
                 </div>
             </div>
+
             <div class="form-row">
+                <div class="form-group col-md-10">
+                    <label for="address">Address </label>
+                    <input type="text" class="form-control" id="address" placeholder="Address">
+                </div>
+            </div>
+
+
+            <!-- <div class="form-row">
                 <div class="row">
                     <legend class="col-form-label col-sm-3 pt-0">Tax Payer?</legend>
 
@@ -101,20 +111,22 @@
                         <input type="email" class="form-control" id="inputTaxNo" placeholder="Tax No">
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-row mt-3">
                 <div class="form-group ">
                     <label for="inputLoanType">Loan Type</label>
                     <select id="inputLoanType" class="custom-select mr-sm-2">
                         <option selected>Choose...</option>
-                        <option>Business</option>
-                        <option>Personal</option>
+                        <option>6 months</option>
+                        <option>1 years</option>
+                        <option>3 years</option>
+
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <div class="col-md-2">
-                        <label for="inputLoanAmount">Loan Amount</label>
+                        <label for="inputLoanAmount">Amount</label>
                     </div>
                     <div class="input-group-prepend">
                         <span class="input-group-text">Rs.</span>
@@ -124,25 +136,16 @@
                         <span class="input-group-text">.00</span>
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <div class="col-md-2">
-                        <label for="inputLoanAmount">Loan Duration</label>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration" id="inputLoanDuration">
-                    <div class="input-group-append">
-                        <span class="input-group-text">Months</span>
-                    </div>
-                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAccNo">Savings Account Number </label>
                     <input type="text" class="form-control" id="inputAccNo" placeholder="758****" disabled>
                 </div>
-                <div class="form-group col-md-6">
+                <!-- <div class="form-group col-md-6">
                     <label for="inputFDNo">Fixed Deposite Number</label>
                     <input type="text" class="form-control" id="inputFDNo" placeholder="Fixed Deposite Number">
-                </div>
+                </div> -->
             </div>
             <button type="submit" class="btn btn-primary">Apply</button>
         </form>
@@ -152,14 +155,14 @@
     <script type="text/javascript">
         const application = document.getElementById("div3");
 
-        function EnableDisableTextBox() {
-            var chkYes = document.getElementById("TaxYes");
-            var inputTaxNo = document.getElementById("inputTaxNo");
-            inputTaxNo.disabled = chkYes.checked ? false : true;
-            if (!inputTaxNo.disabled) {
-                inputTaxNo.focus();
-            }
-        };
+        // function EnableDisableTextBox() {
+        //     var chkYes = document.getElementById("TaxYes");
+        //     var inputTaxNo = document.getElementById("inputTaxNo");
+        //     inputTaxNo.disabled = chkYes.checked ? false : true;
+        //     if (!inputTaxNo.disabled) {
+        //         inputTaxNo.focus();
+        //     }
+        // };
 
 
         function showApplication() {
