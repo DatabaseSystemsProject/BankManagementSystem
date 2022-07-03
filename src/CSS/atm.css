@@ -1,0 +1,100 @@
+body {
+    background: rgb(163, 190, 230);
+}
+.container{
+    align-self: center;
+    overflow: hidden;
+    position: relative;
+    height: 600px;
+
+}
+
+.bankName{
+    align-self: center;
+    margin-bottom: 2%;
+}
+img {
+    height: 8rem;
+    object-fit: contain;
+    
+}
+.form{
+    color: black;
+    background-color: whitesmoke;
+    height: 400px;
+    border-radius: 10px;
+    transition: 0.5s;
+    position: absolute;
+    width: 100% !important;
+   
+
+}
+
+#form1 .header{
+    font-weight: bold;
+    font-size: 2rem;
+    align-self: center;
+    color: #0648AB;
+    text-align: center;
+    margin-bottom: 10%;
+    margin-top: 3%;
+}
+
+#form1 .Enter{
+    align-self: center;
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-align: center;
+
+}
+
+#form2 .AccNumber{
+    align-self: center;
+    margin-top: 5%;
+    justify-content: space-evenly;
+}
+
+#form2 .AccNumber label{
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+#form3 label{
+    font-weight: 400;
+        font-size: 1.5rem;
+        text-align: center;
+}
+
+#form3 .AccType{
+    align-self: center;
+    
+}
+#form3 .AccType {
+    margin-top: 5%;
+}
+
+
+#form4 .Amount {
+    align-self: center;
+    margin-top: 5%;
+    justify-content: space-evenly;
+}
+
+#form4 .Amount label {
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+
+
+.shift_right{
+    left: 800px ;
+    background-color: #0648AB;
+}
+
+.shift_left{
+    left: -800px ;
+}
+ 
