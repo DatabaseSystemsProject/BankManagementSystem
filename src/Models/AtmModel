@@ -2,7 +2,23 @@
 
 include "../Config/db.php";
 
-class AtmModel {
-    
-}
+class AtmModel
+{
+    private $conn;
 
+    function __construct()
+    {
+        $connector = Connector::getInstance();
+        $this->conn = $connector->getConnector();
+    }
+
+    public function getPin($pin)
+    {
+        $sql = "SELECT * FROM savings_account WHERE pin_number = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $pin);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result;
+    }
+}

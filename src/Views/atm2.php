@@ -1,5 +1,9 @@
 <?php
-include "base.php"
+session_start();
+include "base.php";
+include "../Controllers/atmController.php";
+$atm_contr = new AtmController();
+
 ?>
 
 <!DOCTYPE html>
@@ -23,36 +27,15 @@ include "base.php"
             <div id="form3" class="container-md d-flex flex-column col-md-8 form3 form " action="">
                 <div class="form-group col-md-7 AccType d-flex flex-column">
                     <label style="margin-bottom:30px">Chose your Account Type</label><br>
-                    <button type="button" class="btn btn-primary" id="Next3_1" style="margin-bottom:30px">Checking</button>
-                    <button type="button" class="btn btn-primary" id="Next3_2" style="margin-bottom:100px">Savings</button>
-                </div>
-
-            </div>
-            <div id="form4" class="container-md d-flex flex-column col-md-8 form4 form shift_right" action="">
-                <div class="form-group col-md-7 Amount d-flex flex-column">
-                    <label for="amount">Enter the amount to withdraw</label><br>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Rs</span>
-                        <input type="text" name="amountt" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-text">.00</span>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="margin-bottom:100px">Enter</button>
+                    <button type="submit" class="btn btn-primary" name="Checking" id="Next3_1" style="margin-bottom:30px">Checking</button>
+                    <button type="submit" class="btn btn-primary" name="Savings" id="Next3_2" style="margin-bottom:100px">Savings</button>
                 </div>
             </div>
-            <!-- <div method="post" id="form5" class="container-md d-flex flex-column col-md-8 form5 form shift_right" action="">
-                <div class="header1" style="align-self:center">
-                    <p>Successful / Unsuccessful</p>
-                </div>
-                <div class="form-group col-md-7 RemoveCard d-flex flex-column" style="align-self:center">
-                    <p class="Greeting" style="font-weight: 400; font-size: 1.5rem; text-align: center;padding:0px">Thank you</p>
-                    <button type="submit" name="submit" class="btn btn-primary " style="margin-bottom:100px">Remove Card</button>
-                </div>
-            </div> -->
         </form>
     </div>
 </body>
 
-<script>
+<!-- <script>
     var Form1 = document.getElementById("form1");
     var Form2 = document.getElementById("form2");
     var Form3 = document.getElementById("form3");
@@ -70,7 +53,7 @@ include "base.php"
         Form3.classList.add("shift_left");
         Form4.classList.remove("shift_right");
     });
-</script>
+</script> -->
 <script src="./atm.js"></script>
 
 </html>

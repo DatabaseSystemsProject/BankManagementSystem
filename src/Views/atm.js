@@ -34,20 +34,5 @@ function setInputFilter(textbox, inputFilter, errMsg) {
     });
   });
 }
-setInputFilter(
-  document.getElementById("accNo"),
-  function (value) {
-    return /^\d*$/.test(value);
-  },
-  "Must be a valid number"
-);
-
-setInputFilter(
-  document.getElementById("amount"),
-  function (value) {
-    return /^\d*$/.test(value);
-  },
-  "Must be a valid number"
-);
 
 
