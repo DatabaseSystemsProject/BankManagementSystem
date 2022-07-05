@@ -1,4 +1,8 @@
-<?php include 'base.php' ?>
+<?php
+
+    include 'base.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +51,7 @@
                             </div>
                         </div>
                         <div class="four col-md-3">
-                            <div class="counter-box colored">  <span class="counter" id="counter" data-val="225">6</span>
+                            <div class="counter-box colored"> <span class="counter" id="counter" data-val="225">6</span>
                                 <p>Available Classes</p>
                             </div>
                         </div>

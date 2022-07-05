@@ -1,4 +1,12 @@
-<?php include 'base.php' ?>
+<?php
+include 'base.php';
+include '../Config/db.php';
+include '../Models/fdFormModel.php';
+include '../Controllers/fdFormController.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,43 +20,19 @@
 </head>
 
 <body style="background-color: rgb(0,0,205);display:flex;flex-direction:column; ">
-    <main-header></main-header>
+
     <div class="container border border-2 m-5 p-5 mx-auto bg-light " style="margin-top: 50px;">
         <h2>First, check customers' eligibility for applying a loan </h2>
-        <form>
+        <form id="myForm" action="fdForm.php" method="post">
             <div class="form-row mt-3">
                 <div class="form-group col-md-6">
                     <label for="inputAccNo">Savings Account Number </label>
-                    <input type="text" class="form-control" id="inputAccNo" placeholder="">
+                    <input type="text" class="form-control" id="inputAccNo" name="inputAccNo" placeholder="">
                 </div>
             </div>
-            <!-- <div class="form-row ">
-                <div class="form-group ">
-                    <label for="inputLoanType">Loan Type</label>
-                    <select id="inputLoanType" class="custom-select mr-sm-2">
-                        <option selected>Choose...</option>
-                        <option>Business</option>
-                        <option>Personal</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="col-md-2">
-                        <label for="inputLoanAmount">Loan Amount</label>
-                    </div>
-
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Rs.</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="inputLoanAmount">
-                    <div class="input-group-append">
-                        <span class="input-group-text">.00</span>
-                    </div>
-                </div>
-            </div> -->
-
-            <button type="submit" class="btn btn-primary">Check</button>
+            <button type="submit" value="submit" class="btn btn-primary" name="submit1" id="submit1">Check</button>
         </form>
-        <button id="switch" onclick="showApplication()">Click to hide visible DIVs and show hidden ones</button>
+        <!-- <button id="switch" name="submit2" onclick="showApplication()">Click to hide visible DIVs and show hidden ones</button> -->
     </div>
 
 
@@ -142,10 +126,6 @@
                     <label for="inputAccNo">Savings Account Number </label>
                     <input type="text" class="form-control" id="inputAccNo" placeholder="758****" disabled>
                 </div>
-                <!-- <div class="form-group col-md-6">
-                    <label for="inputFDNo">Fixed Deposite Number</label>
-                    <input type="text" class="form-control" id="inputFDNo" placeholder="Fixed Deposite Number">
-                </div> -->
             </div>
             <button type="submit" class="btn btn-primary">Apply</button>
         </form>
@@ -170,6 +150,19 @@
 
         };
     </script>
+
+    <?php
+    if (isset($_POST["submit1"])) {
+        $controller = new moneyTransferController();
+        $data = $controller->submitSavingAccount();
+        $account_number = $data['account_no'];
+        echo $account_number;
+        echo '<script type="text/javascript">showApplication();</script>';
+    }
+
+
+
+    ?>
 </body>
 
 </html>
