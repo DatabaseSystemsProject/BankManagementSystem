@@ -16,9 +16,9 @@ class staffRegisterController{
         if (isset($_POST["register"])) {
             if(!empty($_POST["title"]) && !empty($_POST["first_name"]) && !empty($_POST["middle_name"]) && !empty($_POST["last_name"]) 
                 && !empty($_POST["dob"]) && !empty($_POST["NIC"]) && !empty($_POST["contact_number"]) && !empty($_POST["residence"]) 
-                && !empty($_POST["street_name"]) && !empty($_POST["city"]) && !empty($_POST["district"]) && !empty($_POST["province"]) 
-                && !empty($_POST["zip_code"]) && !empty($_POST["staff_type"]) && !empty($_POST["branch"]) && !empty($_POST["username"]) 
-                && !empty($_POST["email"]) && !empty($_POST["password"])) {
+                && !empty($_POST["city"]) && !empty($_POST["district"]) && !empty($_POST["province"]) && !empty($_POST["zip_code"]) 
+                && !empty($_POST["staff_type"]) && !empty($_POST["branch"]) && !empty($_POST["username"]) && !empty($_POST["email"]) 
+                && !empty($_POST["password"])) {
 
                 $title = $_POST["title"];
                 $first_name = $_POST["first_name"];
@@ -28,7 +28,6 @@ class staffRegisterController{
                 $NIC = $_POST["NIC"];
                 $contact_number = $_POST["contact_number"];
                 $residence = $_POST["residence"];
-                $street_name = $_POST["street_name"];
                 $city = $_POST["city"];
                 $district = $_POST["district"];
                 $province = $_POST["province"];
@@ -38,9 +37,8 @@ class staffRegisterController{
                 $username = $_POST["username"];
                 $email = $_POST["email"];
                 $password = $_POST["password"];
-                $encrypted_password = md5($password);
 
-                $result = $this->staffRegisterModel->insert($title, $first_name, $middle_name, $last_name, $dob, $NIC, $contact_number, $residence, $street_name, $city, $district, $province, $zip_code, $staff_type, $branch_id, $username, $email, $password);
+                $result = $this->staffRegisterModel->insert($title, $first_name, $middle_name, $last_name, $dob, $NIC, $contact_number, $residence, $city, $district, $province, $zip_code, $staff_type, $branch_id, $username, $email, $password);
 
                 if($result === TRUE){
                     //header("Location: staffRegister.php");

@@ -34,9 +34,9 @@ $staffRegContr = new staffRegisterController();
             <div class="form-group col-md-2">
                 <label for="title">Title</label>
                 <select id="title" name="title" class="custom-select mr-sm-2" required>
-                    <option selected value="Mr."> Mr. </option>
-                    <option value="Mrs."> Mrs. </option>
-                    <option value="Miss."> Miss. </option>
+                    <option selected value="Mr"> Mr. </option>
+                    <option value="Mrs"> Mrs. </option>
+                    <option value="Miss"> Miss. </option>
                 </select>
             </div>
             <div class="form-group col-md-3">
@@ -67,13 +67,9 @@ $staffRegContr = new staffRegisterController();
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-8">
                 <label for="residence"> Residence </label>
                 <input type="text" class="form-control" id="residence" name="residence" placeholder="Residence" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="street_name"> Street Name </label>
-                <input type="text" class="form-control" id="street_name" name="street_name" placeholder="Street Name" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="city"> City </label>
@@ -83,11 +79,47 @@ $staffRegContr = new staffRegisterController();
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="district"> District </label>
-                <input type="text" class="form-control" id="district" name="district" placeholder="District" required>
+                <select id="district" name="district" class="custom-select mr-sm-2" required>
+                    <option selected value="Colombo"> Colombo </option>
+                    <option value="Gampaha"> Gampaha </option>
+                    <option value="Kaluthara"> Kaluthara </option>
+                    <option value="Kandy"> Kandy </option>
+                    <option value="Mathale"> Mathale </option>
+                    <option value="Nuwara Eliya"> Nuwara Eliya </option>
+                    <option value="Kurunegala"> Kurunegala </option>
+                    <option value="Puttalam"> Puttalam </option>
+                    <option value="Galle"> Galle </option>
+                    <option value="Matara"> Matara </option>
+                    <option value="Hambanthota"> Hambanthota </option>
+                    <option value="Ratnapura"> Ratnapura </option>
+                    <option value="Kegalle"> Kegalle </option>
+                    <option value="Anuradhapura"> ANuradhapura </option>
+                    <option value="Polonnaruwa"> Polonnaruwa </option>
+                    <option value="Badulla"> Badulla </option>
+                    <option value="Moneragala"> Moneragala </option>
+                    <option value="Trincomalee"> Trincomalee </option>
+                    <option value="Batticalao"> Batticalao </option>
+                    <option value="Ampara"> Ampara </option>
+                    <option value="Jaffna"> Jaffna </option>
+                    <option value="Kilinochchi"> Kilinochchi </option>
+                    <option value="Mannar"> Mannar </option>
+                    <option value="Vavuniya"> Vavuniya </option>
+                    <option value="Mullaitivu"> Mullaitivu </option>
+                </select>
             </div>
             <div class="form-group col-md-4">
                 <label for="province"> Province </label>
-                <input type="text" class="form-control" id="province" name="province" placeholder="Province" required>
+                <select id="district" name="district" class="custom-select mr-sm-2" required>
+                    <option selected value="Western"> Western </option>
+                    <option value="Central"> Central </option>
+                    <option value="North Western"> North Western </option>
+                    <option value="Southern"> Southern </option>
+                    <option value="Sabaragamuwa"> Sabaragamuwa </option>
+                    <option value="North Central"> North Central </option>
+                    <option value="Eastern"> Eastern </option>
+                    <option value="Uva"> Uva </option>
+                    <option value="Nothern"> Nothern </option>
+                </select>
             </div>
             <div class="form-group col-md-4">
                 <label for="zip_code"> Zip Code </label>
