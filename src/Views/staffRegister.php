@@ -34,43 +34,89 @@ $staffRegContr = new staffRegisterController();
             <div class="form-group col-md-2">
                 <label for="title">Title</label>
                 <select id="title" name="title" class="custom-select mr-sm-2" required>
-                    <option selected value="Mr"> Mr. </option>
-                    <option value="Mrs"> Mrs. </option>
-                    <option value="Miss"> Miss. </option>
-                    <option value="Ven"> Ven. </option>
-                    <option value="Other"> Other </option>
+                    <option selected value="Mr."> Mr. </option>
+                    <option value="Mrs."> Mrs. </option>
+                    <option value="Miss."> Miss. </option>
                 </select>
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-3">
                 <label for="first_name">First Name</label>
                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-3">
+                <label for="middle_name">Middle Name</label>
+                <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle Name" required>
+            </div>
+            <div class="form-group col-md-4">
                 <label for="last_name">Last Name</label>
                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="userName">User Name</label>
-                <input type="text" class="form-control" id="userName" name="username" placeholder="User Name" required>
+            <div class="form-group col-md-4">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth" required>
             </div>
-            <div class="form-group col-md-6">
-                <label for="nic"> NIC </label>
-                <input type="text" class="form-control" id="nic" name="nic" placeholder="NIC" required>
+            <div class="form-group col-md-4">
+                <label for="NIC"> NIC </label>
+                <input type="text" class="form-control" id="NIC" name="NIC" placeholder="NIC" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="contact_number"> Contact Number </label>
+                <input type="text" class="form-control" id="contact_number" name="contact_number" placeholder="Contact Number" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="residence"> Residence </label>
+                <input type="text" class="form-control" id="residence" name="residence" placeholder="Residence" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="street_name"> Street Name </label>
+                <input type="text" class="form-control" id="street_name" name="street_name" placeholder="Street Name" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="city"> City </label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="district"> District </label>
+                <input type="text" class="form-control" id="district" name="district" placeholder="District" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="province"> Province </label>
+                <input type="text" class="form-control" id="province" name="province" placeholder="Province" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="zip_code"> Zip Code </label>
+                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputStaffType"> Type </label>
                 <select id="staff_type" class="custom-select mr-sm-2" name="staff_type" required>
-                    <option selected value="branch_manager"> Branch Manager </option>
-                    <option value="employee"> Employee </option>
+                    <option selected value="2"> Branch Manager </option>
+                    <option value="1"> Employee </option>
                 </select>
             </div>
             <div class="form-group col-md-6">
                 <label for="branch">Branch</label>
-                <input type="text" class="form-control" id="branch" name="branch" placeholder="Branch" required>
+                <select id="branch" class="custom-select mr-sm-2" name="branch" required>
+                    <?php $staffRegContr->getBranches(); ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="username"> Username </label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email"> Email </label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
             </div>
         </div>
         <div class="form-row">
