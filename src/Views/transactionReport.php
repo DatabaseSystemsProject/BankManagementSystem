@@ -2,6 +2,11 @@
 
 session_start();
 include "base.php";
+include "../Controllers/transactionReportController.php";
+
+$transRepCtrl = new TransactionReportController();
+
+$bm_NIC = 1; // hardcoded for demonstration
 
 ?>
 
@@ -23,7 +28,7 @@ include "base.php";
     <div class="container m-5 p-0">
         <h2> Kurunegala Branch - Total Transaction Report </h2>
 
-        <table class="table table-bordered">
+        <table class="table table-bordered table-responsive table-hover">
             <thead>
                 <tr>
                 
