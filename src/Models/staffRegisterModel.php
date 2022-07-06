@@ -21,7 +21,7 @@ class staffRegisterModel{
         $middle_name = mysqli_real_escape_string($this->conn,"$middle_name");
         $last_name = mysqli_real_escape_string($this->conn,"$last_name");
         $dob = mysqli_real_escape_string($this->conn,"$dob");
-        $NIC = mysqli_real_escape_string($this->conn,"$NIC");
+        $user_NIC = mysqli_real_escape_string($this->conn,"$NIC");
         $contact_number = mysqli_real_escape_string($this->conn,"$contact_number");
         $residence = mysqli_real_escape_string($this->conn,"$residence");
         $street_name = mysqli_real_escape_string($this->conn,"$street_name");
@@ -36,16 +36,15 @@ class staffRegisterModel{
         $user_type = mysqli_real_escape_string($this->conn,"2");
 
 
-        $sql = "INSERT INTO user(title, first_name, middle_name, last_name, NIC, residence, street_name, city, district, province, zip_code, email, dob, contact_number, user_type) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        $sql = "INSERT INTO user(user_NIC, title, first_name, middle_name, last_name, residence, street_name, city, district, province, zip_code, email, dob, contact_number, user_type) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ssssssssssissii", $title, $first_name, $middle_name, $last_name, $NIC, $residence, $street_name, $city, $district, $province, $zip_code, $email, $dob, $contact_number, $user_type);
+        $stmt->bind_param("ssssssssssissii", $user_NIC, $title, $first_name, $middle_name, $last_name, $residence, $street_name, $city, $district, $province, $zip_code, $email, $dob, $contact_number, $user_type);
 
         if($stmt->execute() === TRUE){
-            $user_id = $this->conn->insert_id;
 
-            $sql2 = "INSERT INTO staff(user_id, password, username, branch_id, staff_type) VALUES (?,?,?,?,?)";
+            $sql2 = "INSERT INTO staff(user_NIC, password, username, branch_id, staff_type) VALUES (?,?,?,?,?)";
             $stmt2 = $this->conn->prepare($sql2);
-            $stmt2->bind_param("issii", $user_id, $encrypted_password, $username, $branch_id, $staff_type);
+            $stmt2->bind_param("sssii", $user_NIC, $encrypted_password, $username, $branch_id, $staff_type);
 
             $result = $stmt2->execute();
 
@@ -63,7 +62,7 @@ class staffRegisterModel{
         return $result;
     }
 
-    
+
 }
 
 
