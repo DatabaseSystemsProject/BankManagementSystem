@@ -14,38 +14,32 @@ class staffRegisterController{
 
     public function registerStaffMember(){
         if (isset($_POST["register"])) {
-            if(!empty($_POST["title"]) && !empty($_POST["first_name"]) && !empty($_POST["middle_name"]) && !empty($_POST["last_name"]) 
-                && !empty($_POST["dob"]) && !empty($_POST["NIC"]) && !empty($_POST["contact_number"]) && !empty($_POST["residence"]) 
-                && !empty($_POST["city"]) && !empty($_POST["district"]) && !empty($_POST["province"]) && !empty($_POST["zip_code"]) 
-                && !empty($_POST["staff_type"]) && !empty($_POST["branch"]) && !empty($_POST["username"]) && !empty($_POST["email"]) 
-                && !empty($_POST["password"])) {
+            if(!empty($_POST["NIC"]) && !empty($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["branch"]) 
+                && !empty($_POST["title"]) && !empty($_POST["first_name"]) && !empty($_POST["middle_name"]) && !empty($_POST["last_name"])
+                && !empty($_POST["residence"]) && !empty($_POST["city"]) && !empty($_POST["district"]) && !empty($_POST["province"]) 
+                && !empty($_POST["zip_code"]) && !empty($_POST["email"]) && !empty($_POST["dob"]) && !empty($_POST["contact_number"])
+                && !empty($_POST["staff_type"])){
 
+                $user_NIC = $_POST["NIC"];
+                $password = $_POST["password"];
+                $username = $_POST["username"];
+                $branch_id = (int)$_POST["branch"];
                 $title = $_POST["title"];
-                $first_name = $_POST["first_name"];
-                $middle_name = $_POST["middle_name"];
-                $last_name = $_POST["last_name"];
-                $dob = $_POST["dob"];
-                $NIC = $_POST["NIC"];
-                $contact_number = $_POST["contact_number"];
+                $f_name = $_POST["first_name"];
+                $m_name = $_POST["middle_name"];
+                $l_name = $_POST["last_name"];
                 $residence = $_POST["residence"];
                 $city = $_POST["city"];
                 $district = $_POST["district"];
                 $province = $_POST["province"];
-                $zip_code = $_POST["zip_code"];
-                $staff_type = $_POST["staff_type"];
-                $branch_id = $_POST["branch"];
-                $username = $_POST["username"];
+                $zip_code = (int)$_POST["zip_code"];
                 $email = $_POST["email"];
-                $password = $_POST["password"];
+                $dob = $_POST["dob"];
+                $contact_number = $_POST["contact_number"];
+                $staff_type = (int)$_POST["staff_type"];
 
-                $result = $this->staffRegisterModel->insert($title, $first_name, $middle_name, $last_name, $dob, $NIC, $contact_number, $residence, $city, $district, $province, $zip_code, $staff_type, $branch_id, $username, $email, $password);
-
-                if($result === TRUE){
-                    //header("Location: staffRegister.php");
-                } else {
-                    $_SESSION['error_message'] = "Unable to register";
-                    //header("Location: staffRegister.php");
-                }
+                $this->staffRegisterModel->insert($user_NIC, $password, $username, $branch_id, $title, $f_name, $m_name, $l_name, $residence, $city, $district, $province, $zip_code, $email, $dob, $contact_number, $staff_type);
+                
             }
         }
     }

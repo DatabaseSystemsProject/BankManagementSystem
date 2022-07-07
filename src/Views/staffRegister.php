@@ -29,7 +29,7 @@ $staffRegContr = new staffRegisterController();
 <br>
 <div class="container border border-2 m-5 p-5 mx-auto ">
     <h2> Add Staff Member </h2> <br>
-    <form action="staffRegister.php" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="title">Title</label>
@@ -109,7 +109,7 @@ $staffRegContr = new staffRegisterController();
             </div>
             <div class="form-group col-md-4">
                 <label for="province"> Province </label>
-                <select id="district" name="district" class="custom-select mr-sm-2" required>
+                <select id="province" name="province" class="custom-select mr-sm-2" required>
                     <option selected value="Western"> Western </option>
                     <option value="Central"> Central </option>
                     <option value="North Western"> North Western </option>
@@ -123,7 +123,7 @@ $staffRegContr = new staffRegisterController();
             </div>
             <div class="form-group col-md-4">
                 <label for="zip_code"> Zip Code </label>
-                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code" required>
+                <input type="number" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code" required>
             </div>
         </div>
         <div class="form-row">
@@ -166,6 +166,9 @@ $staffRegContr = new staffRegisterController();
         <button type="submit" name="register" class="btn btn-primary" onclick="return Validate()"> Register </button>
 
     </form>
+
+    <?php  $staffRegContr->registerStaffMember(); ?>
+
 </div>
 
 
@@ -186,10 +189,6 @@ $staffRegContr = new staffRegisterController();
         return true;
         }
 </script>
-
-<?php
-    $staffRegContr->registerStaffMember();
-?>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

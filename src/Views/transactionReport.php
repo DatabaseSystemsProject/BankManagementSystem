@@ -6,7 +6,7 @@ include "../Controllers/transactionReportController.php";
 
 $transRepCtrl = new TransactionReportController();
 
-$bm_NIC = 1; // hardcoded for demonstration
+$branchManager_NIC = 1; // hardcoded for demonstration
 
 ?>
 

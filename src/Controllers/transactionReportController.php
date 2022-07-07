@@ -10,6 +10,13 @@ class TransactionReportController{
     public function __construct(){
         $this->transactionReportModel = new TransactionReportModel();
     }
+
+
+    public function getBranch($branchManager_NIC){
+        
+    }
+
+
 }
 
 ?>
