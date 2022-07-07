@@ -6,7 +6,7 @@ include "../Controllers/transactionReportController.php";
 
 $transRepCtrl = new TransactionReportController();
 
-$branchManager_NIC = 1; // hardcoded for demonstration
+$branchManager_NIC = '802365415V'; // hardcoded for demonstration
 
 ?>
 
@@ -21,20 +21,48 @@ $branchManager_NIC = 1; // hardcoded for demonstration
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <title>Branch Wise Total Transaction Report</title>
+
+    <style>
+        .cont{
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+    </style>
 </head>
 
 <body>
-    <main-header></main-header> <br>
-    <div class="container m-5 p-0">
-        <h2> Kurunegala Branch - Total Transaction Report </h2>
+    <main-header></main-header> <br> <br> <br>
+    <div class="cont">
+        <h2 style="text-align: center;"> <?php echo $transRepCtrl->getBranch($branchManager_NIC);?> Branch - Total Transaction Report </h2> <br>
 
-        <table class="table table-bordered table-responsive table-hover">
-            <thead>
-                <tr>
-                
-                </tr>
-            </thead>
-        </table>
+        
+            <h3> Deposits </h3>
+            <table class="table table-sm table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Account Number </th>
+                        <th> Account Owner </th>
+                        <th> Account Type </th>
+                        <th> Amount </th>
+                        <th> Date </th>
+                        <th> Time </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 100 </td>
+                        <td> 1295634785 </td>
+                        <td> Mr. Ross Gellerrrrrrrrrrrrrrrrrrrrrrr </td>
+                        <td> Savings </td>
+                        <td> 1000.00</td>
+                        <td> 2022-07-08 </td>
+                        <td> 12:25:12 </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        
     </div>
     
 
