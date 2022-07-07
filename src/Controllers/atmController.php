@@ -80,7 +80,6 @@ class AtmController extends Controller
             if ($_SESSION["account_type"] == "savings") {
                 $result = $this->atmModel->getSavingsAcc($_SESSION["account_no"]);
                 if (trim($result["state"], " ") == "active") {
-
                     if ($result["withdrawal_count"] < 5) {
                         $newWithdrawalAmount = $result["withdrawal_count"] + 1;
                         $amount = $_POST["amount"];
@@ -88,7 +87,7 @@ class AtmController extends Controller
 
                         if ($remainingbalance > 0) {
                             $this->atmModel->updateWithdrawalCount($_SESSION["account_no"], $newWithdrawalAmount);
-                            $this->atmModel->updateSavingsBalance($_SESSION["account_no"], $remainingbalance);
+                            $this->atmModel->updateAccountBalance($_SESSION["account_no"], $remainingbalance);
                             header("Location: ../Views/atm0.php");
                         } else {
                             $_SESSION['error_message'] = "Not enough balance in the account";
@@ -103,7 +102,21 @@ class AtmController extends Controller
                     header("Location: ../Views/atm3.php");
                 }
             } else if ($_SESSION["account_type"] == "checking") {
-                // $result = $this->atmModel->getCheckingAcc($_SESSION["account_no"]);
+                $result = $this->atmModel->getCheckingAcc($_SESSION["account_no"]);
+                if (trim($result["state"], " ") == "active") {
+                    $amount = $_POST["amount"];
+                    $remainingbalance = $result["balance"] -  $amount;
+                    if ($remainingbalance > 0) {
+                        $this->atmModel->updateAccountBalance($_SESSION["account_no"], $remainingbalance);
+                        header("Location: ../Views/atm0.php");
+                    } else {
+                        $_SESSION['error_message'] = "Not enough balance in the account";
+                        header("Location: ../Views/atm3.php");
+                    }
+                } else {
+                    $_SESSION['error_message'] = "Account is not active";
+                    header("Location: ../Views/atm3.php");
+                }
             }
         } else {
             $_SESSION['error_message'] = "Please enter an amount to withdraw";
