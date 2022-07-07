@@ -35,6 +35,16 @@ class addOrganizationModel
         }
     }
 
+    function getStakeholder($orgRegNo)
+    {
+        $sql = "SELECT customer_NIC FROM org_stakeholder WHERE reg_no = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $orgRegNo);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result;
+    }
+
     
 
 

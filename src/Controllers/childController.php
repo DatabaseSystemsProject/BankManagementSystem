@@ -19,7 +19,7 @@ class ChildController
             $fName=$_POST['inputFirstName'];
             $mName=$_POST['inputMiddleName'];
             $lName=$_POST['inputLastName'];
-            $guardianNIC=$_POST['inputNIC'];
+            $guardianNIC=$_POST['guardianNIC'];
             $gender=$_POST['radio'];
             $dob=$_POST['inputDoB'];
             //$occupation=$_POST['inputOccupation'];

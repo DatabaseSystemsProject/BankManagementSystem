@@ -2,8 +2,10 @@
 
 include 'base.php';
 include_once ("../Controllers/addOrganizationController.php");
+include_once ("../Controllers/individualCustomerController.php");
 
 $orgCtrl = new addOrganizationController();
+$individualCtrl = new individualCustomerController();
 
 ?>
 
@@ -11,6 +13,13 @@ $orgCtrl = new addOrganizationController();
 <html lang="en">
 
 <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -48,13 +57,35 @@ $orgCtrl = new addOrganizationController();
             </div> 
         </div>
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="inputStakeholder1">First Stakeholder</label>
-                <input type="text" class="form-control" id="inputStakeholder1" name="inputStakeholder1" placeholder="Stakeholder NIC">
+                <select class="chosen" name="inputStakeholder1" id="inputStakeholder1" >
+                    <option value="************">************</option>
+                    <?php
+                    $nicList = $individualCtrl->getNIClist();
+                    if($nicList->num_rows > 0){
+                        while($row = $nicList->fetch_assoc()) {
+                            echo "id: " . $row["user_NIC"].  "<br>";
+                            ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
+                          }
+                    }
+                    ?>
+                </select>
             </div> 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="inputStakeholder2">Second Stakeholder</label>
-                <input type="text" class="form-control" id="inputStakeholder2" name="inputStakeholder2" placeholder="Stakeholder NIC">
+                <select class="chosen" name="inputStakeholder2" id="inputStakeholder2" >
+                    <option value="************">************</option>
+                    <?php
+                    $nicList = $individualCtrl->getNIClist();
+                    if($nicList->num_rows > 0){
+                        while($row = $nicList->fetch_assoc()) {
+                            echo "id: " . $row["user_NIC"].  "<br>";
+                            ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
+                          }
+                    }
+                    ?>
+                </select>
             </div> 
         </div>
         <div class="form-row">
@@ -105,7 +136,9 @@ $orgCtrl = new addOrganizationController();
 </div>
 
 <script type="text/javascript">
+     $(".chosen").chosen();
     //form validation TODO
+    //check whether stakeholders are different
 </script>
 <?php
     $orgCtrl->addOrganization();

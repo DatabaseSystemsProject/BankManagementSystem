@@ -36,5 +36,10 @@ class individualCustomerController
     
         }
     }
+    public function getNIClist()
+    {
+        $nicList = $this->customerModel->getAllNIC();
+        return $nicList;
+    }
 }
 ?>

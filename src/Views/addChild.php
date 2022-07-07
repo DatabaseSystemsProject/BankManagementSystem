@@ -2,8 +2,10 @@
 
 include 'base.php';
 include_once ("../Controllers/childController.php");
+include_once ("../Controllers/individualCustomerController.php");
 
 $childCtrl = new ChildController();
+$guardianCtrl = new individualCustomerController();
 
 ?>
 
@@ -11,12 +13,26 @@ $childCtrl = new ChildController();
 <html lang="en">
 
 <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+    -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add a Child</title>
@@ -46,10 +62,24 @@ $childCtrl = new ChildController();
         <br>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputNIC">Guardian NIC (add a search option here)</label>
-                <input type="text" class="form-control" id="inputNIC" name="inputNIC" placeholder="NIC">
+                <label for="inputNIC">Guardian NIC</label> 
+                <select class="chosen" name="guardianNIC" id="guardianNIC" >
+                    <option value="************">************</option>
+                    <?php
+                    $nicList = $guardianCtrl->getNIClist();
+                    if($nicList->num_rows > 0){
+                        while($row = $nicList->fetch_assoc()) {
+                            echo "id: " . $row["user_NIC"].  "<br>";
+                            ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
+                          }
+                    }
+                ?>
+                    <!-- <option value="198278564732">198278564732</option>
+                    <option value="199978564732">199978564732</option> -->
+                </select>
             </div>
         </div>
+        
         <br>
         <fieldset class="form-group">
             <div class="row">
@@ -84,9 +114,7 @@ $childCtrl = new ChildController();
 </div>
 
 <script type="text/javascript">
-    //form validation TODO
-    //test if an adult
-    //test email , tp, and nic
+        $(".chosen").chosen();
 </script>
 <?php
     $childCtrl->addChild();
@@ -99,5 +127,6 @@ $childCtrl = new ChildController();
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </body>
+
 
 </html>

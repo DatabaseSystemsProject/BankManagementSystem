@@ -33,6 +33,12 @@ class IndividualCustomerModel
             // }
         }
     }
+    function getAllNIC()
+    {
+        $sql = "SELECT user_NIC FROM customer";
+        $result = $this->conn->query($sql);
+        return $result;
+    }
 
 }
 ?>
