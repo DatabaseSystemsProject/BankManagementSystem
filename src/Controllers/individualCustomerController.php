@@ -20,7 +20,7 @@ class individualCustomerController
             $mName=$_POST['inputMiddleName'];
             $lName=$_POST['inputLastName'];
             $NIC=$_POST['inputNIC'];
-            $gender=$_POST['radio'];
+            //$gender=$_POST['radio'];
             $residence=$_POST['inputResidence'];
             $street=$_POST['inputStreetName'];
             $city=$_POST['inputCity'];
@@ -30,9 +30,9 @@ class individualCustomerController
             $contactNo=$_POST['inputContactNo'];
             $email=$_POST['inputEmailAddress'];
             $dob=$_POST['inputDoB'];
-            $occupation=$_POST['inputOccupation'];
+            //$occupation=$_POST['inputOccupation'];
 
-            $this->customerModel->addCustomer($title,$fName,$mName,$lName,$NIC,$gender,$residence,$street,$city,$district,$province,$zipcode,$contactNo,$email,$dob,$occupation);
+            $this->customerModel->addCustomer($NIC,$title,$fName,$mName,$lName,$residence,$street,$city,$district,$province,$zipcode,$email,$dob,$contactNo);
     
         }
     }

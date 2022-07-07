@@ -11,11 +11,11 @@ class addOrganizationModel
         $this->conn = $connector->getConnector();
     }
 
-    function addOrganization($orgName,$regNo,$regDate,$building,$street,$city,$district,$province,$zipcode,$contactNo,$email)
+    function addOrganization($regNo,$orgName,$regDate,$building,$street,$city,$district,$province,$zipcode,$contactNo,$email)
     {
-        $sql="INSERT INTO organization(org_name,reg_no,reg_date,building_name,street_name,city,district,province,zip_code,contact_no,email) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO organization(reg_no,org_name,reg_date,building_name,street_name,city,district,province,zip_code,contact_no,email) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ssssssssiis",$orgName,$regNo,$regDate,$building,$street,$city,$district,$province,$zipcode,$contactNo,$email);
+        $stmt->bind_param("ssssssssiss",$regNo,$orgName,$regDate,$building,$street,$city,$district,$province,$zipcode,$contactNo,$email);
         $result = $stmt->execute();
 
         if (!$result) {
@@ -25,7 +25,7 @@ class addOrganizationModel
 
     function addStakeholder($orgRegNo,$stakeholderNIC)
     {
-        $sql = "INSERT INTO org_stakeholder(org_regNo,stakeholder_id) VALUES (?,?)";
+        $sql = "INSERT INTO org_stakeholder(reg_no,customer_NIC) VALUES (?,?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ss",$orgRegNo,$stakeholderNIC);
         $result = $stmt->execute();

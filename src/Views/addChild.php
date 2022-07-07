@@ -1,9 +1,9 @@
 <?php 
 
 include 'base.php';
- include_once ("../Controllers/individualCustomerController.php");
+include_once ("../Controllers/childController.php");
 
- $customerCtrl = new individualCustomerController();
+$childCtrl = new ChildController();
 
 ?>
 
@@ -19,7 +19,7 @@ include 'base.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Customer</title>
+    <title>Add a Child</title>
 </head>
 
 <body>
@@ -27,19 +27,9 @@ include 'base.php';
 </html>
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto ">
-    <h2> Add Customer </h2> <br>
+    <h2> Add a Child </h2> <br>
     <form action="" method = "post" enctype = "multipart/form-data">
         <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="inputTitle">Title</label>
-                <select id="inputTitle" name="inputTitle" class="custom-select mr-sm-2">
-                    <option selected>Choose...</option>
-                    <option>Mr.</option>
-                    <option>Mrs.</option>
-                    <option>Miss</option>
-                    <option>Ven.</option>
-                </select>
-            </div>
             <div class="form-group col-md-3">
                 <label for="inputFirstName">First Name</label>
                 <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name">
@@ -56,7 +46,7 @@ include 'base.php';
         <br>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputNIC">NIC</label>
+                <label for="inputNIC">Guardian NIC (add a search option here)</label>
                 <input type="text" class="form-control" id="inputNIC" name="inputNIC" placeholder="NIC">
             </div>
         </div>
@@ -82,59 +72,13 @@ include 'base.php';
         </fieldset>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputResidence">Residence</label>
-                <input type="text" class="form-control" id="inputResidence" name="inputResidence">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputStreetName">Street Name</label>
-                <input type="text" class="form-control" id="inputStreetName" name="inputStreetName">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity" name="inputCity">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="inputDistrict">District</label>
-                <input type="text" class="form-control" id="inputDistrict" name="inputDistrict">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="inputProvince">Province</label>
-                <input type="text" class="form-control" id="inputProvince" name="inputProvince">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputZip">Zip Code</label>
-                <input type="text" class="form-control" id="inputZip" name="inputZip">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputEmailAddress">Email Address</label>
-                <input type="text" class="form-control" id="inputEmailAddress" name="inputEmailAddress" placeholder="Email Address">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
                 <label for="inputDoB">Date of Birth</label>
                 <input type="date" class="form-control" id="inputDoB" name="inputDoB" placeholder="Date of Birth">
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputOccupation">Occupation</label>
-                <input type="text" class="form-control" id="inputOccupation" name="inputOccupation" placeholder="Occupation">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputContactNo">Contact No.</label>
-                <input type="text" class="form-control" id="inputContactNo" name="inputContactNo" placeholder="Contact No.">
-            </div>
-        </div>
          
         <br>
-        <button type="submit" class="btn btn-primary" id="registerCustomer" name="registerCustomer">Register</button>
+        <button type="submit" class="btn btn-primary" id="registerChild" name="registerChild">Register</button>
 
     </form>
 </div>
@@ -145,7 +89,7 @@ include 'base.php';
     //test email , tp, and nic
 </script>
 <?php
-    $customerCtrl->addCustomer();
+    $childCtrl->addChild();
 ?> 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

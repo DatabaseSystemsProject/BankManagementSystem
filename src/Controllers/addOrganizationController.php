@@ -29,7 +29,7 @@ class addOrganizationController
             $email = $_POST['inputEmailAddress'];
             $contactNo = $_POST['inputContactNo'];
 
-            $this->orgModel->addOrganization($orgName,$regNo,$regDate,$building,$street,$city,$district,$province,$zipcode,$contactNo,$email);
+            $this->orgModel->addOrganization($regNo,$orgName,$regDate,$building,$street,$city,$district,$province,$zipcode,$contactNo,$email);
             $this->orgModel->addStakeholder($regNo,$stakeHolder1);
             $this->orgModel->addStakeholder($regNo,$stakeHolder2);
     

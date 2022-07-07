@@ -11,15 +11,26 @@ class IndividualCustomerModel
         $this->conn = $connector->getConnector();
     }
 
-    function addCustomer($title,$fName,$mName,$lName,$NIC,$gender,$residence,$street,$city,$district,$province,$zipcode,$contactNo,$email,$dob,$occupation)
+    function addCustomer($NIC,$title,$fName,$mName,$lName,$residence,$street,$city,$district,$province,$zipcode,$email,$dob,$contactNo)
     {
-        $sql="INSERT INTO customer(NIC,title,f_name,m_name,l_name,residence_id,street_name,city,district,province,zip_code,email_address,contact_no,gender,dob,occupation) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO customer(user_NIC,title,f_name,m_name,l_name,residence,street_name,city,district,province,zip_code,email,dob,contact_number) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ssssssssssisssss",$title,$fName,$mName,$lName,$NIC,$gender,$residence,$street,$city,$district,$province,$zipcode,$contactNo,$email,$dob,$occupation);
+        $stmt->bind_param("ssssssssssisss",$NIC,$title,$fName,$mName,$lName,$residence,$street,$city,$district,$province,$zipcode,$email,$dob,$contactNo);
         $result = $stmt->execute();
 
         if (!$result) {
             echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        else{
+            // $customer_type_id = 1; //personal
+            // $sql="INSERT INTO customer(user_NIC,customer_type_id) VALUES (?,?)";
+            // $stmt = $this->conn->prepare($sql);
+            // $stmt->bind_param("si",$NIC,$customer_type_id);
+            // $result = $stmt->execute();
+
+            // if (!$result) {
+            //     echo "Error: " . mysqli_error($this->conn) . ".";
+            // }
         }
     }
 
