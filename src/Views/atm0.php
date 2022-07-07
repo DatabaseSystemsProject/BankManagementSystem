@@ -3,7 +3,6 @@ session_start();
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
-
 ?>
 
 <!DOCTYPE html>
@@ -24,29 +23,29 @@ $atm_contr = new AtmController();
             <img src="../Resources/Images/logoBlack.png" alt="no title">
         </div>
         <form method="post">
-            <div id="form2" class="container-md d-flex flex-column col-md-8 form2 form" action="">
-                <div class="form-group col-md-7 AccNumber d-flex flex-column">
-                    <label for="pinNum">Enter your pin </label><br>
+            <div id="form1" class="container-md d-flex flex-column col-md-8 form1 form mx-auto" action="">
+                <div class="header">Welcome to Phoenix Trust Bank</div>
+
+                <div class="form-group col-md-7 Enter d-flex flex-column">
+                    <label for="cardNo">Enter card number</label><br>
                     <?php
                     if (isset($_SESSION['error_message'])) {
                         echo '<p style="color:red; font-size:1.2rem; align-self:center; padding:0px">' . $_SESSION['error_message'] . '</p>';
                         unset($_SESSION['error_message']);
                     }
                     ?>
-                    <input type="text" name="pinNo" class="form-control" id="pinNum" style="margin-bottom:30px">
-                    <button type="submit" name="submit" class="btn btn-primary" id="btn2" style="margin-bottom:-30px">Enter</button>
+                    <input type="text" name="cardNo" class="form-control" id="cardNo" style="margin-bottom:30px">
+                    <button type="submit" class="btn btn-primary " id="Next1" name="submit" style="margin-bottom:-20px">Enter</button>
 
                 </div>
             </div>
         </form>
-        <?php
-        if (isset($_POST["submit"])) {
-            $atm_contr->checkPin();
-        }
 
+        <?php
+        $atm_contr->checkCardNo();
         ?>
+
     </div>
-</body>
 </body>
 <script src="./atm.js"></script>
 <script>
@@ -56,10 +55,10 @@ $atm_contr = new AtmController();
     var Form4 = document.getElementById("form4");
     var Form5 = document.getElementById("form5");
 
-    const Next1 = document.getElementById("Next1");
+
 
     setInputFilter(
-        document.getElementById("pinNum"),
+        document.getElementById("cardNo"),
         function(value) {
             return /^\d*$/.test(value);
         },

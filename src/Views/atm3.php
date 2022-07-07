@@ -27,12 +27,18 @@ $atm_contr = new AtmController();
             <div id="form4" class="container-md d-flex flex-column col-md-8 form4 form " action="">
                 <div class="form-group col-md-7 Amount d-flex flex-column">
                     <label for="amount">Enter the amount to withdraw</label><br>
+                    <?php
+                    if (isset($_SESSION['error_message'])) {
+                        echo '<p style="color:red; font-size:1.2rem; align-self:center; padding:0px">' . $_SESSION['error_message'] . '</p>';
+                        unset($_SESSION['error_message']);
+                    }
+                    ?>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Rs</span>
                         <input type="text" name="amount" id="amount" class="form-control" aria-label="Amount (to the nearest dollar)">
                         <span class="input-group-text">.00</span>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="margin-bottom:100px">Enter</button>
+                    <button type="submit" name="submit" class="btn btn-primary" style="margin-bottom:100px">Enter</button>
                 </div>
             </div>
             <!-- <div method="post" id="form5" class="container-md d-flex flex-column col-md-8 form5 form shift_right" action="">
@@ -45,6 +51,9 @@ $atm_contr = new AtmController();
                 </div>
             </div> -->
         </form>
+        <?php
+        $atm_contr->withdraw();
+        ?>
     </div>
 </body>
 <script src="./atm.js"></script>
@@ -58,14 +67,6 @@ $atm_contr = new AtmController();
     var Next3_1 = document.getElementById("Next3_1");
     var Next3_2 = document.getElementById("Next3_2");
 
-    Next3_1.addEventListener("click", function() {
-        Form3.classList.add("shift_left");
-        Form4.classList.remove("shift_right");
-    });
-    Next3_2.addEventListener("click", function() {
-        Form3.classList.add("shift_left");
-        Form4.classList.remove("shift_right");
-    });
     setInputFilter(
         document.getElementById("amount"),
         function(value) {

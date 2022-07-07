@@ -14,11 +14,64 @@ class AtmModel
 
     public function getPin($pin)
     {
-        $sql = "SELECT * FROM savings_account WHERE pin_number = ?";
+        $sql = "SELECT * FROM card WHERE pin_no = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $pin);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
         return $result;
+    }
+
+    public function getCardNo($cardNo)
+    {
+        $sql = "SELECT * FROM card WHERE card_no = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $cardNo);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result;
+    }
+
+    public function getAccount($accountNo, $accountType)
+    {
+        $sql = "SELECT * FROM account JOIN account_type ON account.account_type_id = account_type.acc_type_id WHERE account_no = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $accountNo);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        if (trim(strtolower($result["acc_type_name"]), " ")  == trim(strtolower($accountType), " ")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 
+    public function getSavingsAcc($accountNo)
+    {
+        $sql = "SELECT * FROM account JOIN savings_account ON account.account_no = savings_account.savings_acc_no WHERE account_no = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $accountNo);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result;
+    }
+
+    public function updateWithdrawalCount($accountNo, $newWithdrawalAmount)
+    {
+        $sql = "UPDATE savings_account SET withdrawal_count = ? WHERE savings_acc_no =?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii", $newWithdrawalAmount, $accountNo);
+        $stmt->execute();
+        return;
+    }
+
+    public function  updateSavingsBalance($accountNo, $remainingbalance)
+    {
+        $sql = "UPDATE account SET balance = ? WHERE account_no =?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii", $remainingbalance, $accountNo);
+        $stmt->execute();
+        return;
     }
 }
