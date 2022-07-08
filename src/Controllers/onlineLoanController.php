@@ -1,10 +1,13 @@
 <?php
+
+use LDAP\Result;
+
 include "../Models/onlineLoanModel.php";
 
 class OnlineLoanController
 {
     private $loanModel;
-    private $sav_acc_no;
+    private $duration;
     private $fd_id;
     private $amount;
 
@@ -13,10 +16,24 @@ class OnlineLoanController
         $this->loanModel = new OnlineLoanModle();
     }
 
+    function getFdAccount($user_id,$user_type)
+    {
+        if($user_type=="personal")
+        {
+            $fdAcc = $this->loanModel->getFixedDepositeID($user_id);
+            return $fdAcc;
+        }
+        else
+        {
+            $fdAcc=$this->loanModel->getFixedDepositeID($user_id);
+            return $fdAcc;
+        }
+        
+    }
+
     function getLoanTypes()
     {
         $loanTypes = $this->loanModel->getLoanTypes();
-        // echo ($loanTypes);
         return $loanTypes;
     }
 
@@ -24,41 +41,41 @@ class OnlineLoanController
     {
         if (isset($_POST["check"])) {
 
-            $this->sav_acc_no = $_POST["inputAccNo"];
+            $this->duration = $_POST["inputLoanDuration"];
             $this->amount = $_POST["inputLoanAmount"];
-            $fd_id = $this->loanModel->getFixedDepositeID($this->sav_acc_no);
-
-            if ($fd_id != null && $this->amount <= 50000) {
-                $this->fd_id=$fd_id["fd_id"];
-                // return true;
+            $this->fd_id = $_POST["inputFD"];
+            $result = $this->loanModel->getFixedDepositeData(intval($this->fd_id));
+            $fd_duration = $result["duration"];
+            $fd_amount = $result["amount"];
+            if ($this->duration <= $fd_duration && $this->amount < 500000 && $this->amount <= $fd_amount * 0.6) {
                 return true;
-                // header("Location: ../Views/loanApplyOnine.php");
             } else {
+                $_SESSION['error_message'] = "Change fd id";
                 return false;
-                // $_SESSION['error_message'] = "Invalid";
             }
         }
     }
 
-    function autoFill()
+    function autoFill($user_id,$login)
     {
         $array = array();
+        $resultAcc = $this->loanModel->getFixedDepositeData(intval($this->fd_id));
+        $sav_acc_no = $resultAcc["saving_account_id"];
 
-        $result = $this->loanModel->getCustomerContact($this->sav_acc_no);
-        if ($result["customer_type"] == "individual") {
-            $name_nic = $this->loanModel->getCustomerDetails($result["customer_id"]);
-            $array["full_name"] = $name_nic["f_name"] ." ". $name_nic["m_name"] ." ". $name_nic["l_name"];
-            $array["nic"] = $name_nic["NIC"];
-        } else {
-            $array["full_name"] = "";
-            $array["nic"] = "";
-        }
+        $result = $this->loanModel->getCustomerContact($login);
 
-        $array["email"] = $result["email_address"];
-        $array["mobile"] = $result["contact_no"];
+        $array["full_name"] = $result["f_name"] . " " . $result["m_name"] . " " . $result["l_name"];
+        $array["nic"] = $result["user_NIC"];
+
+        $array["email"] = $result["email"];
+        $array["mobile"] = $result["contact_number"];
         $array["amount"] = $this->amount;
-        $array["sav_acc_no"] = $this->sav_acc_no;
+        $array["duration"] = $this->duration;
+        $array["sav_acc_no"] = $sav_acc_no;
         $array["fd_no"] = $this->fd_id;
+
+        $resultOrg=$this->loanModel->getOgranization($user_id);
+        $array["org_name"]=$resultOrg["org_name"];
 
         return $array;
     }
