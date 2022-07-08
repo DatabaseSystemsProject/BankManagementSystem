@@ -33,8 +33,16 @@ $branchManager_NIC = '802365415V'; // hardcoded for demonstration
 <body>
     <main-header></main-header> <br> <br> <br>
     <div class="cont">
-        <h2 style="text-align: center;"> <?php echo $transRepCtrl->getBranch($branchManager_NIC);?> Branch - Total Transaction Report </h2> <br>
-
+        <h2 style="text-align: center;"> <?php echo $transRepCtrl->getBranchName($branchManager_NIC);?> Branch - Total Transaction Report </h2> <br>
+        <div class="container border border-2 m-5 p-5 mx-auto ">
+            <?php 
+                $branch_id = $transRepCtrl->getBranchID($branchManager_NIC); 
+            ?>
+            <h5> No of Total Transactions : <?php echo $transRepCtrl->getTotalTransactionsCount($branch_id); ?> </h5> <br>
+            <h5> No of Transfers : <?php echo $transRepCtrl->getTransfersCount($branch_id); ?> </h5> <br>
+            <h5> No of Deposits : <?php echo $transRepCtrl->getDepositsCount($branch_id); ?> </h5> <br>
+            <h5> No of Withdrawls : </h5>
+        </div>
         
             <h3> Deposits </h3>
             <table class="table table-sm table-bordered table-responsive table-hover">
@@ -53,7 +61,7 @@ $branchManager_NIC = '802365415V'; // hardcoded for demonstration
                     <tr>
                         <td> 100 </td>
                         <td> 1295634785 </td>
-                        <td> Mr. Ross Gellerrrrrrrrrrrrrrrrrrrrrrr </td>
+                        <td> Ross Gellerrrrrrrrrrrrrrrrrrrrrrr </td>
                         <td> Savings </td>
                         <td> 1000.00</td>
                         <td> 2022-07-08 </td>
