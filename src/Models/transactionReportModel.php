@@ -27,7 +27,7 @@ class TransactionReportModel{
 
     public function getToalTransactionCount($branch_id, $start_date, $end_date){
 
-        $sql = "SELECT COUNT(t.transaction_id) AS transaction_count
+        $sql = "SELECT COUNT(DISTINCT t.transaction_id) AS transaction_count
                 FROM transaction t 
                 JOIN account a ON a.account_no = t.source OR a.account_no = t.destination AND a.branch_id = ?
                 WHERE t.datetime BETWEEN ? AND ?";
@@ -45,7 +45,7 @@ class TransactionReportModel{
 
         $transaction_type = 3;
 
-        $sql = "SELECT COUNT(t.transaction_id) AS transfers_count
+        $sql = "SELECT COUNT(DISTINCT t.transaction_id) AS transfers_count
                 FROM transaction t
                 JOIN account a ON a.account_no = t.source OR a.account_no = t.destination AND a.branch_id = ?
                 WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?";
@@ -63,7 +63,7 @@ class TransactionReportModel{
         
         $transaction_type = 2;
 
-        $sql = "SELECT COUNT(t.transaction_id) AS deposits_count
+        $sql = "SELECT COUNT(DISTINCT t.transaction_id) AS deposits_count
                 FROM transaction t
                 JOIN account a ON a.account_no = t.destination AND a.branch_id = ?
                 WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?";
@@ -80,9 +80,9 @@ class TransactionReportModel{
     public function getWithdrawalsCount($branch_id, $start_date, $end_date){
         $transaction_type = 1;
 
-        $sql = "SELECT COUNT(t.transaction_id) AS withdrawals_count
+        $sql = "SELECT COUNT(DISTINCT t.transaction_id) AS withdrawals_count
                 FROM transaction t
-                JOIN account a ON a.account_no = t.destination AND a.branch_id = ?
+                JOIN account a ON a.account_no = t.source AND a.branch_id = ?
                 WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?";
 
         $stmt = $this->conn->prepare($sql);
@@ -92,6 +92,90 @@ class TransactionReportModel{
 
         return $result;
 
+    }
+
+
+    public function getWithdrewAmount($branch_id, $start_date, $end_date){
+        $transaction_type = 1;
+
+        $sql = "SELECT SUM(withdrew_amount)
+                FROM (
+                    SELECT DISTINCT t.transaction_id AS transaction_id, t.amount AS withdrew_amount
+                    FROM transaction t 
+                    JOIN account a ON a.account_no = t.source AND a.branch_id = ?
+                    WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?
+                    )
+                AS withdrew_amount";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiss", $branch_id, $transaction_type, $start_date, $end_date);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        return $result;
+    }
+
+    public function getDepositedAmount($branch_id, $start_date, $end_date){
+        $transaction_type = 2;
+
+        $sql = "SELECT SUM(deposited_amount)
+                FROM (
+                    SELECT DISTINCT t.transaction_id AS transaction_id, t.amount AS deposited_amount
+                    FROM transaction t 
+                    JOIN account a ON a.account_no = t.destination AND a.branch_id = ?
+                    WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?
+                    )
+                AS deposited_amount";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiss", $branch_id, $transaction_type, $start_date, $end_date);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        return $result;
+
+    }
+
+
+    public function getTransferredAmountfrom($branch_id, $start_date, $end_date){
+        $transaction_type = 3;
+
+        $sql = "SELECT SUM(transferred_amount_from)
+                FROM (
+                    SELECT DISTINCT t.transaction_id AS transaction_id, t.amount AS transferred_amount_from
+                    FROM transaction t 
+                    JOIN account a ON a.account_no = t.source AND a.branch_id = ?
+                    WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?
+                    )
+                AS transferred_amount_from";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiss", $branch_id, $transaction_type, $start_date, $end_date);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        return $result;
+    }
+
+
+    public function getTransferredAmountTo($branch_id, $start_date, $end_date){
+        $transaction_type = 3;
+
+        $sql = "SELECT SUM(transferred_amount_to)
+                FROM (
+                    SELECT DISTINCT t.transaction_id AS transaction_id, t.amount AS transferred_amount_to
+                    FROM transaction t 
+                    JOIN account a ON a.account_no = t.destination AND a.branch_id = ?
+                    WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?
+                    )
+                AS transferred_amount_to";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("iiss", $branch_id, $transaction_type, $start_date, $end_date);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        return $result;
     }
     
     

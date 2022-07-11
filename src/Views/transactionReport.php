@@ -30,7 +30,20 @@ $branch_id = $transRepCtrl->getBranchID($branchManager_NIC);
             margin-left: 25px;
             margin-right: 25px;
         }
+
+        .contForm{
+            width: 60%;
+        }
+
+        .report.px-5.border{
+            width: 60%;
+            padding-right: 10rem !important;
+            padding-left: 10rem !important;
+            border: 5px solid #dee2e6!important;
+        }
+
     </style>
+
 </head>
 
 <body>
@@ -38,14 +51,14 @@ $branch_id = $transRepCtrl->getBranchID($branchManager_NIC);
     <div class="cont">
         <h2 style="text-align: center;"> Total Transaction Report </h2> <br>
         
-        <div class="container mx-auto">
+        <div class="container contForm mx-auto">
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label for="start_date"> Start Date : </label>
                         <input type="date" class="form-control" id="start_date" name="start_date" placeholder="Start Date" required>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label for="end_date"> End Date : </label>
                         <input type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date" required>
                     </div>
@@ -56,7 +69,7 @@ $branch_id = $transRepCtrl->getBranchID($branchManager_NIC);
 
         <?php $transRepCtrl->generateReport($branch_id, $branch_name); ?>
           
-    </div>
+    </div> <br> <br> <br>
     
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
