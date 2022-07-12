@@ -23,11 +23,11 @@
         <div class="card mx-auto" style="width: 50rem; height:27rem; margin: 0; position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
 
             <div class="card-body" style="display: flex; flex-direction:column;">
-                <h2 class="card-title mx-auto">Money Transferred Successfully!</h2>
+                <h2 class="card-title mx-auto">Fixed Deposit Created Successfully!</h2>
                 <i class="bi bi-emoji-smile mx-auto" style="font-size: 5vw; margin-bottom:-1%"></i>
-                <p class="card-text mx-auto">Do you wish to make another transfer?</p>
+                <p class="card-text mx-auto">Do you wish to make another Fixed Deposit?</p>
                 <div class="mx-auto">
-                    <a href="onlineMoneyTransferForm.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
+                    <a href="fdForm.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
                     <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
                 </div>
             </div>

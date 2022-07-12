@@ -1,6 +1,6 @@
 <?php
 
-    include 'base.php';
+include 'base.php';
 
 ?>
 <!DOCTYPE html>
@@ -94,6 +94,37 @@
                     </a>
 
                 </div>
+                <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
+                    <a href="loanApplicationForm.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-person-plus-fill" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-30%; margin-bottom:-20%">Add Adult Customer</p>
+                            </div>
+                        </div>
+
+                    </a>
+                    <a href="loanInstallmentForm.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
+                                <i class="bi bi-person-plus" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -30%; margin-bottom:-15%">Add Child Customer</p>
+                            </div>
+                        </div>
+
+                    </a>
+
+                    <a href="fdForm.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
+                                <i class="bi bi-building" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -35%; margin-bottom:-15%">Add Organization</p>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
                     <a href="loanApplicationForm.php">
                         <div class="card" style="width: 16rem;height:12rem;">
