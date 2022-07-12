@@ -18,6 +18,7 @@ class OnlineLoanModle
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
         return $result;
     }
 
@@ -35,6 +36,7 @@ class OnlineLoanModle
         $stmt->bind_param("i", $fd_id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
         return $result;
     }
 
@@ -46,6 +48,7 @@ class OnlineLoanModle
         $stmt->bind_param("s", $user_id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
         return $result;
     }
 
@@ -57,9 +60,46 @@ class OnlineLoanModle
         $stmt->bind_param("s", $user_id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
         return $result;
+    }
+
+    function submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$type,$tax_no,$reg_no,$fd_id)
+    {
+        $sql="INSERT INTO loan (loan_type,customer_NIC,amount,duration,liability,type,tax_no) VALUES(?,?,?,?,?,?,?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("isdidss",$loan_type,$customer_NIC,$amount,$duration,$liability,$type,$tax_no );
+        $stmt->execute();
+
+        
+
+        $sql1="LOCK TABLES loan READ;";
+        $sql2="SELECT loan_id FROM loan ORDER BY loan_id DESC LIMIT 1;";
+        $sql3="UNLOCK TABLES;";
+        // mysqli_query($this->conn, $sql1);
+        $id=mysqli_query($this->conn, $sql2)->fetch_assoc()["loan_id"];
+        // mysqli_query($this->conn, $sql3);
+        
+        // $id=$this->conn->insert_id;
+        var_dump($id);
+
+        $sql="INSERT INTO online_loan (loan_id,fd_id) VALUES(?,?);";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii",$id,$fd_id );
+        $stmt->execute();
+        // var_dump($stmt->get_result(->fetch_assoc()));
+        $stmt->close();
+
+        if(!is_null($reg_no)){
+    
+        $sql="INSERT INTO business_loan (loan_id,reg_no) VALUES(?,?);";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ii",$id,$reg_no );
+        $stmt->execute();
+        $stmt->close();
+        }
+
     }
    
     
 }
-?>

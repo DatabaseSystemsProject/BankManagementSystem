@@ -4,12 +4,15 @@ include "../Controllers/onlineLoanController.php";
 
 $loanController = new OnlineLoanController();
 $check = $loanController->checkEligibility();
+
 $user_type = "organization";
 $user_id = 123;
 $login=111111112;
 // $user_type = "personal";
 // $user_id = 111111111;
 // $login=111111111;
+// $user_id = 11111111;
+// $login=11111111;
 
 
 
@@ -48,12 +51,17 @@ if (isset($_SESSION['error_message'])) {
                         <label for="inpuFD1">Select FD Account</label>
                         <select name="inputFD" id="inputFD1" class="custom-select mr-sm-2" required>
                             <?php
-                            $fdAccounts = $loanController->getFdAccount($user_id,$user_type);
+                            $fdAccounts = $loanController->getFdAccount($user_id);
+                            if(!is_null($fdAccounts)){
                             foreach ($fdAccounts as $acc) :
                             ?>
-                                <option value="<?php echo $acc['fd_account_id']  ?>"><?php echo $acc['fd_account_id']; ?></option>
+                                <option value="<?php echo $acc['fd_account_id'] ?>"><?php echo $acc['fd_account_id']; ?></option>
                             <?php
-                            endforeach;
+                            endforeach;}else{
+                                    echo '<p style="color:red; font-size:1.2rem; align-self:center">' . $_SESSION['You don\'t have a fd'] . '</p>';
+                                    unset($_SESSION['error_message']);
+                                
+                            }
                             ?>
                         </select>
                     </div>
@@ -110,6 +118,7 @@ if (isset($_SESSION['error_message'])) {
                 </div>
 
                 <button type="submit" class="btn btn-primary" name="check">Check</button>
+                
 
             </form>
 
@@ -121,7 +130,7 @@ if (isset($_SESSION['error_message'])) {
     <div class="container border border-2 m-5 p-5 mx-auto bg-light " id="div3" hidden>
         <h2>Loan Application Form</h2>
 
-        <form method="post">
+        <form method="post" action="loanApplyOnline.php" >
 
             <div class="my-3" id="applicant_data">
                 <h5>Loan Applicant's Details</h5>
@@ -169,7 +178,7 @@ if (isset($_SESSION['error_message'])) {
                     </div>
                     <div class="form-group col-sm-5">
                         <label for="inputTaxNo.">Tax Number</label>
-                        <input type="email" class="form-control" id="inputTaxNo" placeholder="Tax No" name="inputTaxNo">
+                        <input type="text" class="form-control" id="inputTaxNo" placeholder="Tax No" name="inputTaxNo">
                     </div>
                 </div>
             </div>
@@ -183,7 +192,7 @@ if (isset($_SESSION['error_message'])) {
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNIC">Registration number </label>
-                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="<?php echo $user_id ?>" disabled>
+                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="<?php echo $user_id ?>" >
                         </div>
                         <!-- <div class="form-group col-md-6">
                     <label for="inputPassNo">Passport Number</label>
@@ -227,7 +236,7 @@ if (isset($_SESSION['error_message'])) {
                     </div>
                     <div class="input-group mb-3">
                         <div class="col-md-2">
-                            <label for="inputLoanAmount">Loan Duration</label>
+                        <label for="inputLoanDuration">Loan Duration</label>
                         </div>
                         <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration)" id="inputLoanDuration" name="inputLoanDuration" required>
                         <div class="input-group-append">
@@ -241,12 +250,12 @@ if (isset($_SESSION['error_message'])) {
                 <h5>Guarantor's Details</h5>
                 <div class="form-group mt-3 ">
                     <label for="inputFullName">Full Name</label>
-                    <input type="text" class="form-control" id="inputFullName" placeholder="Full Name" name="inputFullName" required>
+                    <input type="text" class="form-control" id="inputFullName" placeholder="Full Name" name="inputFullName" >
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputNIC">NIC </label>
-                        <input type="text" class="form-control" id="inputNIC" placeholder="NIC" name="inputNIC" required>
+                        <input type="text" class="form-control" id="inputNIC" placeholder="NIC" name="inputNIC" >
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassNo">Passport Number</label>
@@ -256,25 +265,25 @@ if (isset($_SESSION['error_message'])) {
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail">Email</label>
-                        <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail" >
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail" >
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputMobile">Mobile Number</label>
-                        <input type="text" class="form-control" id="inputMobile" placeholder="07********" name="inputMobile" required>
+                        <input type="text" class="form-control" id="inputMobile" placeholder="07********" name="inputMobile" >
                     </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputAccNo">Savings Account Number </label>
-                    <input type="text" class="form-control" id="inputAccNo" placeholder="Savings Account Number" name="inputAccNo" disabled>
+                    <input type="text" class="form-control" id="inputAccNo" placeholder="Savings Account Number" name="inputAccNo" >
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputFDNo">Fixed Deposite Number</label>
-                    <input type="text" class="form-control" id="inputFDNo" placeholder="Fixed Deposite Number" name="inputFDNo" disabled>
+                    <input type="text" class="form-control" id="inputFDNo" placeholder="Fixed Deposite Number" name="inputFDNo" >
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" name="apply" value="apply">Apply</button>
+            <button type="submit" class="btn btn-primary" name="apply">apply</button>
             <button type="cancel" class="btn btn-primary" name="cancel" value="cancel" onclick="window.history.back();">Cancel</button>
         </form>
     </div>
@@ -369,6 +378,8 @@ if (isset($_SESSION['error_message'])) {
             inputTaxNo.disabled = chkYes.checked ? false : true;
             if (!inputTaxNo.disabled) {
                 inputTaxNo.focus();
+            }else{
+                inputTaxNo.value=null;
             }
         };
 
@@ -390,7 +401,7 @@ if (isset($_SESSION['error_message'])) {
             var duration = document.getElementById("inputLoanDuration");
             var sav_acc_no = document.getElementById("inputAccNo");
             var fd_no = document.getElementById("inputFDNo");
-            var org_name = document.getElementById("inputFDNo");
+            var org_name = document.getElementById("inputOrgName");
 
             full_name.value = passedArray["full_name"];
             nic.value = passedArray["nic"];
@@ -401,6 +412,8 @@ if (isset($_SESSION['error_message'])) {
             sav_acc_no.value = passedArray["sav_acc_no"];
             fd_no.value = passedArray["fd_no"];
             org_name.value=passedArray["org_name"];
+            console.log(amount.value);
+            
 
 
 
@@ -411,6 +424,7 @@ if (isset($_SESSION['error_message'])) {
     <?php
 
     if ($check && isset($_POST)) {
+        
         // $array=$loanController->autoFill();
         echo '<script type="text/javascript">showApplication();</script>';
         echo '<script type="text/javascript"> 
@@ -425,6 +439,11 @@ if (isset($_SESSION['error_message'])) {
         echo "<script type='text/javascript'>showOrg();</script>";
         
     }
+    if (isset($_POST["apply"])){
+        echo"Set";
+        $loanController->submitAppication($login);
+    }
+   
 
     ?>
 
