@@ -4,12 +4,18 @@ include_once '../Controllers/moneyTransferController.php';
 include_once '../Models/moneyTransfermodel.php';
 include_once '../Config/db.php';
 
-$sender_id = 2;
+$sender_id = 456;
 
 if (isset($_POST["submit"])) {
     $controller = new moneyTransferController();
     $data = $controller->submitForm();
-    $controller->updateBalance($data[0], $data[1], $sender_id);
+    if (sizeof($data) != 0) {
+        $controller->updateBalance($data[0], $data[1], $sender_id);
+    } else {
+        $_SESSION['error_message'] = "Invalid account number";
+        echo '<p style="color:red; font-size:3rem; align-self:center; margin-bottom:-4%;">' . $_SESSION['error_message'] . '</p>';
+        unset($_SESSION['error_message']);
+    }
 }
 ?>
 

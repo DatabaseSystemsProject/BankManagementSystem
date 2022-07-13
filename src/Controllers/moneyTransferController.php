@@ -5,6 +5,7 @@ include_once '../Config/db.php';
 class moneyTransferController
 {
     private $model;
+    private $senderDetails;
 
     function __construct()
     {
@@ -18,8 +19,12 @@ class moneyTransferController
             $fullName = $_POST["fullName"];
             $email = $_POST["inputEmail"];
             $amount = $_POST["amount"];
-            $this->model->checkID($accountNumber);
-            return array($accountNumber, $amount);
+            $validity = $this->model->checkID($accountNumber);
+            if ($validity == true) {
+                return array($accountNumber, $amount);
+            } else {
+                return array();
+            }
         } else {
             echo "invalid data";
         }
@@ -28,8 +33,13 @@ class moneyTransferController
     public function updateBalance($id, $transferredAmount, $senderId)
     {
         if ($this->checkBalanceAvailability($senderId, $transferredAmount) == true) {
-            $this->model->updateAmount($id, $transferredAmount, $senderId);
-            header("Location: transferSuccess.php");
+            if ($this->checkWithdrawalCount($senderId) == true) {
+                $this->model->updateAmount($id, $transferredAmount, $senderId);
+                $this->model->updateWithdrawalCount($senderId);
+                header("Location: transferSuccess.php");
+            } else {
+                header("Location: withdrawalLimitExceeded.php");
+            }
         } else {
             header("Location: insufficientBalance.php");
         }
@@ -38,12 +48,23 @@ class moneyTransferController
     public function checkBalanceAvailability($id, $transferredAmount)
     {
         $minimumBalance = 100;
-        $data = $this->model->selectRowById($id);
-        $availableBalance = $data['amount'];
+        $this->senderDetails = $this->model->selectRowById($id);
+        $availableBalance = $this->senderDetails['balance'];
         if (($availableBalance - $transferredAmount) >= $minimumBalance) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function checkWithdrawalCount($id)
+    {
+        $accountType = $this->senderDetails['acc_type_name'];
+        if ($accountType == "checking") {
+            return true;
+        } else {
+            $isCountRemaining = $this->model->checkWithdrawalCount($id);
+            return $isCountRemaining;
         }
     }
 }
