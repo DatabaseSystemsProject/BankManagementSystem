@@ -5,11 +5,13 @@ include_once ("../Controllers/individualCustomerController.php");
 include_once ("../Controllers/branchController.php");
 include_once ("../Controllers/savingsPlanController.php");
 include_once ("../Controllers/accountController.php");
+include_once ("../Controllers/childController.php");
 
 $individualCtrl = new individualCustomerController();
 $branchCtrl = new BranchController();
 $savingsPlanCtrl = new SavingsPlanController();
 $accountCtrl = new AccountController();
+$childCtrl = new ChildController();
 
 
 ?>
@@ -33,7 +35,7 @@ $accountCtrl = new AccountController();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Account</title>
+    <title>Add Child Savings Account</title>
 </head>
 
 <body>
@@ -41,37 +43,18 @@ $accountCtrl = new AccountController();
 </html>
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto ">
-    <h2> Add Account </h2> <br>
+    <h2> Add Child Savings Account </h2> <br>
     <form action="" method = "post" enctype = "multipart/form-data">
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Account Type</legend>
-
-                <div class="form-check col-sm-2">
-                    <input class="form-check-input" type="radio" name="SOrC" id="Savings" value="1" onclick="EnableDisablePlan()" checked>
-                    <label class="form-check-label" for="Savings">
-                        Savings
-                    </label>
-                </div>
-                <div class="form-check col-sm-2">
-                    <input class="form-check-input" type="radio" name="SOrC" id="Checking" value="2" onclick="EnableDisablePlan()">
-                    <label class="form-check-label" for="Checking">
-                        Checking
-                    </label>
-                </div>
-            </div>
-
-        </fieldset>
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputNIC">Select Account Holder NIC</label>
+            <div class="form-group col-md-8">
+                <label for="inputNIC">Enter Guardian NIC to select a child</label>
                 <select class="chosen" name="inputNIC" id="inputNIC" >
                     <option value="************">************</option>
                     <?php
-                    $nicList = $individualCtrl->getNIClist();
-                    if($nicList->num_rows > 0){
-                        while($row = $nicList->fetch_assoc()) {
-                            ?><option value="<?= $row["user_NIC"];?>"><?= $row["user_NIC"]; ?></option><?php
+                    $childList = $childCtrl->getChildList();
+                    if($childList->num_rows > 0){
+                        while($row = $childList->fetch_assoc()) {
+                            ?><option value="<?= $row["guardian_NIC"]."|".$row["child_id"];?>"><?= $row["guardian_NIC"]." - ".$row["f_name"]." ".$row["m_name"]." ".$row["l_name"]; ?></option><?php
                           }
                     }
                     ?>
@@ -125,21 +108,13 @@ $accountCtrl = new AccountController();
 </div>
 <script type="text/javascript">
     $(".chosen").chosen();
-    function EnableDisablePlan() {
-        var savings = document.getElementById("Savings");
-        var plan = document.getElementById("plan");
-        plan.disabled = savings.checked ? false : true;
-        if (!plan.disabled) {
-            plan.focus();
-        }
-    }
     //validate to make sure the age matches the savings plan
     //initial deposit should be greater than minimum amount
     //cant hv another savings account
 </script>
 
 <?php
-    $accountCtrl->addIndividualAccount();
+    $accountCtrl->addChildAccount();
 ?> 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

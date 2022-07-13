@@ -39,6 +39,19 @@ class IndividualCustomerModel
         $result = $this->conn->query($sql);
         return $result;
     }
+    function getEmailAddress($customerNIC)
+    {
+        $sql = "SELECT email FROM customer WHERE user_NIC = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $customerNIC);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if (!$result) {
+            echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        return $result;
+    }
 
 }
 ?>

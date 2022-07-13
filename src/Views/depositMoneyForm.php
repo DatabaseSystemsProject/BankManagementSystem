@@ -30,7 +30,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputAmount">Amount</label>
-                <input type="text" class="form-control" id="inputAmount" placeholder="Amount">
+                <input type="number" class="form-control" id="inputAmount" placeholder="Amount">
             </div>
         </div>
         <div class="form-row">

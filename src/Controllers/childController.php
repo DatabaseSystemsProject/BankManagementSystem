@@ -28,5 +28,10 @@ class ChildController
     
         }
     }
+    public function getChildList()
+    {
+        $childList = $this->childModel->getChildList();
+        return $childList;
+    }
 }
 ?>

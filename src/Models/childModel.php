@@ -25,6 +25,12 @@ class ChildModel
             
         }
     }
+    function getChildList()
+    {
+        $sql = "SELECT child_id,guardian_NIC,f_name,m_name,l_name FROM child";
+        $result = $this->conn->query($sql);
+        return $result;
+    }
 
 }
 ?>

@@ -69,7 +69,6 @@ $guardianCtrl = new individualCustomerController();
                     $nicList = $guardianCtrl->getNIClist();
                     if($nicList->num_rows > 0){
                         while($row = $nicList->fetch_assoc()) {
-                            echo "id: " . $row["user_NIC"].  "<br>";
                             ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
                           }
                     }
