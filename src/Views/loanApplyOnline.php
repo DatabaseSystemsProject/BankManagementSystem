@@ -197,7 +197,7 @@ if (isset($_SESSION['error_message'])) {
                         <!-- <div class="form-group col-md-6">
                     <label for="inputPassNo">Passport Number</label>
                     <input type="text" class="form-control" id="inputPassNo" placeholder="Passport Number (Optional)" name="inputPassNo">
-                </div> -->
+                    </div> -->
                     </div>
 
                 </div>
