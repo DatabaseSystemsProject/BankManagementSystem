@@ -13,7 +13,7 @@
 
 <body style="background-color: rgb(0,0,205);">
     <main-header></main-header>
-    <div class="container border border-2 m-5 p-5 mx-auto bg-light " id="div3" >
+    <div  class="container border border-2 m-5 p-5 mx-auto bg-light " id="div3">
         <h2>Loan Application Form</h2>
         <form>
             <div class="form-group mt-3 ">
@@ -75,7 +75,7 @@
                     </select>
                 </div>
                 <div class="input-group mb-3">
-                <div class="col-md-2">
+                    <div class="col-md-2">
                         <label for="inputLoanAmount">Loan Amount</label>
                     </div>
                     <div class="input-group-prepend">
