@@ -2,8 +2,17 @@
 
 session_start();
 include "base.php";
+include "../Controllers/regularLoansController.php";
+
+$rl_ctrl = new RegularLoansController();
+
+$branch_manager_NIC = '802365415V'; // hardcoded for demonstration
+
+$branch_id = $rl_ctrl->getBranchID($branch_manager_NIC);
+$branch_name = $rl_ctrl->getBranchName($branch_manager_NIC);
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +31,30 @@ include "base.php";
 <body>
     <main-header></main-header> <br> <br> <br>
     <div class="cont">
-        <h2 style="text-align: center;"> Approve/Reject Regular Loans </h2> <br>
+        <h2 style="text-align: center;"> Approve/Reject Regular Loans - <?php echo $branch_name ?> Branch </h2> <br> <br>
         
+        <div class="container mx-auto table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"> # </th>
+                        <th scope="col"> Loan ID </th>
+                        <th scope="col"> Applier's Name </th>
+                        <th scope="col"> Applied Date </th>
+                        <th scope="col"> Loan Amount</th>
+                        <th scope="col"> Duration </th>
+                        <th scope="col"> Liability </th>
+                        <th scope="col"> Guarantor's Name </th>
+                        <th scope="col"> Approve / Reject </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $rl_ctrl->getRequestedLoans($branch_id, $branch_manager_NIC); ?>
+                </tbody>
+
+            </table>
+
+        </div>
     
     </div> <br> <br> <br>
     
