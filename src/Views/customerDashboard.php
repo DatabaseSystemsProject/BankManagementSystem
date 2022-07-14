@@ -1,16 +1,4 @@
-<?php
-
-include_once 'base.php';
-include_once '../Config/db.php';
-include_once '../Models/employeeDashboardMOdel.php';
-include_once '../Controllers/employeeDashboardController.php';
-
-$employee_id = 199974401842;
-
-$controller = new employeeDashboardController();
-$employee_details = $controller->getEmployeeDetails($employee_id);
-
-?>
+<?php include 'base.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,8 +26,8 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
             <div class="sidebar" style="display:flex;flex-direction:column;">
                 <div class="ms-3" style="position: fixed; text-align: center;">
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
-                    <h1><?php echo $employee_details['f_name']; ?></h1>
-                    <h1 style="margin-top: 10px;"><?php echo $employee_details['l_name']; ?></h1>
+                    <h1>Test</h1>
+                    <h1 style="margin-top: 10px;">Customer 1</h1>
                 </div>
             </div>
             <div class="container1 d-flex mt-2" style="display:flex;">
@@ -59,7 +47,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                             </div>
                         </div>
                         <div class="four col-md-3">
-                            <div class="counter-box colored"> <span class="counter" id="counter" data-val="225">6</span>
+                            <div class="counter-box colored">  <span class="counter" id="counter" data-val="225">6</span>
                                 <p>Available Classes</p>
                             </div>
                         </div>
@@ -74,28 +62,28 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                 </div>
                 <div class="dash1" style="display: flex;flex-direction: row ;align-self: center;justify-content:space-evenly;">
 
-                    <a href="addAccountForm.php">
+                    <a href="atm.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                <i class="bi bi-person-plus-fill" style="font-size:100px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -70%; margin-bottom:-20%">Add Account</p>
+                                <i class="bi bi-credit-card" style="font-size:100px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -70%; margin-bottom:-20%">ATM</p>
                             </div>
                         </div>
                     </a>
-                    <a href="depositMoney.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                <i class="bi bi-piggy-bank-fill" style="font-size:100px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -60%; margin-bottom:-20%">Deposit Money</p>
-                            </div>
-                        </div>
-
-                    </a>
-                    <a href="withdrawMoneyForm.php">
+                    <a href="transferMoney.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-cash-coin" style="font-size:100px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -50%; margin-bottom:-20%">Withdraw Money</p>
+                                <p class="action" style="margin-top: -60%; margin-bottom:-20%">Transfer Money</p>
+                            </div>
+                        </div>
+
+                    </a>
+                    <a href="transactionHistory.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-clock-history" style="font-size:100px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -50%; margin-bottom:-20%">Transaction History</p>
                             </div>
                         </div>
 
@@ -103,61 +91,20 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
 
                 </div>
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
-                    <a href="loanApplicationForm.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                <i class="bi bi-person-plus-fill" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top:-30%; margin-bottom:-20%">Add Adult Customer</p>
-                            </div>
-                        </div>
-
-                    </a>
-                    <a href="loanInstallmentForm.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
-                                <i class="bi bi-person-plus" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -30%; margin-bottom:-15%">Add Child Customer</p>
-                            </div>
-                        </div>
-
-                    </a>
-
-                    <a href="fdForm.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
-                                <i class="bi bi-building" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -35%; margin-bottom:-15%">Add Organization</p>
-                            </div>
-                        </div>
-
-                    </a>
-                </div>
-
-                <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
-                    <a href="loanApplicationForm.php">
+                    <a href="onlineLoanApplicationForm.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">Loan Application</p>
+                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">Online Loan Application</p>
                             </div>
                         </div>
 
                     </a>
-                    <a href="loanInstallmentForm.php">
+                    <a href="accountStatement.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
-                                <i class="bi bi-card-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -27%; margin-bottom:-15%">Loan installment Form</p>
-                            </div>
-                        </div>
-
-                    </a>
-
-                    <a href="fdForm.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
-                                <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -70%; margin-bottom:-15%">Create FD</p>
+                                <i class="bi bi-file-earmark-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -27%; margin-bottom:-15%">Account Statement</p>
                             </div>
                         </div>
 

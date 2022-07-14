@@ -137,7 +137,13 @@
                 </div>
                 <div class="form-group col-sm-5">
                     <label for="inputTaxNo.">Tax Number</label>
-                    <input type="email" class="form-control" id="inputTaxNo" placeholder="Tax No" >
+                    <!-- <input type="email" class="form-control" id="inputTaxNo" placeholder="Tax No" > -->
+                    <select name="inputTaxNo" id="inputTaxNo">
+                        <option value="Plan 1">Plan 1</option>
+                        <option value="Plan 2">Plan 2</option>
+                        <option value="Plan 3">Plan 3</option>
+                        <option value="Plan 4">Plan 4</option>
+                    </select>
                 </div>
             </div>
 
