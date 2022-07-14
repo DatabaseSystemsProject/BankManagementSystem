@@ -114,6 +114,18 @@ class MoneyTransferMOdel
         // }
     }
 
+    public function getCustomerEmail($id)
+    {
+        $sql = "SELECT email FROM customer INNER JOIN account ON customer.user_NIC=account.customer_NIC WHERE account.account_no=?;";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $email = $user['email'];
+        return $email;
+    }
+
     public function checkWithdrawalCount($id)
     {
         $sql = "SELECT withdrawal_count FROM savings_account WHERE savings_acc_no=?";
