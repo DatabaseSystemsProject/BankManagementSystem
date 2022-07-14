@@ -22,7 +22,7 @@ class LoanInsController extends Controller
                 return;
             } else {
                 $_SESSION["loan_details"] = $result;
-                $_SESSION["success"] = "successful";
+
                 $this->checkUnpaidInstallments();
                 return;
             }
