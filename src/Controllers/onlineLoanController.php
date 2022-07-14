@@ -10,7 +10,7 @@ class OnlineLoanController
     private $duration;
     private $fd_id;
     private $amount;
-    private $user_type;
+    private $account_no;
     private $login;
 
     function __construct()
@@ -18,14 +18,15 @@ class OnlineLoanController
         $this->loanModel = new OnlineLoanModle();
     }
 
-    function getFdAccount($user_id)
+    function getFdAccount($acc_no)
     {
 
-        $fdAcc = $this->loanModel->getFixedDepositeID($user_id);
+
+        $fdAcc = $this->loanModel->getFixedDepositeID($acc_no);
+        var_dump($fdAcc);
         if (!is_null($fdAcc)) {
             return $fdAcc;
         } else {
-            $_SESSION['error_message'] = "You don't have a fd account";
             return null;
         }
     }
@@ -55,13 +56,13 @@ class OnlineLoanController
         }
     }
 
-    function autoFill($user_id, $login)
+    function autoFill($account_no, $login)
     {
-        $this->user_id = $user_id;
+        $this->account_no = $account_no;
         $this->login = $login;
         $array = array();
-        $resultAcc = $this->loanModel->getFixedDepositeData(intval($this->fd_id));
-        $sav_acc_no = $resultAcc["saving_account_id"];
+        $resultAcc = $this->loanModel->getAccount($account_no);
+
 
         $result = $this->loanModel->getCustomerContact($login);
 
@@ -72,24 +73,28 @@ class OnlineLoanController
         $array["mobile"] = $result["contact_number"];
         $array["amount"] = $this->amount;
         $array["duration"] = $this->duration;
-        $array["sav_acc_no"] = $sav_acc_no;
+        $array["sav_acc_no"] = $account_no;
         $array["fd_no"] = $this->fd_id;
 
-        $resultOrg = $this->loanModel->getOgranization($user_id);
-        if (!is_null($resultOrg)) {
-            $array["org_name"] = $resultOrg["org_name"];
-            $this->user_type = "organization";
-        }else{
-            $this->user_type="personal";
-        }
 
+        if($resultAcc["customer_type_name"]=="organization")
+        {
+            $reg_no=$this->loanModel->getRegNo($account_no)['reg_no'];
+            $resultOrg = $this->loanModel->getOgranization($reg_no);
+            $array["org_name"] = $resultOrg["org_name"];
+            $array["reg_no"]=$reg_no;
+        }else
+        {
+            $array["org_name"] = null;
+            $array["reg_no"]=null;
+        }
 
         return $array;
     }
     function submitAppication($login)
     {
         if (isset($_POST["apply"])) {
-            if (!empty($_POST['inputLoanAmount']) && !empty($_POST['inputLoanDuration']) && !empty($_POST['inputLoanType'])) {
+            if (!empty($_POST['inputLoanAmount']) && !empty($_POST['inputLoanDuration'])) {
                 $loan_type = $_POST['inputLoanType'];
                 $customer_NIC = $login;
                 $amount = $_POST["inputLoanAmount"];
@@ -99,10 +104,10 @@ class OnlineLoanController
                 $fd_id = $_POST["inputFDNo"];
                 $mode = "online";
                 $liability=$amount;
-                echo $_POST["apply"];
+
 
                $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id);
-               echo $result;
+
             }
         }
     }

@@ -11,11 +11,11 @@ class OnlineLoanModle
         $this->conn = $connector->getConnector();
     }
 
-    function getFixedDepositeID($user_id)
+    function getFixedDepositeID($account_no)
     {
-        $sql="SELECT * FROM fd_account join account where fd_account.saving_account_id= account.account_no and customer_NIC= ? ";
+        $sql="SELECT * FROM fd_account where saving_account_id=? ";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $account_no);
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
@@ -46,6 +46,28 @@ class OnlineLoanModle
         $sql="SELECT * FROM customer   where user_NIC= ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $result;
+    }
+    function getAccount($account_no)
+    {
+        $sql="SELECT * FROM account INNER JOIN customer_type USING(customer_type_id) where account_no= ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $account_no);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $result;
+    }
+
+    function getRegNo($org_account)
+    {
+
+        $sql="SELECT * FROM org_account where account_no= ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $org_account);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
         $stmt->close();

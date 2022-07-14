@@ -17,6 +17,17 @@ private $conn;
         $result = mysqli_query($this->conn, $sql);
         return $result;
     }
+    function getRegNo($org_account)
+    {
+
+        $sql="SELECT * FROM org_account where account_no= ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $org_account);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $result;
+    }
 
     function getCustomerContact($user_id)
     {
@@ -67,7 +78,7 @@ private $conn;
     }
 
 
-    function submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$type,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$sav_acc_no,$loan_status,$req_staff_id)
+    function submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$type,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$loan_status,$req_staff_id,$savings_acc_no)
     {
         $sql="INSERT INTO loan (loan_type,customer_NIC,amount,duration,liability,type,tax_no) VALUES(?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
@@ -84,9 +95,9 @@ private $conn;
         // mysqli_query($this->conn, $sql3);
         var_dump($id);
 
-        $sql="INSERT INTO regular_loan (loan_id,guarantor_name,guarantor_NIC,guarantor_pass_no,guarantor_mobile,guarantor_email,loan_status,requested_staff_id) VALUES(?,?,?,?,?,?,?,?);";
+        $sql="INSERT INTO regular_loan (loan_id,guarantor_name,guarantor_NIC,guarantor_pass_no,guarantor_mobile,guarantor_email,loan_status,requested_staff_id,savings_acc_no) VALUES(?,?,?,?,?,?,?,?,?);";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("isssisss",$id,$g_full_name,$g_nic,$g_passport,$g_mobile,$g_email,$loan_status,$req_staff_id);
+        $stmt->bind_param("isssisssi",$id,$g_full_name,$g_nic,$g_passport,$g_mobile,$g_email,$loan_status,$req_staff_id,$savings_acc_no);
         $stmt->execute();
         $stmt->close();
 

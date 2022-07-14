@@ -29,11 +29,11 @@ class RegularLoanController
             $accountResult=$this->loanModel->getAccount($this->sav_acc);
             if($accountResult["customer_type_name"]=="organization")
             {
-                $owners=$this->loanModel->getStackholder($accountResult['customer_NIC'],$this->applicant);
+                $this->reg_no=$this->loanModel->getRegNo($this->sav_acc)['reg_no'];
+                $owners=$this->loanModel->getStackholder($this->reg_no,$this->applicant);
 
                 if(!empty($owners))
                 {
-                    $this->reg_no=$accountResult['customer_NIC'];
                     return true;
                 }
                 else{
@@ -95,9 +95,15 @@ class RegularLoanController
     {
         if (isset($_POST["apply"])) {
             if (!empty($_POST['inputLoanAmount']) && !empty($_POST['inputLoanType'])) {
-                
+
+                if($this->isOrg())
+                {
+                    $loan_type = "business";
+                }else{
+                    $loan_type = "personal";
+                }
                
-                $loan_type = $_POST['inputLoanType'];
+                
                 $customer_NIC = $_POST['inputNIC'];
                 $amount = $_POST["inputLoanAmount"];
                 $year =$_POST["inputYear"];
@@ -112,12 +118,12 @@ class RegularLoanController
                 $g_passport=$_POST['inputGuarantorPassNo'];
                 $g_email=$_POST['inputGuarantorEmail'];
                 $g_mobile=$_POST['inputGuarantorMobile'];
-                $sav_acc_no=$_POST['inputAccNo'];
+                $savings_acc_no=$_POST['inputAccNo'];
                 $loan_status="requested";
                 $req_staff_id=$login;
 
-               $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$sav_acc_no,$loan_status,$req_staff_id);
-               var_dump($result);
+               $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$loan_status,$req_staff_id,$savings_acc_no);
+              
             }else{
                 echo '<script type="text/javascript">alert("You cannot apply this loan");</script>'; 
             }

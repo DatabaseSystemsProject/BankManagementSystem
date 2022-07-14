@@ -28,7 +28,7 @@ $staffLogged = $loginController->staffLogin();
                     <div class="card rounded-3 text-black">
                         <div class="row g-0">
                             <div class="col-lg-6">
-                                <div class="card-body p-md-5 mx-md-4">
+                                <div class="card-body p-5 pb-2 md-5  mx-md-4">
 
                                     <div class="text-center">
                                         <img src="../Resources/Images/logo.png" style="width: 185px;" alt="logo">
@@ -55,7 +55,7 @@ $staffLogged = $loginController->staffLogin();
                                             <input type="password" id="passwordC" name="passwordC" class="form-control" placeholder="Password" required />
                                             <label class="form-label" for="password">Password</label>
                                         </div>
-                                        <div class="text-center pt-1 mb-5 pb-1">
+                                        <div class="text-center pt-1 mb-3 pb-1">
                                             <button class="btn btn-primary" type="submit" name="customerLog">Log in</button>
 
                                         </div>

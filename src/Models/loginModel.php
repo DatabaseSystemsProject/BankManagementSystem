@@ -22,6 +22,17 @@ class LoginModel
         $stmt->close();
         return $result;
     }
+    function getOrganization($account)
+    {
+        $sql="SELECT reg_no FROM org_account where account_no=?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $account);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $result;
+
+    }
 
     function getStackholder($reg_no,$applicant)
     {

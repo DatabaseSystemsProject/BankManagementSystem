@@ -38,18 +38,6 @@ if (isset($_SESSION['error_message'])) {
             <h2>First, enter a Savings Account </h2>
 
             <form method="post">
-
-                <!-- <div class="form-row ">
-                    <div class="form-group ">
-                        <label for="inputLoanType">Loan Type</label>
-                        <select id="inputLoanType" class="custom-select mr-sm-2">
-                            <option selected>Choose...</option>
-                            <option>Business</option>
-                            <option>Personal</option>
-                        </select>
-                    </div>
-                </div> -->
-
                 <div class="form-row mt-3">
                     <div class="form-group col-md-2">
                         <label for="inputAccNo">Savings Account Number </label>
@@ -128,7 +116,7 @@ if (isset($_SESSION['error_message'])) {
                             No
                         </label>
                     </div>
-                    <div class="form-group col-sm-5">
+                    <div class="form-group col-sm-5" id="inputTaxdata">
                         <label for="inputTaxNo.">Tax Number</label>
                         <input type="email" class="form-control" id="inputTaxNo" placeholder="Tax No" name="inputTaxNo">
                     </div>
@@ -361,9 +349,9 @@ if (isset($_SESSION['error_message'])) {
 
         function EnableDisableTextBox() {
             var chkYes = document.getElementById("TaxYes");
-            var inputTaxNo = document.getElementById("inputTaxNo");
-            inputTaxNo.disabled = chkYes.checked ? false : true;
-            if (!inputTaxNo.disabled) {
+            var inputTaxNo = document.getElementById("inputTaxdata");
+            inputTaxNo.hidden = chkYes.checked ? false : true;
+            if (!inputTaxNo.hidden) {
                 inputTaxNo.focus();
             } else {
                 inputTaxNo.value = null;
@@ -420,7 +408,7 @@ if (isset($_SESSION['error_message'])) {
     // echo "<h1>dgf</h1>";
     // echo '<script type="text/javascript">showjhv();</script>';
     if ($loanController->isOrg()) {
-        echo "organization";
+
 
         echo "<script type='text/javascript'>showOrg();</script>";
     }

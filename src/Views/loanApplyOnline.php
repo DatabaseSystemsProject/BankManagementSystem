@@ -5,13 +5,13 @@ include "../Controllers/onlineLoanController.php";
 $loanController = new OnlineLoanController();
 $check = $loanController->checkEligibility();
 
-$user_type = "organization";
-$user_id = 123;
+$account_type = "organization";
+$account_no = 456;
 $login=111111112;
-// $user_type = "personal";
-// $user_id = 111111111;
+// $account_type = "personal";
+// $account_no = 111111111;
 // $login=111111111;
-// $user_id = 11111111;
+// $account_no = 11111111;
 // $login=11111111;
 
 
@@ -51,15 +51,15 @@ if (isset($_SESSION['error_message'])) {
                         <label for="inpuFD1">Select FD Account</label>
                         <select name="inputFD" id="inputFD1" class="custom-select mr-sm-2" required>
                             <?php
-                            $fdAccounts = $loanController->getFdAccount($user_id);
+                            $fdAccounts = $loanController->getFdAccount($account_no);
+
                             if(!is_null($fdAccounts)){
                             foreach ($fdAccounts as $acc) :
                             ?>
                                 <option value="<?php echo $acc['fd_account_id'] ?>"><?php echo $acc['fd_account_id']; ?></option>
                             <?php
                             endforeach;}else{
-                                    echo '<p style="color:red; font-size:1.2rem; align-self:center">' . $_SESSION['You don\'t have a fd'] . '</p>';
-                                    unset($_SESSION['error_message']);
+                                    echo '<script type="text/javascript">alert("You don\'t have fixed deposite for this account. ");</script>';
                                 
                             }
                             ?>
@@ -70,29 +70,6 @@ if (isset($_SESSION['error_message'])) {
               
 
                 <div class="form-row ">
-                    <!-- <div class="form-group ">
-                        <label for="inputLoanType">Loan Type</label>
-                        <select id="inputLoanType" class="custom-select mr-sm-2" name="inputLoanType" required>
-
-                            <?php
-                            // $loanTypes = $loanController->getLoanTypes();
-                            // foreach ($loanTypes as $type) : 
-                            ?>
-                                <option value="
-                                <?php
-                                // $type['loan_plan_id'] 
-                                ?>
-                                ">
-                                <?php
-                                // echo $type['loan_plan_name'] 
-                                ?>
-                            </option>
-                            <?php
-                            // endforeach;
-                            ?>
-
-                        </select>
-                    </div>  -->
 
                     <div class="input-group mb-3">
                         <div class="col-md-2">
@@ -151,7 +128,7 @@ if (isset($_SESSION['error_message'])) {
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail">Email</label>
-                        <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail" disabled>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="inputEmail" disabled>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputMobile">Mobile Number</label>
@@ -164,19 +141,19 @@ if (isset($_SESSION['error_message'])) {
                 <div class="row">
                     <legend class="col-form-label col-sm-3 pt-0">Tax Payer?</legend>
 
-                    <div class="form-check col-sm-2">
+                    <div class="form-check col-sm-3">
                         <input class="form-check-input" type="radio" name="TaxYes" id="TaxYes" value="yes" onclick="EnableDisableTextBox()" checked>
                         <label class="form-check-label" for="TaxYes">
                             Yes
                         </label>
                     </div>
-                    <div class="form-check col-sm-2">
+                    <div class="form-check col-sm-3">
                         <input class="form-check-input" type="radio" name="TaxYes" id="TaxNo" value="no" onclick="EnableDisableTextBox()">
                         <label class="form-check-label" for="TaxNo">
                             No
                         </label>
                     </div>
-                    <div class="form-group col-sm-5">
+                    <div class="form-group col-sm-5" id="inputTaxdata">
                         <label for="inputTaxNo.">Tax Number</label>
                         <input type="text" class="form-control" id="inputTaxNo" placeholder="Tax No" name="inputTaxNo">
                     </div>
@@ -192,7 +169,7 @@ if (isset($_SESSION['error_message'])) {
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNIC">Registration number </label>
-                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="<?php echo $user_id ?>" >
+                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="" >
                         </div>
                         <!-- <div class="form-group col-md-6">
                     <label for="inputPassNo">Passport Number</label>
@@ -292,7 +269,7 @@ if (isset($_SESSION['error_message'])) {
     <?php
 
     if ($check && isset($_POST)) {
-        $array = $loanController->autoFill($user_id,$login);
+        $array = $loanController->autoFill($account_no,$login);
     }
     ?>
 
@@ -374,9 +351,9 @@ if (isset($_SESSION['error_message'])) {
 
         function EnableDisableTextBox() {
             var chkYes = document.getElementById("TaxYes");
-            var inputTaxNo = document.getElementById("inputTaxNo");
-            inputTaxNo.disabled = chkYes.checked ? false : true;
-            if (!inputTaxNo.disabled) {
+            var inputTaxNo = document.getElementById("inputTaxdata");
+            inputTaxNo.hidden = chkYes.checked ? false : true;
+            if (!inputTaxNo.hidden) {
                 inputTaxNo.focus();
             }else{
                 inputTaxNo.value=null;
@@ -402,6 +379,7 @@ if (isset($_SESSION['error_message'])) {
             var sav_acc_no = document.getElementById("inputAccNo");
             var fd_no = document.getElementById("inputFDNo");
             var org_name = document.getElementById("inputOrgName");
+            var reg_no= document.getElementById("inputRegNo");
 
             full_name.value = passedArray["full_name"];
             nic.value = passedArray["nic"];
@@ -412,7 +390,7 @@ if (isset($_SESSION['error_message'])) {
             sav_acc_no.value = passedArray["sav_acc_no"];
             fd_no.value = passedArray["fd_no"];
             org_name.value=passedArray["org_name"];
-            console.log(amount.value);
+            reg_no.value=passedArray["reg_no"];
             
 
 
@@ -434,13 +412,13 @@ if (isset($_SESSION['error_message'])) {
     }
     // echo "<h1>dgf</h1>";
     // echo '<script type="text/javascript">showjhv();</script>';
-    if ($user_type == "organization") {
+    if ($account_type == "organization") {
 
         echo "<script type='text/javascript'>showOrg();</script>";
         
     }
     if (isset($_POST["apply"])){
-        echo"Set";
+
         $loanController->submitAppication($login);
     }
    
