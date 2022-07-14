@@ -35,5 +35,25 @@ class addOrganizationController
     
         }
     }
+    public function getAllRegNo()
+    {
+        $regNoList = $this->orgModel->getAllRegNo();
+        return $regNoList;
+    }
+    public function getStakeholders($orgRegNo)
+    {
+        $stakeholderList = $this->orgModel->getStakeholders($orgRegNo);
+        return $stakeholderList;
+    }
+    public function getFirstStakeholderNIC($orgRegNo)
+    {
+        $stakeholder = $this->orgModel->getFirstStakeholderNIC($orgRegNo);
+        return $stakeholder;
+    }
+    public function getEmail($orgRegNo)
+    {
+        $email = $this->orgModel->getEmail($orgRegNo);
+        return $email;
+    }
 }
 ?>

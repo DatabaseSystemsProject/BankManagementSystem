@@ -72,7 +72,18 @@ class AccountModel
             echo "Error: " . mysqli_error($this->conn) . ".";
         }
     }
-    
+    function addOrgAccount($orgRegNo,$accountNo)
+    {
+        $sql="INSERT INTO org_bankaccount(org_regNo,account_no) VALUES (?,?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si",$orgRegNo,$accountNo);
+        $result = $stmt->execute();
+
+        if (!$result) {
+            echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        return $result;
+    }
 
 
 }

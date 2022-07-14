@@ -9,12 +9,14 @@ class AccountController
     private $accountModel;
     private $mailer;
     private $customerModel;
+    private $orgModel;
 
     public function __construct()
     {
         $this->accountModel = new AccountModel();
         $this->mailer = new Mailer();
         $this->customerModel = new IndividualCustomerModel();
+        $this->orgModel = new addOrganizationModel();
     }
 
     public function addIndividualAccount()
@@ -92,6 +94,48 @@ class AccountController
     
         }
     }
+    public function addOrgAccount()
+    {
+        if(isset($_POST["addAccount"])){
+            //if(!empty($_POST["inputOrgName"]))
+            $accountNo = $this->generateAccountNo(2);
+            $accountType = $_POST['SOrC'];
+            $orgRegNo = $_POST['inputRegNo'];
+            $customerNIC = $this->orgModel->getFirstStakeholderNIC($orgRegNo);
+            $branch = $_POST['branch'];
+            $plan = $_POST['plan'];
+            $balance = $_POST['inputAmount'];
+            $password = $this->generatePassword();
+
+            //echo $accountNo." - ".$accountType." - ".$customerNIC." - ".$branch." - ".$plan." - ".$balance." - ".$password." ";
+
+            $result = $this->accountModel->addIndividualAccount($accountNo,$customerNIC,$accountType,$balance,$branch,$password);
+            if($result){
+                echo "account added";
+                $accountTypeToMail = "";
+                if($accountType == 1){
+                    $this->accountModel->addSavingsPlan($accountNo,$plan);
+                    $accountTypeToMail = "Savings Account";
+                }
+                elseif($accountType == 2){
+                    $this->accountModel->addCheckbook($accountNo);
+                    $accountTypeToMail = "Checking Account";
+                }
+                //add to orgaccount table
+                $this->accountModel->addOrgAccount($orgRegNo,$accountNo);
+                //send email to owner 
+                $subject = $this->mailer->generateMailSubject($accountTypeToMail);
+                $body = $this->mailer->generateMailBody($accountNo,$password,$accountTypeToMail);
+                $receiver = $this->orgModel->getEmail($orgRegNo);
+                $receiver = $receiver['email'];
+
+                $this->mailer->sendMail($receiver,$subject,$body);
+            }else{
+                echo "error occured";
+            }
+    
+        }
+    }
     public function generateAccountNo($ownerType)
     {
         $totalAccounts = $this->accountModel->getTotalAccounts($ownerType);
@@ -103,7 +147,7 @@ class AccountController
         }
         elseif($ownerType == 2) //business
         {
-            $accountNo = 20000000 + $totalAccounts + 1 ; // 1 million businesses // change this later
+            $accountNo = 20000 + $totalAccounts + 1 ; // 1 million businesses // change this later
         }
         echo $totalAccounts."         sfd           ".$accountNo;
         return $accountNo;

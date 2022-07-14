@@ -1,12 +1,12 @@
 <?php 
 
 include 'base.php';
-include_once ("../Controllers/individualCustomerController.php");
+include_once ("../Controllers/addOrganizationController.php");
 include_once ("../Controllers/branchController.php");
 include_once ("../Controllers/savingsPlanController.php");
 include_once ("../Controllers/accountController.php");
 
-$individualCtrl = new individualCustomerController();
+$orgCtrl = new addOrganizationController();
 $branchCtrl = new BranchController();
 $savingsPlanCtrl = new SavingsPlanController();
 $accountCtrl = new AccountController();
@@ -63,15 +63,15 @@ $accountCtrl = new AccountController();
 
         </fieldset>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-8">
                 <label for="inputNIC">Enter Reg.No to select the Organization</label>
                 <select class="chosen" name="inputRegNo" id="inputRegNo" >
                     <option value="************">************</option>
                     <?php
-                    $nicList = $individualCtrl->getNIClist();
-                    if($nicList->num_rows > 0){
-                        while($row = $nicList->fetch_assoc()) {
-                            ?><option value="<?= $row["user_NIC"];?>"><?= $row["user_NIC"]; ?></option><?php
+                    $regNoList = $orgCtrl->getAllRegNo();
+                    if($regNoList->num_rows > 0){
+                        while($row = $regNoList->fetch_assoc()) {
+                            ?><option value="<?= $row["reg_no"];?>"><?= $row["reg_no"]." - ".$row["org_name"]; ?></option><?php
                           }
                     }
                     ?>
@@ -139,7 +139,7 @@ $accountCtrl = new AccountController();
 </script>
 
 <?php
-    $accountCtrl->addIndividualAccount();
+    $accountCtrl->addOrgAccount();
 ?> 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

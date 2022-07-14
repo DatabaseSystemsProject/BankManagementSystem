@@ -1,9 +1,9 @@
 <?php 
 
 include 'base.php';
- include_once ("../Controllers/individualCustomerController.php");
+include_once ("../Controllers/individualCustomerController.php");
 
- $customerCtrl = new individualCustomerController();
+$customerCtrl = new individualCustomerController();
 
 ?>
 

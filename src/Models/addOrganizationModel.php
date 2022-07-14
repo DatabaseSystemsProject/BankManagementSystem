@@ -35,18 +35,41 @@ class addOrganizationModel
         }
     }
 
-    function getStakeholder($orgRegNo)
+    function getStakeholders($orgRegNo)
     {
         $sql = "SELECT customer_NIC FROM org_stakeholder WHERE reg_no = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $orgRegNo);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result();
         return $result;
     }
+    function getFirstStakeholderNIC($orgRegNo)
+    {
+        $stakeholderList = $this->getStakeholders($orgRegNo);
+        if($stakeholderList->num_rows > 0){
+            $row = $stakeholderList->fetch_assoc(); 
+            return $row['customer_NIC'];
+        }
+    }
+    function getAllRegNo()
+    {
+        $sql = "SELECT reg_no,org_name FROM organization";
+        $result = $this->conn->query($sql);
+        return $result;
+    }
+    function getEmail($orgRegNo)
+    {
+        $sql = "SELECT email FROM organization WHERE reg_no = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $orgRegNo);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
 
-    
-
-
+        if (!$result) {
+            echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        return $result;
+    }
 }
 ?>
