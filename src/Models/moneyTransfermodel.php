@@ -127,4 +127,12 @@ class MoneyTransferMOdel
             echo "Error: " . mysqli_error($this->conn) . ".";
         }
     }
+
+    public function updateTransactionTable($senderId, $receiverId, $amount)
+    {
+        $transaction_type = 3;
+        $stmt = $this->conn->prepare("INSERT INTO transaction(transaction_type,source ,destination,amount) VALUES (?,?,?,?)");
+        $stmt->bind_param("iiid", $transaction_type, $senderId, $receiverId, $amount);
+        $stmt->execute();
+    }
 }

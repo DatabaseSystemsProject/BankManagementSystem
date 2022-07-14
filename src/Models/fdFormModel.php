@@ -2,7 +2,7 @@
 
 include_once '../Config/db.php';
 
-class MoneyTransferMOdel
+class FDMOdel
 {
     private $conn;
 
