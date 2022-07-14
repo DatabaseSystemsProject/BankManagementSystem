@@ -2,14 +2,28 @@
 
 session_start();
 include "base.php";
-include "../Controllers/regularLoansController.php";
+include "../Controllers/approveRegularLoansController.php";
 
-$rl_ctrl = new RegularLoansController();
+$arl_ctrl = new ApproveRegularLoansController();
 
 $branch_manager_NIC = '802365415V'; // hardcoded for demonstration
 
-$branch_id = $rl_ctrl->getBranchID($branch_manager_NIC);
-$branch_name = $rl_ctrl->getBranchName($branch_manager_NIC);
+$branch_id = $arl_ctrl->getBranchID($branch_manager_NIC);
+$branch_name = $arl_ctrl->getBranchName($branch_manager_NIC);
+
+if (isset($_GET['approve_loan_id']) && isset($_GET['approve_bmID'])) {
+    $loan_id = $_GET['approve_loan_id'];
+    $branch_manager_NIC = $_GET['approve_bmID'];
+
+    $arl_ctrl->approveLoan($loan_id, $branch_manager_NIC);
+}
+
+if (isset($_GET['reject_loan_id']) && isset($_GET['reject_bmID'])) {
+    $loan_id = $_GET['reject_loan_id'];
+    $branch_manager_NIC = $_GET['reject_bmID'];
+
+    $arl_ctrl->rejectLoan($loan_id, $branch_manager_NIC);
+}
 
 ?>
 
@@ -49,13 +63,46 @@ $branch_name = $rl_ctrl->getBranchName($branch_manager_NIC);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $rl_ctrl->getRequestedLoans($branch_id, $branch_manager_NIC); ?>
+                    <?php 
+                    $result = $arl_ctrl->getRequestedLoans($branch_id, $branch_manager_NIC); 
+                    $i = 0;
+
+                    while($row = $result->fetch_assoc()):
+                        $i = $i + 1 ;
+                        $loan_id = $row["loan_id"];
+                        $first_name = $row["first_name"];
+                        $last_name = $row["last_name"];
+                        $date_time = $row["date_time"];
+                        $amount = $row["amount"];
+                        $duration = $row["duration"];
+                        $liability = $row["liability"];
+                        $guarantor_name = $row["guarantor_name"];
+
+                        $applier_name = $first_name." ".$last_name;
+                        $date = substr($date_time, 0, 10);
+                        ?>
+
+                        <tr>
+                            <th scope="row"> <?php echo $i ?> </th>
+                            <td> <?php echo $loan_id ?> </td>
+                            <td> <?php echo $applier_name ?> </td>
+                            <td> <?php echo $date ?> </td>
+                            <td> Rs. <?php echo $amount ?> </td>
+                            <td> <?php echo $duration ?> months </td>
+                            <td> <?php echo $liability ?> </td>
+                            <td> <?php echo $guarantor_name ?> </td>
+                            <td>
+                                <a href="approveRegularLoans.php?approve_loan_id=<?php echo $loan_id?>&approve_bmID=<?php echo $branch_manager_NIC?>" class="btn btn-primary"> Approve </a>
+                                <a href="approveRegularLoans.php?reject_loan_id=<?php echo $loan_id?>&reject_bmID=<?php echo $branch_manager_NIC?>" class="btn btn-danger"> Reject </a>  
+                            </td>
+                        </tr>
+                    <?php
+                    endwhile;
+                    ?>
                 </tbody>
-
             </table>
-
         </div>
-    
+        
     </div> <br> <br> <br>
     
 

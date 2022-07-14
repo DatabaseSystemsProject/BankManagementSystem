@@ -2,7 +2,7 @@
 
 include_once '../Config/db.php';
 
-class RegularLoansModel {
+class ApproveRegularLoansModel {
     private $conn;
 
     function __construct() {
