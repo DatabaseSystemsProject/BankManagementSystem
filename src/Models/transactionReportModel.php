@@ -29,7 +29,7 @@ class TransactionReportModel{
 
         $sql = "SELECT COUNT(DISTINCT t.transaction_id) AS transaction_count
                 FROM transaction t 
-                JOIN account a ON a.account_no = t.source OR a.account_no = t.destination AND a.branch_id = ?
+                JOIN account a ON (a.account_no = t.source OR a.account_no = t.destination) AND a.branch_id = ?
                 WHERE t.datetime BETWEEN ? AND ?";
 
         $stmt = $this->conn->prepare($sql);
@@ -47,7 +47,7 @@ class TransactionReportModel{
 
         $sql = "SELECT COUNT(DISTINCT t.transaction_id) AS transfers_count
                 FROM transaction t
-                JOIN account a ON a.account_no = t.source OR a.account_no = t.destination AND a.branch_id = ?
+                JOIN account a ON (a.account_no = t.source OR a.account_no = t.destination) AND a.branch_id = ?
                 WHERE t.transaction_type = ? AND t.datetime BETWEEN ? AND ?";
 
         $stmt = $this->conn->prepare($sql);

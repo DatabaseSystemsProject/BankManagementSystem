@@ -2,7 +2,7 @@
 include_once '../Models/fdFormModel.php';
 include_once '../Config/db.php';
 
-class moneyTransferController
+class FDController
 {
     private $model;
     private $accountNumber;
@@ -12,7 +12,7 @@ class moneyTransferController
 
     function __construct()
     {
-        $this->model = new MoneyTransferMOdel();
+        $this->model = new FDMOdel();
     }
 
     public function checkId()

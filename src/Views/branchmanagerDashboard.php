@@ -75,7 +75,7 @@ $branch_name = $bmDashboardCtrl->getBranchName($branch_manager_NIC);
                         </div>
                     </a>
 
-                    <a href="" style="text-decoration:none;">
+                    <a href="approveRegularLoans.php" style="text-decoration:none;">
                         <div class="card" style="width:16rem; height:12rem;">
                             <div class="card-body" style="align-self:center; display:flex; flex-direction:column;">
                                 <i class="bi bi-cash-coin" style="font-size:80px; align-self:center; margin-top:-10%;"></i>

@@ -27,7 +27,7 @@
                 <p class="card-text mx-auto">Do you wish to make another transfer?</p>
                 <div class="mx-auto">
                     <a href="onlineMoneyTransferForm.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
-                    <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
+                    <a href="customerDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@
                 <i class="bi bi-emoji-frown mx-auto" style="font-size: 5vw;"></i>
                 <p class="card-text mx-auto">Do you want to exit?</p>
                 <div class="mx-auto">
-                    <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
+                    <a href="customerDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
                     <!-- <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a> -->
                 </div>
             </div>
