@@ -29,10 +29,7 @@ $withdrawContr = new WithdrawController();
                 echo '<p style="color:red; font-size:1.2rem; padding:0px;">' . $_SESSION['error_message'] . '</p>';
                 unset($_SESSION['error_message']);
             }
-            if (isset($_SESSION['success'])) {
-                echo '<p style="color:green; font-size:1.2rem; padding:0px;">' . $_SESSION['success'] . '</p>';
-                unset($_SESSION['success']);
-            } ?>
+             ?>
             <div class="form-group col-md-10 ">
                 <label style="color:black" for="amount">Account Number </label>
                 <input type="text" class="form-control inputs" name="accountNo" id="accountNo">

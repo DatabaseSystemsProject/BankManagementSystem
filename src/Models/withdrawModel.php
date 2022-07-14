@@ -37,7 +37,7 @@ class WithdrawModel
     {
         $sql = "UPDATE savings_account SET withdrawal_count = ? WHERE savings_acc_no =?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $newWithdrawalAmount, $accountNo);
+        $stmt->bind_param("di", $newWithdrawalAmount, $accountNo);
         $stmt->execute();
         return;
     }
@@ -46,7 +46,7 @@ class WithdrawModel
     {
         $sql = "UPDATE account SET balance = ? WHERE account_no =?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $remainingbalance, $accountNo);
+        $stmt->bind_param("di", $remainingbalance, $accountNo);
         $stmt->execute();
         return;
     }
@@ -60,5 +60,14 @@ class WithdrawModel
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
         return $result;
+    }
+
+    public function updateTransactionTable($senderId, $amount, $employeeID)
+    {
+        $transaction_type = 1;
+        $stmt = $this->conn->prepare("INSERT INTO transaction(transaction_type,source,amount,teller) VALUES (?,?,?,?)");
+        $stmt->bind_param("iidi", $transaction_type, $senderId, $amount, $employeeID);
+        $stmt->execute();
+        return;
     }
 }
