@@ -36,6 +36,7 @@ class moneyTransferController
             if ($this->checkWithdrawalCount($senderId) == true) {
                 $this->model->updateAmount($id, $transferredAmount, $senderId);
                 $this->model->updateWithdrawalCount($senderId);
+                $this->model->updateTransactionTable($senderId, $id, $transferredAmount);
                 header("Location: transferSuccess.php");
             } else {
                 header("Location: withdrawalLimitExceeded.php");

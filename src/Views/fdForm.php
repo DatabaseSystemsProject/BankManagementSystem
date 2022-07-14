@@ -9,7 +9,7 @@ if (isset($_SESSION['error_message'])) {
     unset($_SESSION['error_message']);
 }
 
-$controller = new moneyTransferController();
+$controller = new FDController();
 $validity = $controller->checkId();
 
 ?>
@@ -223,10 +223,6 @@ if ($isSuccess) {
 
     <?php
     if (isset($_POST["submit1"])) {
-
-        // $details = $controller->autoFill($account_number);
-        // echo $account_number;
-        //echo $details['full_name'];
         echo '<script type="text/javascript">showApplication();</script>';
         echo '<script type="text/javascript"> autoFill();</script>';
     }
