@@ -3,6 +3,7 @@ include 'base.php';
 include_once '../Controllers/moneyTransferController.php';
 include_once '../Models/moneyTransfermodel.php';
 include_once '../Config/db.php';
+include_once '../Helpers/mail.php';
 
 $sender_id = 456;
 

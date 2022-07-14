@@ -61,35 +61,69 @@ class MoneyTransferMOdel
         $amount_receiver = $row_receiver["balance"];
         $receiver_updatedBalance = $amount_receiver + $transferredAmount;
 
-        $state = true;
-        $sql1 = "UPDATE account SET balance='$receiver_updatedBalance' WHERE account_no=?;";
-        $sql2 = "UPDATE account SET balance='$sender_updatedBalance' WHERE account_no=?;";
 
-        $stmt1 = $this->conn->prepare($sql1);
-        $stmt1->bind_param("i", $id);
-        $res = $stmt1->execute();
+        mysqli_begin_transaction($this->conn);
 
-        if (!$res) {
-            $state = false;
-            echo "Error: " . mysqli_error($this->conn) . ".";
-        }
+        try {
+            $sql1 = "UPDATE account SET balance='$receiver_updatedBalance' WHERE account_no=?;";
+            $sql2 = "UPDATE account SET balance='$sender_updatedBalance' WHERE account_no=?;";
 
-        $stmt2 = $this->conn->prepare($sql2);
-        $stmt2->bind_param("i", $senderId);
-        $res = $stmt2->execute();
+            $stmt1 = $this->conn->prepare($sql1);
+            $stmt1->bind_param("i", $id);
+            $res = $stmt1->execute();
 
-        if (!$res) {
-            $state = false;
-            echo "Error: " . mysqli_error($this->conn) . ".";
-        }
+            $stmt2 = $this->conn->prepare($sql2);
+            $stmt2->bind_param("i", $senderId);
+            $res = $stmt2->execute();
 
-        if ($state) {
             mysqli_commit($this->conn);
-            echo "All queries have been executed successfully";
-        } else {
+        } catch (mysqli_sql_exception $exception) {
             mysqli_rollback($this->conn);
-            echo "All queries have been canceled";
+
+            throw $exception;
         }
+
+        // $state = true;
+        // $sql1 = "UPDATE account SET balance='$receiver_updatedBalance' WHERE account_no=?;";
+        // $sql2 = "UPDATE account SET balance='$sender_updatedBalance' WHERE account_no=?;";
+
+        // $stmt1 = $this->conn->prepare($sql1);
+        // $stmt1->bind_param("i", $id);
+        // $res = $stmt1->execute();
+
+        // if (!$res) {
+        //     $state = false;
+        //     echo "Error: " . mysqli_error($this->conn) . ".";
+        // }
+
+        // $stmt2 = $this->conn->prepare($sql2);
+        // $stmt2->bind_param("i", $senderId);
+        // $res = $stmt2->execute();
+
+        // if (!$res) {
+        //     $state = false;
+        //     echo "Error: " . mysqli_error($this->conn) . ".";
+        // }
+
+        // if ($state) {
+        //     mysqli_commit($this->conn);
+        //     echo "All queries have been executed successfully";
+        // } else {
+        //     mysqli_rollback($this->conn);
+        //     echo "All queries have been canceled";
+        // }
+    }
+
+    public function getCustomerEmail($id)
+    {
+        $sql = "SELECT email FROM customer INNER JOIN account ON customer.user_NIC=account.customer_NIC WHERE account.account_no=?;";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $email = $user['email'];
+        return $email;
     }
 
     public function checkWithdrawalCount($id)
