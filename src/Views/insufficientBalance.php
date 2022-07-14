@@ -21,7 +21,6 @@
     <main-header></main-header>
     <main>
         <div class="card mx-auto" style="width: 50rem; height:27rem; margin: 0; position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
-
             <div class="card-body" style="display: flex; flex-direction:column;">
                 <h2 class="card-title mx-auto">Insufficient Balance!</h2>
                 <i class="bi bi-emoji-frown mx-auto" style="font-size: 5vw;"></i>

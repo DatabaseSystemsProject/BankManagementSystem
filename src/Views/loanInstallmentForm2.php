@@ -13,7 +13,7 @@
     }
     ?>
 
-    <form method="post" action="loanInstallmentForm.php">
+    <form method="post" action="loanInstallmentForm2.php">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label style="color:black" for="inputNIC">NIC </label>
