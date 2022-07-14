@@ -33,11 +33,11 @@
             </div>
             <div class="form-group col-md-5">
                 <label for="inputFirstName">First Name</label>
-                <input type="email" class="form-control" id="inputFirstName" placeholder="First Name">
+                <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
             </div>
             <div class="form-group col-md-5">
                 <label for="inputLastName">Last Name</label>
-                <input type="password" class="form-control" id="inputLastName" placeholder="Last Name">
+                <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
             </div>
         </div>
         <div class="form-row">
