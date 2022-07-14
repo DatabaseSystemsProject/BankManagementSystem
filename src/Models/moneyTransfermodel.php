@@ -42,7 +42,7 @@ class MoneyTransferMOdel
 
     public function selectRowById($id)
     {
-        $sql = "SELECT * FROM account INNER JOIN account_type WHERE account_no=?";
+        $sql = "SELECT * FROM account_abstract INNER JOIN account_type WHERE account_no=?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -82,41 +82,11 @@ class MoneyTransferMOdel
 
             throw $exception;
         }
-
-        // $state = true;
-        // $sql1 = "UPDATE account SET balance='$receiver_updatedBalance' WHERE account_no=?;";
-        // $sql2 = "UPDATE account SET balance='$sender_updatedBalance' WHERE account_no=?;";
-
-        // $stmt1 = $this->conn->prepare($sql1);
-        // $stmt1->bind_param("i", $id);
-        // $res = $stmt1->execute();
-
-        // if (!$res) {
-        //     $state = false;
-        //     echo "Error: " . mysqli_error($this->conn) . ".";
-        // }
-
-        // $stmt2 = $this->conn->prepare($sql2);
-        // $stmt2->bind_param("i", $senderId);
-        // $res = $stmt2->execute();
-
-        // if (!$res) {
-        //     $state = false;
-        //     echo "Error: " . mysqli_error($this->conn) . ".";
-        // }
-
-        // if ($state) {
-        //     mysqli_commit($this->conn);
-        //     echo "All queries have been executed successfully";
-        // } else {
-        //     mysqli_rollback($this->conn);
-        //     echo "All queries have been canceled";
-        // }
     }
 
     public function getCustomerEmail($id)
     {
-        $sql = "SELECT email FROM customer INNER JOIN account ON customer.user_NIC=account.customer_NIC WHERE account.account_no=?;";
+        $sql = "SELECT email FROM customer INNER JOIN account_abstract ON customer.user_NIC=account_abstract.customer_NIC WHERE account_abstract.account_no=?;";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();

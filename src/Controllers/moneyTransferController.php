@@ -44,9 +44,12 @@ class moneyTransferController
                 $senderEmail = $this->model->getCustomerEmail($senderId);
                 $senderEmailBody = "You have transferred Rs. " . $transferredAmount . " amount of money to account number " . $id;
                 $this->mailSender->sendMail($senderEmail, "Money Transfer", $senderEmailBody);
+                $receiverEmailBody = "Account Number " . $senderId . " has transferred Rs. " . $transferredAmount . " of money to your account " . $id;
                 if ($this->email != null) {
-                    $receiverEmailBody = "Account Number " . $senderId . " has transferred Rs. " . $transferredAmount . " of money to your account " . $id;
                     $this->mailSender->sendMail($this->email, "Money Transfer", $receiverEmailBody);
+                } else {
+                    $receiverEmail = $this->model->getCustomerEmail($id);
+                    $this->mailSender->sendMail($receiverEmail, "Money Transfer", $receiverEmailBody);
                 }
                 header("Location: transferSuccess.php");
             } else {
