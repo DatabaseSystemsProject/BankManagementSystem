@@ -29,10 +29,10 @@ class FDMOdel
         $result = mysqli_query($this->conn, $stmt);
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
-                echo 'found!';
+                // echo 'found!';
                 return true;
             } else {
-                echo 'not found';
+                // echo 'not found';
                 return false;
             }
         } else {

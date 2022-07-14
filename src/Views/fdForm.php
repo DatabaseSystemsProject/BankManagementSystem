@@ -90,31 +90,6 @@ if ($isSuccess) {
                         <input type="text" class="form-control" id="address" placeholder="Address">
                     </div>
                 </div>
-
-
-                <!-- <div class="form-row">
-                <div class="row">
-                    <legend class="col-form-label col-sm-3 pt-0">Tax Payer?</legend>
-
-                    <div class="form-check col-sm-2">
-                        <input class="form-check-input" type="radio" name="TaxYes" id="TaxYes" value="option1" onclick="EnableDisableTextBox()" checked>
-                        <label class="form-check-label" for="TaxYes">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check col-sm-2">
-                        <input class="form-check-input" type="radio" name="TaxYes" id="TaxNo" value="option2" onclick="EnableDisableTextBox()">
-                        <label class="form-check-label" for="TaxNo">
-                            No
-                        </label>
-                    </div>
-                    <div class="form-group col-sm-5">
-                        <label for="inputTaxNo.">Tax Number</label>
-                        <input type="email" class="form-control" id="inputTaxNo" placeholder="Tax No">
-                    </div>
-                </div>
-            </div> -->
-
                 <div class="form-row mt-3">
                     <div class="form-group ">
                         <label for="inputFdType">Fd Type</label>
@@ -148,6 +123,7 @@ if ($isSuccess) {
                     </div>
                 </div>
                 <button type="submit" value="submit" class="btn btn-primary" name="apply" id="apply">Apply</button>
+                <button type="button" class="btn btn-primary" name="apply" id="apply" onclick="showApplication()">Cancel</button>
 
             </form>
 
