@@ -19,7 +19,7 @@
 </html>
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto ">
-    <h2> Add Account </h2> <br>
+    <h2> Add Account - meka wedak na wge </h2> <br>
     <form>
         <fieldset class="form-group">
             <div class="row">

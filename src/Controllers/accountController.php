@@ -3,6 +3,7 @@ require_once('../Core/Controller.php');
 include_once("../Models/accountModel.php");
 include_once("../Helpers/mail.php");
 include_once("../Models/individualCustomerModel.php");
+include_once("../Models/addOrganizationModel.php");
 
 class AccountController
 {
