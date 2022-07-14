@@ -51,7 +51,6 @@ class LoanInsController extends Controller
         }
         $_SESSION["installments"] = $unpaidIns;
         $this->view("loanInstallmentForm2");
-        return;
     }
 
     public function payInstallment()

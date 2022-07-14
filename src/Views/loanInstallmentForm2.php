@@ -13,7 +13,7 @@
     }
     ?>
 
-    <form method="post">
+    <form method="post" action="loanInstallmentForm.php">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label style="color:black" for="inputNIC">NIC </label>
@@ -92,9 +92,7 @@
 </div>
 <?php
 if (isset($_POST["pay"])) {
-
-    echo '<script>window.location.href="../Views/instPaySuccessful.php"</script>';
-    // $this->payInstallment();
+    $_SESSION["loanInsController"]->payInstallment();
 }
 ?>
 

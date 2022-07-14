@@ -1,8 +1,9 @@
 <?php
 session_start();
 include 'base.php';
-include '../Controllers/loanInsContoller.php';
+require_once '../Controllers/loanInsContoller.php';
 $loanInsController = new LoanInsController();
+$_SESSION["loanInsController"] = $loanInsController;
 $unpaidMonths = null;
 ?>
 <!DOCTYPE html>
@@ -25,7 +26,7 @@ $unpaidMonths = null;
 <body style="background-color: rgb(0,0,205);">
     <main-header></main-header>
     <div style="margin-top:57px !important; border-radius:6px;" class="container border border-2 mt-1 p-4 mx-auto bg-light">
-        <form method="post" id="myForm" class="form mx-auto">
+        <form action="loanInstallmentForm.php" method="post" id="myForm" class="form mx-auto">
             <div class="form-group">
                 <div class="row col-md-6 align-items-center mx-auto">
                     <Label for="loanID" class="col-sm-2 control-label" style="color:black">Loan ID</Label>
