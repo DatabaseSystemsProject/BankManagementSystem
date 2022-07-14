@@ -1,6 +1,14 @@
 <?php
 
-include 'base.php';
+include_once 'base.php';
+include_once '../Config/db.php';
+include_once '../Models/employeeDashboardMOdel.php';
+include_once '../Controllers/employeeDashboardController.php';
+
+$employee_id = 199974401842;
+
+$controller = new employeeDashboardController();
+$employee_details = $controller->getEmployeeDetails($employee_id);
 
 ?>
 <!DOCTYPE html>
@@ -30,8 +38,8 @@ include 'base.php';
             <div class="sidebar" style="display:flex;flex-direction:column;">
                 <div class="ms-3" style="position: fixed; text-align: center;">
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
-                    <h1>Thinira</h1>
-                    <h1 style="margin-top: 10px;">Wanasinghe</h1>
+                    <h1><?php echo $employee_details['f_name']; ?></h1>
+                    <h1 style="margin-top: 10px;"><?php echo $employee_details['l_name']; ?></h1>
                 </div>
             </div>
             <div class="container1 d-flex mt-2" style="display:flex;">
