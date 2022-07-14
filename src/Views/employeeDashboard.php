@@ -1,4 +1,16 @@
-<?php include 'base.php' ?>
+<?php
+
+include_once 'base.php';
+include_once '../Config/db.php';
+include_once '../Models/employeeDashboardMOdel.php';
+include_once '../Controllers/employeeDashboardController.php';
+
+$employee_id = 199974401842;
+
+$controller = new employeeDashboardController();
+$employee_details = $controller->getEmployeeDetails($employee_id);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,8 +38,8 @@
             <div class="sidebar" style="display:flex;flex-direction:column;">
                 <div class="ms-3" style="position: fixed; text-align: center;">
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
-                    <h1>Thinira</h1>
-                    <h1 style="margin-top: 10px;">Wanasinghe</h1>
+                    <h1><?php echo $employee_details['f_name']; ?></h1>
+                    <h1 style="margin-top: 10px;"><?php echo $employee_details['l_name']; ?></h1>
                 </div>
             </div>
             <div class="container1 d-flex mt-2" style="display:flex;">
@@ -47,7 +59,7 @@
                             </div>
                         </div>
                         <div class="four col-md-3">
-                            <div class="counter-box colored">  <span class="counter" id="counter" data-val="225">6</span>
+                            <div class="counter-box colored"> <span class="counter" id="counter" data-val="225">6</span>
                                 <p>Available Classes</p>
                             </div>
                         </div>
@@ -90,6 +102,37 @@
                     </a>
 
                 </div>
+                <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
+                    <a href="loanApplicationForm.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-person-plus-fill" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-30%; margin-bottom:-20%">Add Adult Customer</p>
+                            </div>
+                        </div>
+
+                    </a>
+                    <a href="loanInstallmentForm.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
+                                <i class="bi bi-person-plus" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -30%; margin-bottom:-15%">Add Child Customer</p>
+                            </div>
+                        </div>
+
+                    </a>
+
+                    <a href="fdForm.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
+                                <i class="bi bi-building" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top: -35%; margin-bottom:-15%">Add Organization</p>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
                     <a href="loanApplicationForm.php">
                         <div class="card" style="width: 16rem;height:12rem;">
