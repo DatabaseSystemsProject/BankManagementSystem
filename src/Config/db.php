@@ -2,7 +2,7 @@
 
 class Connector
 {
-    private static Connector $instance;
+    private static $instance;
     private $host;
     private $user;
     private $password;
@@ -18,7 +18,7 @@ class Connector
             die();
         }
     }
-    public static function getInstance(): Connector
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
             self::$instance = new Connector();
