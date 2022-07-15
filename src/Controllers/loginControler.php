@@ -34,7 +34,7 @@ class LoginController
                     $stackholder = $this->loginModel->getStackholder($reg_no['reg_no'], $nic);
                     if (!empty($stackholder)) {
 
-                        $_SESSION['account_type'] = $acc_type;
+                        $_SESSION['login_type'] = $acc_type;
                         $_SESSION['account_no'] = $acc_no;
                         $_SESSION['login'] = $nic;
                         header('location:customerDashboard.php');
@@ -46,7 +46,7 @@ class LoginController
                 } else {
                     if ($account['customer_NIC'] == $nic) {
 
-                        $_SESSION['account_type'] = $acc_type;
+                        $_SESSION['login_type'] = $acc_type;
                         $_SESSION['account_no'] = $acc_no;
                         $_SESSION['login'] = $nic;
                         header('location:customerDashboard.php');
@@ -73,7 +73,7 @@ class LoginController
             if (!empty($account)) {
                 $acc_type = $account['staff_type_name'];
 
-                $_SESSION['account_type'] = $acc_type;
+                $_SESSION['login_type'] = $acc_type;
                 $_SESSION['login'] = $account['user_NIC'];
                 $url = strval($acc_type) . "Dashboard.php";
                 header('location:' . $url);

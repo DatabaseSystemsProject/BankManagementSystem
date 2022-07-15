@@ -45,6 +45,9 @@ class LoanInsModel
         $stmt2->bind_param("isi", $loanID, $month, $year);
         $stmt2->execute();
         $result2 = $stmt2->get_result()->fetch_assoc();
+        if ($result2 == null) {
+            return null;
+        }
         $currentInsNo = $result2["installment_no"];
 
         $sql3 = "SELECT * FROM loan_installment WHERE loan_id = ? AND paid = 0 AND installment_no <= '$currentInsNo'";

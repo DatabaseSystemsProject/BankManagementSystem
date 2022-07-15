@@ -5,6 +5,10 @@ require_once '../Controllers/loanInsContoller.php';
 $loanInsController = new LoanInsController();
 // $_SESSION["loanInsController"] = $loanInsController;
 $unpaidMonths = null;
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +57,12 @@ $unpaidMonths = null;
     }
 
     ?>
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 </body>
 
 </html>

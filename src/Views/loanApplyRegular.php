@@ -2,11 +2,17 @@
 include "../Controllers/regularLoanController.php";
 
 session_start();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+
 
 $loanController = new RegularLoanController();
 $check = $loanController->checkEligibility();
 
+
 $login = $_SESSION['login'];
+
 
 
 
@@ -129,7 +135,7 @@ if (isset($_SESSION['error_message'])) {
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNIC">Registration number </label>
-                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="" >
+                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="">
                         </div>
                     </div>
 
@@ -147,8 +153,8 @@ if (isset($_SESSION['error_message'])) {
                             if ($account_type == "organization") { ?>
                                 <option value="business">Business</option>
                             <?php
-                            }else{?>
-                            <option value="personal">Personal</option>
+                            } else { ?>
+                                <option value="personal">Personal</option>
                             <?php
                             }
                             ?>
@@ -388,6 +394,11 @@ if (isset($_SESSION['error_message'])) {
 
 
         };
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
     </script>
 
     <?php
