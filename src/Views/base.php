@@ -23,6 +23,7 @@ if (isset($_POST['logout'])) {
   <link rel="icon" type="image/x-icon" href="../Resources/Images/icon.png">
   <link rel="stylesheet" href="../CSS/base.css">
 
+
   <!-- <script>
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
@@ -30,6 +31,8 @@ if (isset($_POST['logout'])) {
     </script> -->
 
   
+
+
 
 
 

@@ -32,6 +32,13 @@ class bmDashboardController{
         $branch_name = $result["branch_name"];
         return $branch_name;
     }
+
+
+    public function getBranchID($branch_manager_NIC){
+        $result = $this->bmDashboardModel->getBMDetails($branch_manager_NIC);
+        $branch_id = $result["branch_id"];
+        return $branch_id;
+    }
 }
 
 ?>
