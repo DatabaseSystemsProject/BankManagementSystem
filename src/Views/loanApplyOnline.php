@@ -85,9 +85,14 @@ if (isset($_SESSION['error_message'])) {
                     </div>
                     <div class="input-group mb-3">
                         <div class="col-md-2">
-                            <label for="inputLoanAmount">Loan Duration</label>
+                            <label for="inputLoanDuration">Loan Duration</label>
                         </div>
-                        <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration)" id="inputLoanDuration1" name="inputLoanDuration" required>
+                        <input type="number" id="inputYear1" name="inputYear" min="0" max="100" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Years</span>
+                        </div>
+                        <input type="number" id="inputMonth1" name="inputMonth" min="0" max="11" required>
+                        <!-- <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration" id="inputLoanDuration" name="inputLoanDuration"> -->
                         <div class="input-group-append">
                             <span class="input-group-text">Months</span>
                         </div>
@@ -187,7 +192,7 @@ if (isset($_SESSION['error_message'])) {
                 <div class="form-row mt-3">
                     <div class="form-group " id="loanType">
                         <label for="inputLoanType">Loan Type</label>
-                        <select id="inputLoanType" class="custom-select mr-sm-2" name="inputLoanType" required>
+                        <select id="inputLoanType" class="custom-select mr-sm-2" name="inputLoanType" value="personal" >
                             <!-- <option>Choose...</option> -->
                             <?php
                             $loanTypes = $loanController->getLoanTypes();
@@ -213,9 +218,14 @@ if (isset($_SESSION['error_message'])) {
                     </div>
                     <div class="input-group mb-3">
                         <div class="col-md-2">
-                        <label for="inputLoanDuration">Loan Duration</label>
+                            <label for="inputLoanDuration">Loan Duration</label>
                         </div>
-                        <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration)" id="inputLoanDuration" name="inputLoanDuration" required>
+                        <input type="number" id="inputYear" name="inputYear" min="0" max="100" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Years</span>
+                        </div>
+                        <input type="number" id="inputMonth" name="inputMonth" min="0" max="11" required>
+                        <!-- <input type="text" class="form-control" aria-label="Loan Duration (Minimum one month duration" id="inputLoanDuration" name="inputLoanDuration"> -->
                         <div class="input-group-append">
                             <span class="input-group-text">Months</span>
                         </div>
@@ -363,7 +373,7 @@ if (isset($_SESSION['error_message'])) {
         function showOrg() {
 
             document.getElementById("orgData").style.display="block";
-            document.getElementById("loanType").style.display="none";
+            document.getElementById("loanType").value="business";
         };
         function showApplication() {
             application.hidden = !application.hidden;
@@ -375,22 +385,26 @@ if (isset($_SESSION['error_message'])) {
             var email = document.getElementById("inputEmail");
             var mobile = document.getElementById("inputMobile");
             var amount = document.getElementById("inputLoanAmount");
-            var duration = document.getElementById("inputLoanDuration");
+            // var duration = document.getElementById("inputLoanDuration");
             var sav_acc_no = document.getElementById("inputAccNo");
             var fd_no = document.getElementById("inputFDNo");
             var org_name = document.getElementById("inputOrgName");
             var reg_no= document.getElementById("inputRegNo");
+            var year= document.getElementById("inputYear");
+            var month =document.getElementById("inputMonth");
 
             full_name.value = passedArray["full_name"];
             nic.value = passedArray["nic"];
             email.value = passedArray["email"];
             mobile.value = passedArray["mobile"];
             amount.value = passedArray["amount"];
-            duration.value = passedArray["duration"];
+            // duration.value = passedArray["duration"];
             sav_acc_no.value = passedArray["sav_acc_no"];
             fd_no.value = passedArray["fd_no"];
             org_name.value=passedArray["org_name"];
             reg_no.value=passedArray["reg_no"];
+            year.value=passedArray["year"];
+            month.value=passedArray["month"];
             
 
 

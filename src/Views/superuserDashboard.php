@@ -1,4 +1,22 @@
-<?php include 'base.php' ?>
+<?php include 'base.php' ;
+include "../Controllers/staffDashboardControler.php";
+session_start();
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('location:login.php');
+}
+
+
+$account_type =$_SESSION['account_type'];
+$login=$_SESSION['login'];
+
+$staff_controller=new StaffDashboardController();
+$staff_member=$staff_controller->staffDetails($login);
+$name=$staff_member['f_name'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +42,8 @@
             <div class="sidebar" style="display:flex;flex-direction:column;">
                 <div class="ms-3" style="position: fixed; text-align: center;">
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
-                    <h1>Thinira</h1>
-                    <h1 style="margin-top: 10px;">Wanasinghe</h1>
+                    <h1><?php echo $staff_member['f_name'];?></h1>
+                    <h1 style="margin-top: 10px;"><?php echo $staff_member['l_name'];?></h1>
                 </div>
             </div>
 

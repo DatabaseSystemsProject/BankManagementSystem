@@ -99,8 +99,8 @@ $staffLogged = $loginController->staffLogin();
                             <div class="col-lg-6 h-100 ">
 
                                 <div class="card-body p-md-5 mx-md-4 my-4" style="background-image: linear-gradient(to right,#00007d,#0042db,#0076ff);">
-                                <h4>Our online system will...</h4>    
-                                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                    <h4>Our online system will...</h4>
+                                    <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                                         exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -121,8 +121,11 @@ $staffLogged = $loginController->staffLogin();
                     </div>
                 </div>
             </div>
+            
         </div>
     </section>
+
+
     <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
         function customerShow() {
@@ -153,9 +156,9 @@ $staffLogged = $loginController->staffLogin();
     </script>
 
     <?php
-    if (isset($_POST["customerLog"]) || isset($_POST["staffLog"] )) {
+    if (isset($_POST["customerLog"]) || isset($_POST["staffLog"])) {
         if ($customerLogged || $staffLogged) {
-            echo '<script type="text/javascript">alert("Success");</script>';
+            // echo '<script type="text/javascript">alert("Success");</script>';
         } else {
             echo '<script type="text/javascript">alert("Invalid credentials");</script>';
         }

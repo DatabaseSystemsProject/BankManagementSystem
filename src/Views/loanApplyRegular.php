@@ -4,7 +4,7 @@ include "../Controllers/regularLoanController.php";
 $loanController = new RegularLoanController();
 $check = $loanController->checkEligibility();
 
-$login ="12345s";
+$login ="123456";
 // $user_type = "personal";
 // $user_id = 111111111;
 // $login=111111111;

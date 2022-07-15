@@ -27,9 +27,9 @@ class RegularLoanController
             $this->sav_acc = $_POST["inputAccNo"];
             $this->applicant = $_POST["inputNIC"];
             $accountResult=$this->loanModel->getAccount($this->sav_acc);
-            if($accountResult["customer_type_name"]=="organization")
+            if($accountResult["owner_type_name"]=="organization")
             {
-                $this->reg_no=$this->loanModel->getRegNo($this->sav_acc)['reg_no'];
+                $this->reg_no=$this->loanModel->getRegNo($this->sav_acc)['org_regNo'];
                 $owners=$this->loanModel->getStackholder($this->reg_no,$this->applicant);
 
                 if(!empty($owners))
@@ -96,18 +96,18 @@ class RegularLoanController
         if (isset($_POST["apply"])) {
             if (!empty($_POST['inputLoanAmount']) && !empty($_POST['inputLoanType'])) {
 
-                if($this->isOrg())
-                {
-                    $loan_type = "business";
-                }else{
-                    $loan_type = "personal";
-                }
-               
+                // if($this->isOrg())
+                // {
+                //     $loan_type = "business";
+                // }else{
+                //     $loan_type = "personal";
+                // }
+                $loan_type = $_POST['inputLoanType'];
                 
                 $customer_NIC = $_POST['inputNIC'];
                 $amount = $_POST["inputLoanAmount"];
                 $year =$_POST["inputYear"];
-                $month=$_POST["inputMonth"] ;
+                $month=$_POST["inputMonth"];
                 $duration=$year*12+$month;
                 $tax_no = $_POST['inputTaxNo'];
                 $reg_no = $_POST['inputRegNo'];
@@ -121,6 +121,9 @@ class RegularLoanController
                 $savings_acc_no=$_POST['inputAccNo'];
                 $loan_status="requested";
                 $req_staff_id=$login;
+
+
+
 
                $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$loan_status,$req_staff_id,$savings_acc_no);
               
