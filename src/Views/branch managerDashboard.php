@@ -7,6 +7,7 @@ include "../Controllers/bmDashboradController.php";
 $bmDashboardCtrl = new bmDashboardController();
 
 $branch_manager_NIC = $_SESSION['login'];
+$acc_type = $_SESSION['login_type'];
 
 $bm_first_name = $bmDashboardCtrl->getFirstName($branch_manager_NIC);
 $bm_last_name = $bmDashboardCtrl->getLastName($branch_manager_NIC);
@@ -97,7 +98,7 @@ $branch_id = $bmDashboardCtrl->getBranchID($branch_manager_NIC);
                         </div>
                     </a>
 
-                </div>  <br><br><br><br><br><br>
+                </div>  <br><br><br><br><br><br><br><br><br>
 
                 <!--
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
