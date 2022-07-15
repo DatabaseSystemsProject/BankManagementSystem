@@ -14,12 +14,6 @@ class RegularLoanController
         $this->loanModel = new ReguarLoanModel();
     }
 
-    
-    function getLoanTypes()
-    {
-        $loanTypes = $this->loanModel->getLoanTypes();
-        return $loanTypes;
-    }
 
     function checkEligibility()
     {
@@ -75,6 +69,10 @@ class RegularLoanController
             $array["org_name"] = $resultOrg["org_name"];
             $array["reg_no"] = $resultOrg["reg_no"];
             
+        }else
+        {
+            $array["org_name"] = null;
+            $array["reg_no"]=null;
         }
 
 
@@ -96,13 +94,8 @@ class RegularLoanController
         if (isset($_POST["apply"])) {
             if (!empty($_POST['inputLoanAmount']) && !empty($_POST['inputLoanType'])) {
 
-                // if($this->isOrg())
-                // {
-                //     $loan_type = "business";
-                // }else{
-                //     $loan_type = "personal";
-                // }
-                $loan_type = $_POST['inputLoanType'];
+                $loan_type_data = $this->loanModel->getLoanType($_POST['inputLoanType']);
+                $loan_type=$loan_type_data['loan_plan_id'];
                 
                 $customer_NIC = $_POST['inputNIC'];
                 $amount = $_POST["inputLoanAmount"];
@@ -121,12 +114,19 @@ class RegularLoanController
                 $savings_acc_no=$_POST['inputAccNo'];
                 $loan_status="requested";
                 $req_staff_id=$login;
+                $monthly_instalment= round($amount/$duration+($amount*$loan_type_data['interest_rate']*0.01*$duration)/12);
+                var_dump($reg_no,$monthly_instalment);
 
 
 
 
-               $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$loan_status,$req_staff_id,$savings_acc_no);
-              
+
+               $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$loan_status,$req_staff_id,$savings_acc_no,$monthly_instalment);
+               if(!empty($result)){
+                echo "success";
+                // echo '<script type="text/javascript">alert("Success");</script>';
+                echo '<script>window.location.href="../Views/loanSuccess.php"</script>';
+            }
             }else{
                 echo '<script type="text/javascript">alert("You cannot apply this loan");</script>'; 
             }

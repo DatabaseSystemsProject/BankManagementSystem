@@ -31,7 +31,9 @@ class addOrganizationController
 
             $this->orgModel->addOrganization($regNo,$orgName,$regDate,$building,$street,$city,$district,$province,$zipcode,$contactNo,$email);
             $this->orgModel->addStakeholder($regNo,$stakeHolder1);
-            $this->orgModel->addStakeholder($regNo,$stakeHolder2);
+            if($stakeHolder2 != "None"){
+                $this->orgModel->addStakeholder($regNo,$stakeHolder2);
+            }
     
         }
     }
