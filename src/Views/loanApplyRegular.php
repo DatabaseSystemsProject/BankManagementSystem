@@ -66,7 +66,6 @@ if (isset($_SESSION['error_message'])) {
     </div>
 
 
-
     <div class="container border border-2 m-5 p-5 mx-auto bg-light " id="div3" hidden>
         <h2>Loan Application Form</h2>
 

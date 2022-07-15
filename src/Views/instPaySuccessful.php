@@ -1,4 +1,7 @@
-<?php include 'base.php' ?>
+<?php include 'base.php';
+session_start();
+unset($_SESSION["loan_details"]);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,18 +19,25 @@
     <link rel="stylesheet" href="../CSS/insufficientBalance.css">
 </head>
 
-<body>
+<body style="background-color: rgb(0,0,205);">
 
     <main-header></main-header>
     <main>
         <div class="card mx-auto" style="width: 50rem; height:27rem; margin: 0; position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+
             <div class="card-body" style="display: flex; flex-direction:column;">
-                <h2 class="card-title mx-auto">Insufficient Balance!</h2>
-                <i class="bi bi-emoji-frown mx-auto" style="font-size: 5vw;"></i>
-                <p class="card-text mx-auto">Do you wish to make another transfer?</p>
+                <h2 class="card-title mx-auto">
+
+                </h2>
+                <i class="bi bi-emoji-smile mx-auto" style="font-size: 5vw; margin-bottom:-1%"></i>
+                <?php
+                if (isset($_SESSION["Updated"])) {
+                    echo '<p class="card-text mx-auto" style="color:green;">' . $_SESSION["Updated"] . '</p>';
+                    unset($_SESSION["Updated"]);
+                }
+                ?>
                 <div class="mx-auto">
-                    <a href="onlineMoneyTransferForm.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
-                    <a href="customerDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
+                    <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">Exit</a>
                 </div>
             </div>
         </div>

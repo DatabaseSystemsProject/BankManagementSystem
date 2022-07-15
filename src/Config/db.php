@@ -2,7 +2,7 @@
 
 class Connector
 {
-    private static Connector $instance;
+    private static $instance;
     private $host;
     private $user;
     private $password;
@@ -11,14 +11,14 @@ class Connector
 
     private function __construct()
     {
-        $connection = mysqli_connect("localhost", "root", "", "testing");
+        $connection = mysqli_connect("localhost", "root", "", "phoenix_trust_bank");
         $this->connec = $connection;
         if (!$connection) {
             echo ("connection error" . mysqli_connect_error() . "<br/>");
             die();
         }
     }
-    public static function getInstance(): Connector
+    public static function getInstance()
     {
         if (!isset(self::$instance)) {
             self::$instance = new Connector();
