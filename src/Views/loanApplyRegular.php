@@ -1,10 +1,12 @@
 <?php include 'base.php';
 include "../Controllers/regularLoanController.php";
 
+session_start();
+
 $loanController = new RegularLoanController();
 $check = $loanController->checkEligibility();
 
-$login ="123456";
+$login = $_SESSION['login'];
 // $user_type = "personal";
 // $user_id = 111111111;
 // $login=111111111;
@@ -80,7 +82,7 @@ if (isset($_SESSION['error_message'])) {
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputNIC">NIC </label>
-                        <input type="text" class="form-control" id="inputNIC" placeholder="NIC" name="inputNIC" >
+                        <input type="text" class="form-control" id="inputNIC" placeholder="NIC" name="inputNIC">
                     </div>
                     <!-- <div class="form-group col-md-6">
                     <label for="inputPassNo">Passport Number</label>
@@ -334,7 +336,6 @@ if (isset($_SESSION['error_message'])) {
 
     if ($check && isset($_POST)) {
         $array = $loanController->autoFill();
-
     }
     ?>
 
@@ -411,8 +412,8 @@ if (isset($_SESSION['error_message'])) {
 
         echo "<script type='text/javascript'>showOrg();</script>";
     }
-    if (isset($_POST["apply"])){
-        echo"Set";
+    if (isset($_POST["apply"])) {
+        echo "Set";
         $loanController->submitAppication($login);
     }
 

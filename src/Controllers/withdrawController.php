@@ -43,7 +43,7 @@ class  WithdrawController extends Controller
                     if ($remainingbalance > 0) {
                         $this->withdrawModel->updateWithdrawalCount($_SESSION["account_no"], $newWithdrawalAmount);
                         $this->withdrawModel->updateAccountBalance($_SESSION["account_no"], $remainingbalance);
-                        $employee_id = 199974401842;
+                        $employee_id = $_SESSION['login'];
                         $this->withdrawModel->updateTransactionTable($_SESSION["account_no"], $amount, $employee_id);
                         // $_SESSION["success"] = "Successfully withdrawn";
                         echo '<script>window.location.href="../Views/withdrawSuccess.php"</script>';

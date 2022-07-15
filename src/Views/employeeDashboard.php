@@ -4,8 +4,13 @@ include_once 'base.php';
 include_once '../Config/db.php';
 include_once '../Models/employeeDashboardMOdel.php';
 include_once '../Controllers/employeeDashboardController.php';
+session_start();
 
-$employee_id = 199974401842;
+
+// $employee_id = 199974401842;
+// $account_type = $_SESSION['account_type'];
+$employee_id = $_SESSION['login'];
+
 
 $controller = new employeeDashboardController();
 $employee_details = $controller->getEmployeeDetails($employee_id);
@@ -28,6 +33,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="counter.js"></script>
+
 </head>
 
 <body>
@@ -46,7 +52,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                 <div class=" bankName">
                     <img src="../Resources/Images/logoBlack.png" alt="no title">
                 </div>
-                <div class="container my-3">
+                <!-- <div class="container my-3">
                     <div class="row">
                         <div class="four col-md-3">
                             <div class="counter-box colored"> <span class="counter" id="counter" data-val="225">4</span>
@@ -71,7 +77,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                         </div>
 
                     </div>
-                </div>
+                </div> -->
                 <div class="dash1" style="display: flex;flex-direction: row ;align-self: center;justify-content:space-evenly;">
 
                     <a href="addAccountForm.php">
@@ -134,7 +140,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                 </div>
 
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
-                    <a href="loanApplicationForm.php">
+                    <a href="loanApplyRegular.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
@@ -173,7 +179,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                         </div>
 
                     </a>
-                   
+
                 </div>
 
             </div>
