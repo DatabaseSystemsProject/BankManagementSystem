@@ -26,6 +26,12 @@ $childCtrl = new ChildController();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
 
+    <script>
+        function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
+    </script>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -107,10 +113,6 @@ $childCtrl = new ChildController();
 <script type="text/javascript">
     $(".chosen").chosen();
 
-    function gotoDashboard() {
-        var url = <?php echo (json_encode($myUrl)); ?>;
-        window.location.href = url;
-    }
     //validate to make sure the age matches the savings plan
     //initial deposit should be greater than minimum amount
     //cant hv another savings account
