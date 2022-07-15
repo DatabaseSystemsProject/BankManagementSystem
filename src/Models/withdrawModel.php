@@ -70,4 +70,88 @@ class WithdrawModel
         $stmt->execute();
         return;
     }
+
+    public function withdrawAndUpdateTransaction($account_no, $newWithdrawalCount, $remainingbalance, $amount, $employee_id)
+    {
+        $transaction_type = 1;
+
+        mysqli_begin_transaction($this->conn);
+        try {
+            mysqli_autocommit($this->conn, FALSE);
+            $sql1 = "UPDATE savings_account SET withdrawal_count = ? WHERE savings_acc_no =?";
+            $sql2 = "UPDATE account SET balance = ? WHERE account_no =?";
+            $sql3 = "INSERT INTO transaction(transaction_type,source,amount,teller) VALUES (?,?,?,?)";
+
+            $state = true;
+
+            $stmt1 = $this->conn->prepare($sql1);
+            $stmt1->bind_param("di", $newWithdrawalCount, $account_no);
+            $res1 = $stmt1->execute();
+            if (!$res1) {
+                $state = false;
+            }
+
+            $stmt2 = $this->conn->prepare($sql2);
+            $stmt2->bind_param("di", $remainingbalance, $account_no);
+            $res2 = $stmt2->execute();
+            if (!$res2) {
+                $state = false;
+            }
+
+            $stmt3 = $this->conn->prepare($sql3);
+            $stmt3->bind_param("iidi", $transaction_type, $account_no, $amount, $employee_id);
+            $res3 = $stmt3->execute();
+            if (!$res3) {
+                $state = false;
+            }
+            if ($state) {
+                mysqli_commit($this->conn);
+                return true;
+            } else {
+                mysqli_rollback($this->conn);
+                return false;
+            }
+        } catch (mysqli_sql_exception $exception) {
+            throw $exception;
+            return false;
+        }
+    }
+
+    public function updateBalanceAndUpdateTransaction($account_no, $remainingbalance, $amount, $employee_id)
+    {
+        $transaction_type = 1;
+
+        mysqli_begin_transaction($this->conn);
+        try {
+            mysqli_autocommit($this->conn, FALSE);
+            $sql2 = "UPDATE account SET balance = ? WHERE account_no =?";
+            $sql3 = "INSERT INTO transaction(transaction_type,source,amount,teller) VALUES (?,?,?,?)";
+
+            $state = true;
+
+            $stmt2 = $this->conn->prepare($sql2);
+            $stmt2->bind_param("di", $remainingbalance, $account_no);
+            $res2 = $stmt2->execute();
+            if (!$res2) {
+                $state = false;
+            }
+
+            $stmt3 = $this->conn->prepare($sql3);
+            $stmt3->bind_param("iidi", $transaction_type, $account_no, $amount, $employee_id);
+            $res3 = $stmt3->execute();
+            if (!$res3) {
+                $state = false;
+            }
+            if ($state) {
+                mysqli_commit($this->conn);
+                return true;
+            } else {
+                mysqli_rollback($this->conn);
+                return false;
+            }
+        } catch (mysqli_sql_exception $exception) {
+            throw $exception;
+            return false;
+        }
+    }
 }
