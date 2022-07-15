@@ -1,9 +1,9 @@
 <?php include 'base.php';
 
 session_start();
-// $account_type=$_SESSION["account_type"];
-$account_type="customer";
-$url=strval($account_type)."Dashboard.php";
+$account_type = $_SESSION["account_type"];
+// $account_type="customer";
+$url = strval($account_type) . "Dashboard.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

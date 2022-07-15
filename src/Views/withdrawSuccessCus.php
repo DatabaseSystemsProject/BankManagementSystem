@@ -1,4 +1,8 @@
 <?php include 'base.php';
+session_start();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 if (isset($_SESSION["account_type"])) {
     unset($_SESSION["account_type"]);
 }
@@ -39,6 +43,12 @@ if (isset($_SESSION["account_no"])) {
             </div>
         </div>
     </main>
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        };
+    </script>
 
 </body>
 

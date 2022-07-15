@@ -1,11 +1,12 @@
 <?php
 
 include 'base.php';
-include_once ("../Controllers/individualCustomerController.php");
+include_once("../Controllers/individualCustomerController.php");
+session_start();
 
 $customerCtrl = new individualCustomerController();
 
-if(isset($_POST["registerCustomer"])){
+if (isset($_POST["registerCustomer"])) {
     $customerCtrl->addCustomer();
 }
 
@@ -33,7 +34,7 @@ if(isset($_POST["registerCustomer"])){
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2> Add Customer </h2> <br>
-    <form action="" method = "post" enctype = "multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="inputTitle">Title</label>
@@ -91,13 +92,13 @@ if(isset($_POST["registerCustomer"])){
             </div>
             <div class="form-group col-md-4">
                 <label for="inputStreetName">Street Name</label>
-                <input type="text" class="form-control" id="inputStreetName" name="inputStreetName"  required>
+                <input type="text" class="form-control" id="inputStreetName" name="inputStreetName" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity" name="inputCity"  required>
+                <input type="text" class="form-control" id="inputCity" name="inputCity" required>
             </div>
             <div class="form-group col-md-3">
                 <label for="inputDistrict">District</label>
@@ -147,13 +148,13 @@ if(isset($_POST["registerCustomer"])){
             </div>
             <div class="form-group col-md-2">
                 <label for="inputZip">Zip Code</label>
-                <input type="number" class="form-control" id="inputZip" name="inputZip"  required>
+                <input type="number" class="form-control" id="inputZip" name="inputZip" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmailAddress">Email Address</label>
-                <input type="email" class="form-control" id="inputEmailAddress" name="inputEmailAddress" placeholder="Email Address"  required>
+                <input type="email" class="form-control" id="inputEmailAddress" name="inputEmailAddress" placeholder="Email Address" required>
             </div>
         </div>
         <div class="form-row">
@@ -174,7 +175,7 @@ if(isset($_POST["registerCustomer"])){
                 <input type="text" class="form-control" id="inputContactNo" name="inputContactNo" placeholder="Contact No." required>
             </div>
         </div>
-         
+
         <br>
         <button type="submit" class="btn btn-primary" id="registerCustomer" name="registerCustomer">Register</button>
 
@@ -182,6 +183,10 @@ if(isset($_POST["registerCustomer"])){
 </div>
 
 <script type="text/javascript">
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
     //form validation TODO
     //test if an adult
     //test email , tp, and nic

@@ -1,19 +1,20 @@
 <?php
-
+// if (!isset($_SESSION['login'])) {
+//     header("Location:login.php");
+// }
 include_once 'base.php';
 include_once '../Config/db.php';
 include_once '../Models/employeeDashboardMOdel.php';
 include_once '../Controllers/employeeDashboardController.php';
 session_start();
 
-
 // $employee_id = 199974401842;
-// $account_type = $_SESSION['account_type'];
+$account_type = $_SESSION['login_type'];
 $employee_id = $_SESSION['login'];
-
-
 $controller = new employeeDashboardController();
 $employee_details = $controller->getEmployeeDetails($employee_id);
+$myUrl = strval($account_type) . "Dashboard.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -80,13 +81,14 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                 </div> -->
                 <div class="dash1" style="display: flex;flex-direction: row ;align-self: center;justify-content:space-evenly;">
 
-                    <a href="addAccountForm.php">
+                    <a href="createCard.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                <i class="bi bi-person-plus-fill" style="font-size:100px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -70%; margin-bottom:-20%">Add Account</p>
+                                <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">Create Card</p>
                             </div>
                         </div>
+
                     </a>
                     <a href="depositMoneyForm.php">
                         <div class="card" style="width: 16rem;height:12rem;">
@@ -170,11 +172,30 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                     </a>
                 </div>
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
-                    <a href="createCard.php">
+
+                    <a href="addChildAccount.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">Create Card</p>
+                                <i class="bi bi-person-plus-fill" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-20%; margin-bottom:-20%">Add child Banking Account</p>
+                            </div>
+                        </div>
+
+                    </a>
+                    <a href="addIndividualAccount.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-person-plus-fill" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-20%; margin-bottom:-20%">Add Adult Banking Account</p>
+                            </div>
+                        </div>
+
+                    </a>
+                    <a href="addOrgBankAccount.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-person-plus-fill" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-20%; margin-bottom:-20% ;text-align:center;">Add Organization Banking Account</p>
                             </div>
                         </div>
 
@@ -186,7 +207,12 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
 
 
         </div>
-
+        <script>
+            function gotoDashboard() {
+                var url = <?php echo (json_encode($myUrl)); ?>;
+                window.location.href = url;
+            }
+        </script>
 </body>
 
 </html>

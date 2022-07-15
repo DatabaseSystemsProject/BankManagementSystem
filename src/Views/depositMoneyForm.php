@@ -1,10 +1,16 @@
-<?php 
+<?php
 
 include 'base.php';
-include_once ("../Controllers/depositMoneyController.php");
-
+include_once("../Controllers/depositMoneyController.php");
+session_start();
 $depositMoneyCtrl = new DepositMoneyController();
 $empID = 345666; // remove this when adding session
+
+
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +23,12 @@ $empID = 345666; // remove this when adding session
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-
+<script>
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deposit Money</title>
 </head>
@@ -28,7 +39,7 @@ $empID = 345666; // remove this when adding session
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2>Deposit Money</h2> <br>
-    <form action="" method = "post" enctype = "multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputAccNo">Account Number</label>
@@ -47,18 +58,19 @@ $empID = 345666; // remove this when adding session
                 <input type="text-box" class="form-control" id="inputRemarks" name="inputRemarks" placeholder="Remarks">
             </div>
         </div>
-         
+
         <br>
         <button type="submit" class="btn btn-primary" id="deposit" name="deposit">Deposit</button>
 
     </form>
 </div>
 <script type="text/javascript">
+    
     //deposit cannot be negative
     //account should exist
 </script>
 <?php
-    $depositMoneyCtrl->depositMoney($empID);
+$depositMoneyCtrl->depositMoney($empID);
 ?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

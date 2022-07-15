@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 include 'base.php';
-include_once ("../Controllers/addOrganizationController.php");
-include_once ("../Controllers/individualCustomerController.php");
+include_once("../Controllers/addOrganizationController.php");
+include_once("../Controllers/individualCustomerController.php");
 
 $orgCtrl = new addOrganizationController();
 $individualCtrl = new individualCustomerController();
@@ -37,8 +37,8 @@ $individualCtrl = new individualCustomerController();
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2> Add Organization </h2> <br>
-    <form action="" method = "post" enctype = "multipart/form-data">
-    <div class="form-row">
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputOrgName">Name of the Organization</label>
                 <input type="text" class="form-control" id="inputOrgName" name="inputOrgName" placeholder="Organization Name" required>
@@ -54,7 +54,7 @@ $individualCtrl = new individualCustomerController();
             <div class="form-group col-md-4">
                 <label for="inputRegDate">Registered Date</label>
                 <input type="date" class="form-control" id="inputRegDate" name="inputRegDate" placeholder="Registered Date" required>
-            </div> 
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
@@ -62,30 +62,30 @@ $individualCtrl = new individualCustomerController();
                 <select class="chosen" name="inputStakeholder1" id="inputStakeholder1" required>
                     <?php
                     $nicList = $individualCtrl->getNIClist();
-                    if($nicList->num_rows > 0){
-                        while($row = $nicList->fetch_assoc()) {
-                            echo "id: " . $row["user_NIC"].  "<br>";
-                            ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
-                          }
-                    }
-                    ?>
+                    if ($nicList->num_rows > 0) {
+                        while ($row = $nicList->fetch_assoc()) {
+                            echo "id: " . $row["user_NIC"] .  "<br>";
+                    ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
+                                                                                            }
+                                                                                        }
+                                                                                                ?>
                 </select>
-            </div> 
+            </div>
             <div class="form-group col-md-4">
                 <label for="inputStakeholder2">Second Stakeholder (Select None if not applicable)</label>
                 <select class="chosen" name="inputStakeholder2" id="inputStakeholder2" required>
                     <option value="None">None</option>
                     <?php
                     $nicList = $individualCtrl->getNIClist();
-                    if($nicList->num_rows > 0){
-                        while($row = $nicList->fetch_assoc()) {
-                            echo "id: " . $row["user_NIC"].  "<br>";
-                            ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
-                          }
-                    }
-                    ?>
+                    if ($nicList->num_rows > 0) {
+                        while ($row = $nicList->fetch_assoc()) {
+                            echo "id: " . $row["user_NIC"] .  "<br>";
+                    ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
+                                                                                            }
+                                                                                        }
+                                                                                                ?>
                 </select>
-            </div> 
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -127,7 +127,7 @@ $individualCtrl = new individualCustomerController();
                 <input type="text" class="form-control" id="inputContactNo" name="inputContactNo" placeholder="Contact No.">
             </div>
         </div>
-         
+
         <br>
         <button type="submit" class="btn btn-primary" id="registerOrg" name="registerOrg">Register</button>
 
@@ -135,12 +135,17 @@ $individualCtrl = new individualCustomerController();
 </div>
 
 <script type="text/javascript">
-     $(".chosen").chosen();
+    $(".chosen").chosen();
+
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
     //form validation TODO
     //check whether stakeholders are different
 </script>
 <?php
-    $orgCtrl->addOrganization();
+$orgCtrl->addOrganization();
 ?>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

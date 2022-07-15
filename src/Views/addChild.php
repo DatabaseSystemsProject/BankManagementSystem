@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 include 'base.php';
 require("validateCustomer.php");
-include_once ("../Controllers/childController.php");
-include_once ("../Controllers/individualCustomerController.php");
+include_once("../Controllers/childController.php");
+include_once("../Controllers/individualCustomerController.php");
 
 $childCtrl = new ChildController();
 $guardianCtrl = new individualCustomerController();
@@ -45,7 +45,7 @@ $guardianCtrl = new individualCustomerController();
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2> Add a Child </h2> <br>
-    <form action="" method = "post" enctype = "multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="inputFirstName">First Name</label>
@@ -63,23 +63,23 @@ $guardianCtrl = new individualCustomerController();
         <br>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputNIC">Guardian NIC</label> 
+                <label for="inputNIC">Guardian NIC</label>
                 <select class="chosen" name="guardianNIC" id="guardianNIC" required>
                     <!-- <option value="************">************</option> -->
                     <?php
                     $nicList = $guardianCtrl->getNIClist();
-                    if($nicList->num_rows > 0){
-                        while($row = $nicList->fetch_assoc()) {
-                            ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
-                          }
-                    }
-                ?>
+                    if ($nicList->num_rows > 0) {
+                        while ($row = $nicList->fetch_assoc()) {
+                    ?><option value="<?= $row["user_NIC"]; ?>"><?= $row["user_NIC"]; ?></option><?php
+                                                                                            }
+                                                                                        }
+                                                                                                ?>
                     <!-- <option value="198278564732">198278564732</option>
                     <option value="199978564732">199978564732</option> -->
                 </select>
             </div>
         </div>
-        
+
         <br>
         <fieldset class="form-group">
             <div class="row">
@@ -106,7 +106,7 @@ $guardianCtrl = new individualCustomerController();
                 <input type="date" class="form-control" id="inputDoB" name="inputDoB" placeholder="Date of Birth" required>
             </div>
         </div>
-         
+
         <br>
         <button type="submit" class="btn btn-primary" id="registerChild" name="registerChild">Register</button>
 
@@ -114,12 +114,17 @@ $guardianCtrl = new individualCustomerController();
 </div>
 
 <script type="text/javascript">
-        $(".chosen").chosen();
+    $(".chosen").chosen();
+
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
 </script>
 <?php
-    $childCtrl->addChild();
-    //validation done
-?> 
+$childCtrl->addChild();
+//validation done
+?>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
