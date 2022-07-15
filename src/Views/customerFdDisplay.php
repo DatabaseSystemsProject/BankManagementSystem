@@ -5,8 +5,11 @@ include_once '../Models/customerFdDisplayModel.php';
 include_once '../Controllers/customerFdDisplayController.php';
 
 session_start();
-
-$account_number = 12;
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl =  "customerDashboard.php";
+$account_number = $_SESSION['account_no'];
+// $account_number = 12;
 $controller = new CustomerFdDisplayController();
 $isFdAccountExist = $controller->getCustomerFdDetails($account_number);
 $details = $controller->getDetails();
@@ -84,6 +87,11 @@ $details = $controller->getDetails();
         function showApplication2() {
             application2.hidden = !application2.hidden;
 
+        };
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
         };
     </script>
 

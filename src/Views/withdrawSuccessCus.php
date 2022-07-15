@@ -3,12 +3,19 @@ session_start();
 $account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
 $myUrl = strval($account_type) . "Dashboard.php";
-if (isset($_SESSION["account_type"])) {
-    unset($_SESSION["account_type"]);
+if (isset($_SESSION["accountType"])) {
+    unset($_SESSION["accountType"]);
 }
-if (isset($_SESSION["account_no"])) {
-    unset($_SESSION["account_no"]);
+if (isset($_SESSION["atm0direct"])) {
+    unset($_SESSION["atm0direct"]);
 }
+if (isset($_SESSION["atm1direct"])) {
+    unset($_SESSION["atm1direct"]);
+}
+if (isset($_SESSION["atm2direct"])) {
+    unset($_SESSION["atm2direct"]);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

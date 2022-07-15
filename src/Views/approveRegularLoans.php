@@ -7,7 +7,6 @@ include "../Controllers/approveRegularLoansController.php";
 $arl_ctrl = new ApproveRegularLoansController();
 
 $branch_manager_NIC = $_SESSION['branch_manager_NIC'];
-//$branch_manager_NIC = '802365415V'; // hardcoded for demonstration
 
 $branch_id = $arl_ctrl->getBranchID($branch_manager_NIC);
 $branch_name = $arl_ctrl->getBranchName($branch_manager_NIC);
@@ -26,6 +25,8 @@ if (isset($_GET['reject_loan_id']) && isset($_GET['reject_bmID'])) {
 
     $arl_ctrl->rejectLoan($loan_id, $branch_manager_NIC);
 }
+
+$myUrl = "branch managerDashboard.php";
 
 ?>
 
@@ -47,6 +48,13 @@ if (isset($_GET['reject_loan_id']) && isset($_GET['reject_bmID'])) {
             background-color: white;
         }
     </style>
+
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 
 </head>
 

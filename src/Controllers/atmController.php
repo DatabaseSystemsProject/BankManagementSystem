@@ -19,6 +19,7 @@ class AtmController extends Controller
                 $_SESSION['error_message'] = "Invalid pin number";
                 header("Location: ../Views/atm1.php");
             } else {
+                $_SESSION["atm1direct"] = "direct from atm1";
                 header("Location: ../Views/atm2.php");
             }
         } else {
@@ -37,6 +38,7 @@ class AtmController extends Controller
                     header("Location: ../Views/atm0.php");
                 } else {
                     $_SESSION["account_no"] = $result["account_no"];
+                    $_SESSION["atm0direct"] = "direct from atm0";
                     header("Location: ../Views/atm1.php");
                 }
             } else {
@@ -49,21 +51,23 @@ class AtmController extends Controller
     public function checkAccount()
     {
         if (isset($_POST["checking"])) {
-            $_SESSION["account_type"] = "checking";
+            $_SESSION["accountType"] = "checking";
             $result = $this->atmModel->getAccount($_SESSION["account_no"], "checking");
             if (!$result) {
                 $_SESSION['error_message'] = "No checking account ";
                 header("Location: ../Views/atm2.php");
             } else {
+                $_SESSION["atm2direct"] = "direct from atm2";
                 header("Location: ../Views/atm3.php");
             }
         } else if (isset($_POST["savings"])) {
-            $_SESSION["account_type"] = "savings";
+            $_SESSION["accountType"] = "savings";
             $result = $this->atmModel->getAccount($_SESSION["account_no"], "savings");
             if (!$result) {
                 $_SESSION['error_message'] = "No savings account ";
                 header("Location: ../Views/atm2.php");
             } else {
+                $_SESSION["atm2direct"] = "direct from atm2";
                 header("Location: ../Views/atm3.php");
             }
         }
@@ -77,7 +81,7 @@ class AtmController extends Controller
     private function checkAccountAndWithdraw()
     {
         if (!empty($_POST["amount"])) {
-            if ($_SESSION["account_type"] == "savings") {
+            if ($_SESSION["accountType"] == "savings") {
                 $result = $this->atmModel->getSavingsAcc($_SESSION["account_no"]);
                 if (trim($result["state"], " ") == "active") {
                     if ($result["withdrawal_count"] < 5) {
@@ -106,7 +110,7 @@ class AtmController extends Controller
                     $_SESSION['error_message'] = "Account is not active";
                     header("Location: ../Views/atm3.php");
                 }
-            } else if ($_SESSION["account_type"] == "checking") {
+            } else if ($_SESSION["accountType"] == "checking") {
                 $result = $this->atmModel->getCheckingAcc($_SESSION["account_no"]);
                 if (trim($result["state"], " ") == "active") {
                     $amount = $_POST["amount"];

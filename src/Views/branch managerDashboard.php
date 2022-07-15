@@ -13,6 +13,8 @@ $bm_last_name = $bmDashboardCtrl->getLastName($branch_manager_NIC);
 $branch_name = $bmDashboardCtrl->getBranchName($branch_manager_NIC);
 $branch_id = $bmDashboardCtrl->getBranchID($branch_manager_NIC);
 
+$myUrl = "branch managerDashboard.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +35,14 @@ $branch_id = $bmDashboardCtrl->getBranchID($branch_manager_NIC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="counter.js"></script>
+
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
+
 </head>
 
 <body style="background-image:linear-gradient(to right,#00007d,#0042db,#0076ff);">
@@ -97,7 +107,7 @@ $branch_id = $bmDashboardCtrl->getBranchID($branch_manager_NIC);
                         </div>
                     </a>
 
-                </div>  <br><br><br><br><br><br>
+                </div>  <br><br><br><br><br><br><br><br><br>
 
                 <!--
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
