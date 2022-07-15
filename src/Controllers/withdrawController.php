@@ -1,7 +1,6 @@
 <?php
 require_once('../Core/Controller.php');
 include "../Models/withdrawModel.php";
-
 class  WithdrawController extends Controller
 {
 
@@ -36,18 +35,19 @@ class  WithdrawController extends Controller
             $result = $this->withdrawModel->getSavingsAcc($_SESSION["account_no"]);
             if (trim($result["state"], " ") == "active") {
                 if ($result["withdrawal_count"] < 5) {
-                    $newWithdrawalAmount = $result["withdrawal_count"] + 1;
+                    $newWithdrawalCount = $result["withdrawal_count"] + 1;
                     $amount = $_POST["amount"];
                     $remainingbalance = $result["balance"] -  $amount;
 
                     if ($remainingbalance > 0) {
-                        $this->withdrawModel->updateWithdrawalCount($_SESSION["account_no"], $newWithdrawalAmount);
-                        $this->withdrawModel->updateAccountBalance($_SESSION["account_no"], $remainingbalance);
-                        $employee_id = $_SESSION['login'];
-                        $this->withdrawModel->updateTransactionTable($_SESSION["account_no"], $amount, $employee_id);
-                        // $_SESSION["success"] = "Successfully withdrawn";
-                        echo '<script>window.location.href="../Views/withdrawSuccess.php"</script>';
-
+                        $employee_id = $_SESSION["login"];
+                        $res = $this->withdrawModel->withdrawAndUpdateTransaction($_SESSION["account_no"], $newWithdrawalCount, $remainingbalance, $amount, $employee_id);
+                        if ($res) {
+                            echo '<script>window.location.href="../Views/withdrawSuccess.php"</script>';
+                        } else {
+                            $_SESSION['error_message'] = "Withdrawal Failed";
+                            echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=withdrawalfailed"</script>';
+                        }
                         return;
                     } else {
                         $_SESSION['error_message'] = "Not enough balance in the account";
@@ -70,10 +70,13 @@ class  WithdrawController extends Controller
                 $amount = $_POST["amount"];
                 $remainingbalance = $result["balance"] -  $amount;
                 if ($remainingbalance > 0) {
-                    $this->withdrawModel->updateAccountBalance($_SESSION["account_no"], $remainingbalance);
-                    // $_SESSION["success"] = "Successfully withdrawn";
-                    echo '<script>window.location.href="../Views/withdrawSuccess.php"</script>';
-                    return;
+                    $employee_id = $_SESSION["login"];
+                    $res = $this->withdrawModel->updateBalanceAndUpdateTransaction($_SESSION["account_no"], $remainingbalance, $amount, $employee_id);
+                    if ($res) {
+                        echo '<script>window.location.href="../Views/withdrawSuccess.php"</script>';
+                    } else {
+                        $_SESSION['error_message'] = "Withdrawal Failed";
+                    }
                 } else {
                     $_SESSION['error_message'] = "Not enough balance in the account";
                     echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=insufficientBalance"</script>';
@@ -82,7 +85,6 @@ class  WithdrawController extends Controller
             } else {
                 $_SESSION['error_message'] = "Account is not active";
                 echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=inactive"</script>';
-
                 return;
             }
         }
