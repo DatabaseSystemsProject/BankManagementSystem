@@ -102,7 +102,7 @@ class TransactionReportController{
 
                 ?>
 
-                <div class="container report border m-5 py-5 px-5 mx-auto">
+                <div class="container report border m-5 py-5 px-5 mx-auto" style="background-color: white;">
                     <h4 style="text-align: center;"> <?php echo $branch_name ?> Branch - Total Transaction Report </h4> <br> <br>
 
                     <h6> No of Withdrawals : &nbsp; <?php echo $withdrawals_count ?> </h6> <br>
