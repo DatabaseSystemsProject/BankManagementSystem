@@ -53,63 +53,75 @@ class ApproveRegularLoansModel {
 
 
     public function approveLoan($loan_id, $branch_manager_NIC, $duration){
-        $loan_status = "accepted";
-
-        $sql = "UPDATE regular_loan
-                SET loan_status = ?,
-                    accep_rej_staff_id=?
-                WHERE loan_id = ?";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ssi", $loan_status, $branch_manager_NIC, $loan_id);
-        $result = $stmt->execute();
-
-        if (!$result) {
-            echo "Error: " . mysqli_error($this->conn) . ".";
-        } else {
-            $this->insertInstallments($loan_id, $duration);
-        }
-    }
-
-    public function insertInstallments($loan_id, $duration){
         
-        $months = array("January", "February", "March", "April", "May","June","July","August","September","October","November","December");
+        mysqli_begin_transaction($this->conn);      // SQL TRANSACTION
 
-        $start_month = date("m") + 1;
-        $year = date("Y");
+        try{
+            $state = TRUE;
+            $loan_status = "accepted";
 
-        for($i = 1; $i <= $duration; $i++){
-            $j = $i % 12;
-            $no = $j - 1 + $start_month - 1;
-            if($no <= 11){
-                $month = $months[$no];
-                if($month == "January" && $i != 1){
-                    $year = $year + 1;
-                }
-            }
-            else {
-                $month = $months[$no - 12];
-                if($month == "January" && $i != 1){
-                    $year = $year + 1;
-                }
-            }
-
-            $ins_no = $i;
-            $paid = 0;
-
-            $sql = "INSERT INTO loan_installment(loan_id, month, year, installment_no, paid)
-                    VALUES (?,?,?,?,?)";
+            $sql = "UPDATE regular_loan
+                    SET loan_status = ?,
+                        accep_rej_staff_id=?
+                    WHERE loan_id = ?";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("isiii", $loan_id, $month, $year, $ins_no, $paid);
+            $stmt->bind_param("ssi", $loan_status, $branch_manager_NIC, $loan_id);
             $result = $stmt->execute();
 
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
+            } 
+            else {
+                $months = array("January", "February", "March", "April", "May","June","July","August","September","October","November","December");
+
+                $start_month = date("m") + 1;
+                $year = date("Y");
+
+                for($i = 1; $i <= $duration; $i++){
+                    $j = $i % 12;
+                    $no = $j - 1 + $start_month - 1;
+                    if($no <= 11){
+                        $month = $months[$no];
+                        if($month == "January" && $i != 1){
+                            $year = $year + 1;
+                        }
+                    }
+                    else {
+                        $month = $months[$no - 12];
+                        if($month == "January" && $i != 1){
+                            $year = $year + 1;
+                        }
+                    }
+
+                    $ins_no = $i;
+                    $paid = 0;
+
+                    $sql = "INSERT INTO loan_installment(loan_id, month, year, installment_no, paid)
+                            VALUES (?,?,?,?,?)";
+
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bind_param("isiii", $loan_id, $month, $year, $ins_no, $paid);
+                    $result = $stmt->execute();
+
+                    if (!$result) {
+                        $state = FALSE;
+                        echo "Error: " . mysqli_error($this->conn) . ".";
+                    }
+                }
             }
-        } 
+
+            if($state){
+                mysqli_commit($this->conn);
+            }
+
+        }catch (mysqli_sql_exception $exception) {
+            mysqli_rollback($this->conn);
+            throw $exception;
+        }
     }
 
+    
 
     public function rejectLoan($loan_id, $branch_manager_NIC){
         $loan_status = "rejected";

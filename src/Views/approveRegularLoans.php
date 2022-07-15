@@ -42,12 +42,18 @@ if (isset($_GET['reject_loan_id']) && isset($_GET['reject_bmID'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <title>Approve/Reject Regular Loans</title>
 
+    <style>
+        .container{
+            background-color: white;
+        }
+    </style>
+
 </head>
 
 <body>
-    <main-header></main-header> <br> <br> <br>
+    <main-header></main-header> <br> <br> <br> <br>
     <div class="cont">
-        <h2 style="text-align: center;"> Approve/Reject Regular Loans - <?php echo $branch_name ?> Branch </h2> <br> <br>
+        <h2 style="text-align: center; color:white;"> Approve/Reject Regular Loans - <?php echo $branch_name ?> Branch </h2> <br> <br>
         
         <div class="container mx-auto table-responsive">
             <table class="table table-hover">

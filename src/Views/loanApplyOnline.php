@@ -8,9 +8,9 @@ $check = $loanController->checkEligibility();
 // $account_type = "organization";
 // $account_no = 456;
 // $login = 111111112;
-$account_type = "personal";
-$account_no = 123;
-$login=111111111;
+$account_type = $_SESSION['account_type'];
+$account_no = $_SESSION['account_no'];
+$login=$_SESSION['login'];
 // $account_no = 11111111;
 // $login=11111111;
 
@@ -367,10 +367,9 @@ if (isset($_SESSION['error_message'])) {
             var chkYes = document.getElementById("TaxYes");
             var inputTaxNo = document.getElementById("inputTaxdata");
             inputTaxNo.hidden = chkYes.checked ? false : true;
-            if (!inputTaxNo.hidden) {
-                inputTaxNo.focus();
-            } else {
+            if (inputTaxNo.hidden) {
                 inputTaxNo.value = NULL;
+                // inputTaxNo.focus();
             }
         };
 
