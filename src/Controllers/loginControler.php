@@ -42,6 +42,7 @@ class LoginController
 
                         return true;
                     } else {
+                        echo '<script type="text/javascript">alert("You are can not log in to this account.");</script>';
                         return false;
                     }
                 } else {
@@ -55,10 +56,12 @@ class LoginController
 
                         return true;
                     } else {
+                        echo '<script type="text/javascript">alert("NIC miss match.");</script>';
                         return false;
                     }
                 }
             } else {
+                echo '<script type="text/javascript">alert("Invalid cridentials.");</script>';
                 return false;
             }
         }
