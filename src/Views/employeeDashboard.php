@@ -1,5 +1,7 @@
 <?php
-
+// if (!isset($_SESSION['login'])) {
+//     header("Location:login.php");
+// }
 include_once 'base.php';
 include_once '../Config/db.php';
 include_once '../Models/employeeDashboardMOdel.php';
@@ -10,6 +12,7 @@ session_start();
 // $employee_id = 199974401842;
 // $account_type = $_SESSION['account_type'];
 $employee_id = $_SESSION['login'];
+
 
 
 $controller = new employeeDashboardController();

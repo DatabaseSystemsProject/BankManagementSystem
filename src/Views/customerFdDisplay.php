@@ -68,7 +68,7 @@ $details = $controller->getDetails();
 
     <div style="margin-top:5rem;" id="emptymsg" hidden>
         <div class="container border border-2 m-5 p-5 mx-auto bg-light">
-            <h1 style="color:black;">You do not have any fixed deposits</h1>
+            <h1 style="color:black;margin:auto;align-self:center;text-align:center;">You do not have any fixed deposits</h1>
         </div>
     </div>
 

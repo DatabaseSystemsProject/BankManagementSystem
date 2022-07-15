@@ -14,7 +14,7 @@ class customerFdDisplayModel
 
     public function checkFd($accountId)
     {
-        $sql = "SELECT fd_account_id,fd_type_name,amount,monthly_interest,remaining_months FROM fd_account INNER JOIN fd_type ON fd_account.fd_type_id=fd_type.fd_type_id WHERE fd_account.saving_account_id=?;";
+        $sql = "SELECT fd_account_id,fd_type_name,amount,monthly_interest,remaining_months FROM fd_account INNER JOIN fd_type ON fd_account.fd_type_id=fd_type.fd_type_id WHERE fd_account.saving_account_id=? AND remaining_months>0;";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $accountId);
         $stmt->execute();
