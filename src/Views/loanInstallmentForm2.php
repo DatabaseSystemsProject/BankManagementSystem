@@ -92,7 +92,7 @@
 </div>
 <?php
 if (isset($_POST["pay"])) {
-    $_SESSION["loanInsController"]->payInstallment();
+    $loanInsController->payInstallment();
 }
 ?>
 

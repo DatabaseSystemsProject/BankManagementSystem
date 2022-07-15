@@ -97,7 +97,7 @@ class FDMOdel
 
     public function selectFdrateById($typeId)
     {
-        $sql = "SELECT interest_rate FROM fd_type WHERE fd_type_id=?";
+        $sql = "SELECT interest_rate,duration FROM fd_type WHERE fd_type_id=?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $typeId);
         $stmt->execute();
@@ -106,10 +106,10 @@ class FDMOdel
         return $type_rate;
     }
 
-    public function insertFdAccountDetails($savingAccountNo, $fd_type_id, $amount, $monthly_interest)
+    public function insertFdAccountDetails($savingAccountNo, $fd_type_id, $amount, $monthly_interest, $duration)
     {
-        $stmt = $this->conn->prepare("INSERT INTO fd_account (saving_account_id,fd_type_id,amount,monthly_interest) VALUES (?,?,?,?)");
-        $stmt->bind_param("iidd", $savingAccountNo, $fd_type_id, $amount, $monthly_interest);
+        $stmt = $this->conn->prepare("INSERT INTO fd_account (saving_account_id,fd_type_id,amount,monthly_interest,remaining_months) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("iiddi", $savingAccountNo, $fd_type_id, $amount, $monthly_interest, $duration);
         $stmt->execute();
 
         //echo "<h1>successfull</h1>";

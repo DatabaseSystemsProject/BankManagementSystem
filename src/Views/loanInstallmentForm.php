@@ -3,7 +3,7 @@ session_start();
 include 'base.php';
 require_once '../Controllers/loanInsContoller.php';
 $loanInsController = new LoanInsController();
-$_SESSION["loanInsController"] = $loanInsController;
+// $_SESSION["loanInsController"] = $loanInsController;
 $unpaidMonths = null;
 ?>
 <!DOCTYPE html>
@@ -46,7 +46,12 @@ $unpaidMonths = null;
         if (isset($_POST["check"])) {
             $loanInsController->checkLoanID();
         }
+
+        if (isset($_POST["pay"])) {
+            $loanInsController->payInstallment();
+        }
         ?>
+        
     </div>
 </body>
 
