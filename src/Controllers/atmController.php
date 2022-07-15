@@ -19,6 +19,7 @@ class AtmController extends Controller
                 $_SESSION['error_message'] = "Invalid pin number";
                 header("Location: ../Views/atm1.php");
             } else {
+                $_SESSION["atm1direct"] = "direct from atm1";
                 header("Location: ../Views/atm2.php");
             }
         } else {
@@ -37,6 +38,7 @@ class AtmController extends Controller
                     header("Location: ../Views/atm0.php");
                 } else {
                     $_SESSION["account_no"] = $result["account_no"];
+                    $_SESSION["atm0direct"] = "direct from atm0";
                     header("Location: ../Views/atm1.php");
                 }
             } else {
@@ -55,6 +57,7 @@ class AtmController extends Controller
                 $_SESSION['error_message'] = "No checking account ";
                 header("Location: ../Views/atm2.php");
             } else {
+                $_SESSION["atm2direct"] = "direct from atm2";
                 header("Location: ../Views/atm3.php");
             }
         } else if (isset($_POST["savings"])) {
@@ -64,6 +67,7 @@ class AtmController extends Controller
                 $_SESSION['error_message'] = "No savings account ";
                 header("Location: ../Views/atm2.php");
             } else {
+                $_SESSION["atm2direct"] = "direct from atm2";
                 header("Location: ../Views/atm3.php");
             }
         }
