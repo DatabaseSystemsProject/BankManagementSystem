@@ -1,9 +1,10 @@
 <?php
-session_start();
+
 include 'base.php';
 include '../Config/db.php';
 include '../Models/fdFormModel.php';
 include '../Controllers/fdFormController.php';
+session_start();
 $account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
 $myUrl = strval($account_type) . "Dashboard.php";
@@ -37,11 +38,11 @@ if ($isSuccess) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        };
     </script>
-
     <title>FD form</title>
 </head>
 
@@ -186,12 +187,6 @@ if ($isSuccess) {
 
 
 
-        };
-
-
-        function gotoDashboard() {
-            var url = <?php echo (json_encode($myUrl)); ?>;
-            window.location.href = url;
         };
     </script>
 
