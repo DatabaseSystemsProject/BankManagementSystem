@@ -163,6 +163,18 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
 
                     </a>
                 </div>
+                <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
+                    <a href="createCard.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">Create Card</p>
+                            </div>
+                        </div>
+
+                    </a>
+                   
+                </div>
 
             </div>
 

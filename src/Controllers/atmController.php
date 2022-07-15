@@ -71,10 +71,10 @@ class AtmController extends Controller
     public function withdraw()
     {
         if (isset($_POST["submit"])) {
-            $this->checkAccountToWithdraw();
+            $this->checkAccountAndWithdraw();
         }
     }
-    public function checkAccountToWithdraw()
+    private function checkAccountAndWithdraw()
     {
         if (!empty($_POST["amount"])) {
             if ($_SESSION["account_type"] == "savings") {
