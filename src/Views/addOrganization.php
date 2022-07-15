@@ -41,26 +41,25 @@ $individualCtrl = new individualCustomerController();
     <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputOrgName">Name of the Organization</label>
-                <input type="text" class="form-control" id="inputOrgName" name="inputOrgName" placeholder="Organization Name">
+                <input type="text" class="form-control" id="inputOrgName" name="inputOrgName" placeholder="Organization Name" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="inputRegNo">Registration Number</label>
-                <input type="text" class="form-control" id="inputRegNo" name="inputRegNo" placeholder="Registration Number">
+                <input type="text" class="form-control" id="inputRegNo" name="inputRegNo" placeholder="Registration Number" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="inputRegDate">Registered Date</label>
-                <input type="date" class="form-control" id="inputRegDate" name="inputRegDate" placeholder="Registered Date">
+                <input type="date" class="form-control" id="inputRegDate" name="inputRegDate" placeholder="Registered Date" required>
             </div> 
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="inputStakeholder1">First Stakeholder</label>
-                <select class="chosen" name="inputStakeholder1" id="inputStakeholder1" >
-                    <option value="************">************</option>
+                <select class="chosen" name="inputStakeholder1" id="inputStakeholder1" required>
                     <?php
                     $nicList = $individualCtrl->getNIClist();
                     if($nicList->num_rows > 0){
@@ -73,9 +72,9 @@ $individualCtrl = new individualCustomerController();
                 </select>
             </div> 
             <div class="form-group col-md-4">
-                <label for="inputStakeholder2">Second Stakeholder</label>
-                <select class="chosen" name="inputStakeholder2" id="inputStakeholder2" >
-                    <option value="************">************</option>
+                <label for="inputStakeholder2">Second Stakeholder (Select None if not applicable)</label>
+                <select class="chosen" name="inputStakeholder2" id="inputStakeholder2" required>
+                    <option value="None">None</option>
                     <?php
                     $nicList = $individualCtrl->getNIClist();
                     if($nicList->num_rows > 0){

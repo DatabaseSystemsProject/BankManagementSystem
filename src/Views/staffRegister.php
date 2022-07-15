@@ -21,6 +21,12 @@ $staffRegContr = new staffRegisterController();
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Staff Member </title>
+
+    <style>
+        .container{
+            background-color: white;
+        }
+    </style>
 </head>
 
 <body>

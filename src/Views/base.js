@@ -2,16 +2,16 @@ class Header extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" >
-    <a class="navbar-brand mb-0 h1" href="#">Navbar</a>
+    <a class="navbar-brand mb-0 h1" onclick="gotoDashboard()">Dashboard</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+      <!--<li class="nav-item active">
           <a class="nav-link" href="#">Dashboard<span class="sr-only"></span></a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" id=id3 style="float: right;" onclick="document.getElementById('id01').style.display='block'" href="#">Log out</a>
         </li>
@@ -38,7 +38,7 @@ class Header extends HTMLElement {
                 <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
             </div>
             <h1 style="color: tomato;">Log Out</h1>
-            <p>Are you sure you want to log out?</p>
+            <p><?php echo "name"; ?>Are you sure you want to log out?</p>
             <!-- <p>Are you sure you want to Log out?</p> -->
             <!-- <input type="button" class="yes" name="logout"  value="Yes"> -->
             <form method="post">
@@ -57,6 +57,8 @@ class Header extends HTMLElement {
           `
   }
 }
+
+
 
 function display_notification() {
   var x = document.getElementById("notification-list");

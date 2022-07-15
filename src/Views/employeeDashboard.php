@@ -85,7 +85,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                             </div>
                         </div>
                     </a>
-                    <a href="depositMoney.php">
+                    <a href="depositMoneyForm.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-piggy-bank-fill" style="font-size:100px;align-self:center;margin-top:-10%"></i>
@@ -106,7 +106,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
 
                 </div>
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
-                    <a href="loanApplicationForm.php">
+                    <a href="addIndividualCustomer.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-person-plus-fill" style="font-size:80px;align-self:center;margin-top:-10%"></i>
@@ -115,7 +115,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
                         </div>
 
                     </a>
-                    <a href="loanInstallmentForm.php">
+                    <a href="addChild.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
                                 <i class="bi bi-person-plus" style="font-size:80px;align-self:center;margin-top:-10%"></i>
@@ -125,7 +125,7 @@ $employee_details = $controller->getEmployeeDetails($employee_id);
 
                     </a>
 
-                    <a href="fdForm.php">
+                    <a href="addOrganization.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
                                 <i class="bi bi-building" style="font-size:80px;align-self:center;margin-top:-10%"></i>

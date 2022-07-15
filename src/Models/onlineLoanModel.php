@@ -22,10 +22,14 @@ class OnlineLoanModle
         return $result;
     }
 
-    function getLoanTypes()
+    function getLoanType($loan_type_name)
     {
-        $sql = "SELECT * FROM loan_plan ";
-        $result = mysqli_query($this->conn, $sql);
+        $sql = "SELECT * FROM loan_plan where loan_plan_name=? ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $loan_type_name);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
         return $result;
     }
 
@@ -86,42 +90,61 @@ class OnlineLoanModle
         return $result;
     }
 
-    function submitApplication($loan_type, $customer_NIC, $amount, $duration, $liability, $type, $tax_no, $reg_no, $fd_id)
+    function submitApplication($loan_type, $customer_NIC, $amount, $duration, $liability, $type, $tax_no, $reg_no, $fd_id, $monthly_instalment)
     {
         $mysqli = $this->conn;
         /* Start transaction */
         $mysqli->begin_transaction();
         try {
-            $sql = "INSERT INTO loan (loan_type,customer_NIC,amount,duration,liability,type,tax_no) VALUES(?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO loan (loan_type,customer_NIC,amount,duration,liability,	monthly_installment,type,tax_no) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param("isdidss", $loan_type, $customer_NIC, $amount, $duration, $liability, $type, $tax_no);
-            $stmt->execute();
+            $stmt->bind_param("isdiddss", $loan_type, $customer_NIC, $amount, $duration, $liability, $monthly_instalment, $type, $tax_no);
+            $result = $stmt->execute();
+
+            if (!$result) {
+                echo "Error: " . mysqli_error($this->conn) . ".";
+            }
+
 
 
             // $sql2 = "SELECT loan_id FROM loan ORDER BY loan_id DESC LIMIT 1;";
             // $id = mysqli_query($this->conn, $sql2)->fetch_assoc()["loan_id"];
 
-            $id=$this->conn->insert_id;
+            $id = $this->conn->insert_id;
+            var_dump($id);
 
 
 
             $sql = "INSERT INTO online_loan (loan_id,fd_id) VALUES(?,?);";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("ii", $id, $fd_id);
-            $stmt->execute();
-            $stmt->close();
+            $result = $stmt->execute();
 
-            if (!is_null($reg_no)) {
+            if (!$result) {
+                echo "Error: " . mysqli_error($this->conn) . ".";
+            }
+
+
+            $stmt->close();
+            var_dump($reg_no);
+            if (!empty($reg_no)) {
 
                 $sql = "INSERT INTO business_loan (loan_id,reg_no) VALUES(?,?);";
                 $stmt = $mysqli->prepare($sql);
                 $stmt->bind_param("ii", $id, $reg_no);
-                $stmt->execute();
+                $result = $stmt->execute();
+
+                if (!$result) {
+                    echo "Error: " . mysqli_error($this->conn) . ".";
+                }
+
+
                 $stmt->close();
             }
 
-             /* If code reaches this point without errors then commit the data in the database */
+            /* If code reaches this point without errors then commit the data in the database */
             $mysqli->commit();
+            return $result;
         } catch (mysqli_sql_exception $exception) {
             $mysqli->rollback();
 
