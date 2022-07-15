@@ -85,4 +85,70 @@ class AtmModel
         $result = $stmt->get_result()->fetch_assoc();
         return $result;
     }
+    public function withdrawAndUpdateBalance($account_no, $newWithdrawalCount, $remainingbalance)
+    {
+        mysqli_begin_transaction($this->conn);
+        try {
+            mysqli_autocommit($this->conn, FALSE);
+            $sql1 = "UPDATE savings_account SET withdrawal_count = ? WHERE savings_acc_no =?";
+            $sql2 = "UPDATE account SET balance = ? WHERE account_no =?";
+    
+            $state = true;
+
+            $stmt1 = $this->conn->prepare($sql1);
+            $stmt1->bind_param("di", $newWithdrawalCount, $account_no);
+            $res1 = $stmt1->execute();
+            if (!$res1) {
+                $state = false;
+            }
+
+            $stmt2 = $this->conn->prepare($sql2);
+            $stmt2->bind_param("di", $remainingbalance, $account_no);
+            $res2 = $stmt2->execute();
+            if (!$res2) {
+                $state = false;
+            }
+
+            if ($state) {
+                mysqli_commit($this->conn);
+                return true;
+            } else {
+                mysqli_rollback($this->conn);
+                return false;
+            }
+        } catch (mysqli_sql_exception $exception) {
+            throw $exception;
+            return false;
+        }
+    }
+
+    public function updateCheckingBalance($account_no, $remainingbalance)
+    {
+
+        mysqli_begin_transaction($this->conn);
+        try {
+            mysqli_autocommit($this->conn, FALSE);
+            $sql2 = "UPDATE account SET balance = ? WHERE account_no =?";
+
+            $state = true;
+
+            $stmt2 = $this->conn->prepare($sql2);
+            $stmt2->bind_param("di", $remainingbalance, $account_no);
+            $res2 = $stmt2->execute();
+            if (!$res2) {
+                $state = false;
+            }
+
+            if ($state) {
+                mysqli_commit($this->conn);
+                return true;
+            } else {
+                mysqli_rollback($this->conn);
+                return false;
+            }
+        } catch (mysqli_sql_exception $exception) {
+            throw $exception;
+            return false;
+        }
+    }
 }

@@ -3,6 +3,13 @@ session_start();
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
+if (isset($_POST["exit"])) {
+    if (isset($_SESSION["account_type"])) {
+        unset($_SESSION["account_type"]);
+    }
+    header("Location: ./customerDashboard.php");
+}
+?>
 
 ?>
 
@@ -33,8 +40,12 @@ $atm_contr = new AtmController();
                         unset($_SESSION['error_message']);
                     }
                     ?>
-                    <button type="submit" class="btn btn-primary" name="checking" id="Next3_1" style="margin-bottom:30px">Checking</button>
-                    <button type="submit" class="btn btn-primary" name="savings" id="Next3_2" style="margin-bottom:100px">Savings</button>
+                    <div class="d-grid gap-4 ">
+                        <button type="submit" class="btn btn-primary shadow" name="checking" id="Next3_1">Checking</button>
+                        <button type="submit" class="btn btn-primary shadow" name="savings" id="Next3_2">Savings</button>
+                        <button type="submit" class="btn btn-danger shadow col-3 mx-auto" id="exit" name="exit">Cancel</button>
+                    </div>
+
                 </div>
             </div>
         </form>
