@@ -93,6 +93,7 @@ class OnlineLoanModle
     function submitApplication($loan_type, $customer_NIC, $amount, $duration, $liability, $type, $tax_no, $reg_no, $fd_id, $monthly_instalment)
     {
         $mysqli = $this->conn;
+        $state = true;
         /* Start transaction */
         $mysqli->begin_transaction();
         try {
@@ -103,6 +104,7 @@ class OnlineLoanModle
 
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
+                $state = false;
             } else {
                 $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
@@ -158,6 +160,7 @@ class OnlineLoanModle
 
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
+                $state = false;
             }
 
 
@@ -172,6 +175,7 @@ class OnlineLoanModle
 
                 if (!$result) {
                     echo "Error: " . mysqli_error($this->conn) . ".";
+                    $state = false;
                 }
 
 
@@ -179,8 +183,10 @@ class OnlineLoanModle
             }
 
             /* If code reaches this point without errors then commit the data in the database */
-            $mysqli->commit();
-            return $result;
+            if ($state) {
+                $mysqli->commit();
+                return $result;
+            }
         } catch (mysqli_sql_exception $exception) {
             $mysqli->rollback();
 
