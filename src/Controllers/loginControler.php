@@ -67,7 +67,7 @@ class LoginController
         if (isset($_POST["staffLog"])) {
 
             $user_name = $_POST['user_name'];
-            $passwrd = $_POST['passwordS'];
+            $passwrd = md5($_POST['passwordS']);
             $account = $this->loginModel->isStaff($user_name, $passwrd);
 
             if (!empty($account)) {
