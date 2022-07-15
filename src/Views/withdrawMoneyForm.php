@@ -5,6 +5,9 @@ session_start();
 include 'base.php';
 include '../Controllers/withdrawController.php';
 $withdrawContr = new WithdrawController();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 
 
 ?>
@@ -151,6 +154,11 @@ $withdrawContr = new WithdrawController();
         }
         wrapper.addEventListener('input', validate);
         validate();
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
     </script>
 
 </body>

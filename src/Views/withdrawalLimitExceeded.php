@@ -1,4 +1,10 @@
-<?php include 'base.php' ?>
+<?php include 'base.php';
+session_start();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +39,12 @@
             </div>
         </div>
     </main>
-
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        };
+    </script>
 </body>
 
 </html>

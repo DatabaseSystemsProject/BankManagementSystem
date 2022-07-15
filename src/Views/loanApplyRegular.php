@@ -2,17 +2,18 @@
 include "../Controllers/regularLoanController.php";
 
 session_start();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+
 
 $loanController = new RegularLoanController();
 $check = $loanController->checkEligibility();
 
-// $login = $_SESSION['login'];
-$login=123456;
-// $user_type = "personal";
-// $user_id = 111111111;
-// $login=111111111;
-// $user_id = 11111111;
-// $login=11111111;
+
+$login = $_SESSION['login'];
+
+
 
 
 
@@ -134,7 +135,7 @@ if (isset($_SESSION['error_message'])) {
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNIC">Registration number </label>
-                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="" >
+                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="">
                         </div>
                     </div>
 
@@ -152,8 +153,8 @@ if (isset($_SESSION['error_message'])) {
                             if ($account_type == "organization") { ?>
                                 <option value="business">Business</option>
                             <?php
-                            }else{?>
-                            <option value="personal">Personal</option>
+                            } else { ?>
+                                <option value="personal">Personal</option>
                             <?php
                             }
                             ?>
@@ -354,11 +355,9 @@ if (isset($_SESSION['error_message'])) {
             var chkYes = document.getElementById("TaxYes");
             var inputTaxNo = document.getElementById("inputTaxdata");
             inputTaxNo.hidden = chkYes.checked ? false : true;
-            if (!inputTaxNo.hidden) {
-                inputTaxNo.focus();
-            } else {
+            if (inputTaxNo.hidden) {
                 inputTaxNo.value = null;
-            }
+            } 
         };
 
         function showOrg() {
@@ -395,6 +394,11 @@ if (isset($_SESSION['error_message'])) {
 
 
         };
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
     </script>
 
     <?php

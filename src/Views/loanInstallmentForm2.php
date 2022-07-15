@@ -120,6 +120,8 @@
         type.value = passedArray["type"];
 
     };
+
+    
 </script>
 
 <?php
