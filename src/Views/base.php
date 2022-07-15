@@ -24,10 +24,21 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="../CSS/base.css">
 
 
+  <!-- <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script> -->
+
+  
+
+
+
+
 
 </head>
 
-<body>
+<body style="background-image: linear-gradient(to right,#00007d,#0042db,#0076ff);">
 
 
   <main>
