@@ -3,7 +3,9 @@ session_start();
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
-
+if (isset($_POST["exit"])) {
+    header("Location: ./customerDashboard.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +16,7 @@ $atm_contr = new AtmController();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/atm.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>atm</title>
 </head>
 
@@ -24,7 +27,7 @@ $atm_contr = new AtmController();
             <img src="../Resources/Images/logoBlack.png" alt="no title">
         </div>
         <form method="post" class="">
-            <div id="form4" class="container-md d-flex flex-column col-md-8 form4 form " action="">
+            <div id="form4" class="container-md d-flex flex-column col-md-8 form4 form ">
                 <div class="form-group col-md-7 Amount d-flex flex-column">
                     <label for="amount">Enter the amount to withdraw</label><br>
                     <?php
@@ -33,23 +36,18 @@ $atm_contr = new AtmController();
                         unset($_SESSION['error_message']);
                     }
                     ?>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" style="margin-bottom:35px !important">
                         <span class="input-group-text">Rs</span>
                         <input type="text" name="amount" id="amount" class="form-control" aria-label="Amount (to the nearest dollar)">
                         <span class="input-group-text">.00</span>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary" style="margin-bottom:100px">Enter</button>
+                    <div class="d-grid gap-4 ">
+                        <button type="submit" name="submit" class="btn btn-primary shadow">Withdraw</button>
+                        <button type="submit" class="btn btn-danger col-3 mx-auto shadow" id="exit" name="exit">Cancel</button>
+                    </div>
+
                 </div>
             </div>
-            <!-- <div method="post" id="form5" class="container-md d-flex flex-column col-md-8 form5 form shift_right" action="">
-                <div class="header1" style="align-self:center">
-                    <p>Successful / Unsuccessful</p>
-                </div>
-                <div class="form-group col-md-7 RemoveCard d-flex flex-column" style="align-self:center">
-                    <p class="Greeting" style="font-weight: 400; font-size: 1.5rem; text-align: center;padding:0px">Thank you</p>
-                    <button type="submit" name="submit" class="btn btn-primary " style="margin-bottom:100px">Remove Card</button>
-                </div>
-            </div> -->
         </form>
         <?php
         $atm_contr->withdraw();
@@ -58,6 +56,7 @@ $atm_contr = new AtmController();
 </body>
 <script src="./atm.js"></script>
 <script>
+
     var Form1 = document.getElementById("form1");
     var Form2 = document.getElementById("form2");
     var Form3 = document.getElementById("form3");

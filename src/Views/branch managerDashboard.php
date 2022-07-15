@@ -6,7 +6,7 @@ include "../Controllers/bmDashboradController.php";
 
 $bmDashboardCtrl = new bmDashboardController();
 
-$branch_manager_NIC = "802365415V";    // hardcoded for demonstration
+$branch_manager_NIC = $_SESSION['login'];
 
 $bm_first_name = $bmDashboardCtrl->getFirstName($branch_manager_NIC);
 $bm_last_name = $bmDashboardCtrl->getLastName($branch_manager_NIC);
@@ -57,6 +57,7 @@ $branch_name = $bmDashboardCtrl->getBranchName($branch_manager_NIC);
                 
                 <div class="dash1" style="display:flex; flex-direction:row; align-self:center; justify-content:space-evenly;">
 
+                    <?php $_SESSION['branch_manager_NIC'] = $branch_manager_NIC; ?>
                     <a href="transactionReport.php" style="text-decoration:none;">
                         <div class="card" style="width:16rem; height:12rem;">
                             <div class="card-body" style="align-self:center; display:flex; flex-direction:column;">
