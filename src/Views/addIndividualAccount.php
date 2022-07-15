@@ -40,7 +40,7 @@ $accountCtrl = new AccountController();
 
 </html>
 <main-header></main-header>
-<div class="container border border-2 m-5 p-5 mx-auto ">
+<div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2> Add Account </h2> <br>
     <form action="" method = "post" enctype = "multipart/form-data">
         <fieldset class="form-group">

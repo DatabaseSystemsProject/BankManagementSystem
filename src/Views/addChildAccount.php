@@ -42,7 +42,7 @@ $childCtrl = new ChildController();
 
 </html>
 <main-header></main-header>
-<div class="container border border-2 m-5 p-5 mx-auto ">
+<div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2> Add Child Savings Account </h2> <br>
     <form action="" method = "post" enctype = "multipart/form-data">
         <div class="form-row">
