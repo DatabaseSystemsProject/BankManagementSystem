@@ -15,6 +15,8 @@ if (isset($_POST["submit"])) {
     //$rows = count($details_online);
     $details_regular = $controller->getRegularLateLoanInstallments($branchId);
 }
+
+$myUrl = "branch managerDashboard.php";
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +30,13 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="../CSS/lateLoanInstallmentReport.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
+    
 </head>
 
 <body style="background-color: rgb(16, 131, 246);">

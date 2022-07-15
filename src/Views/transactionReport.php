@@ -7,10 +7,11 @@ include "../Controllers/transactionReportController.php";
 $transRepCtrl = new TransactionReportController();
 
 $branchManager_NIC = $_SESSION['branch_manager_NIC'];
-//$branchManager_NIC = '802365415V'; // hardcoded for demonstration
 
 $branch_name = $transRepCtrl->getBranchName($branchManager_NIC);
 $branch_id = $transRepCtrl->getBranchID($branchManager_NIC);
+
+$myUrl = "branch managerDashboard.php";
 
 ?>
 
@@ -44,6 +45,13 @@ $branch_id = $transRepCtrl->getBranchID($branchManager_NIC);
         }
 
     </style>
+
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 
 </head>
 

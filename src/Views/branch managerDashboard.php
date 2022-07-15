@@ -7,12 +7,13 @@ include "../Controllers/bmDashboradController.php";
 $bmDashboardCtrl = new bmDashboardController();
 
 $branch_manager_NIC = $_SESSION['login'];
-$acc_type = $_SESSION['login_type'];
 
 $bm_first_name = $bmDashboardCtrl->getFirstName($branch_manager_NIC);
 $bm_last_name = $bmDashboardCtrl->getLastName($branch_manager_NIC);
 $branch_name = $bmDashboardCtrl->getBranchName($branch_manager_NIC);
 $branch_id = $bmDashboardCtrl->getBranchID($branch_manager_NIC);
+
+$myUrl = "branch managerDashboard.php";
 
 ?>
 
@@ -34,6 +35,14 @@ $branch_id = $bmDashboardCtrl->getBranchID($branch_manager_NIC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="counter.js"></script>
+
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
+
 </head>
 
 <body style="background-image:linear-gradient(to right,#00007d,#0042db,#0076ff);">
