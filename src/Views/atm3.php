@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION["atm2direct"])) {
+    header("Location: ./atm0.php");
+}
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
@@ -56,7 +59,6 @@ if (isset($_POST["exit"])) {
 </body>
 <script src="./atm.js"></script>
 <script>
-
     var Form1 = document.getElementById("form1");
     var Form2 = document.getElementById("form2");
     var Form3 = document.getElementById("form3");

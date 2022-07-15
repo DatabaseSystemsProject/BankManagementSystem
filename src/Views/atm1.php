@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["atm0direct"])) {
+    header("Location: ./atm0.php");
+}
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
