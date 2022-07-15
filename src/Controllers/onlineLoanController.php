@@ -33,11 +33,6 @@ class OnlineLoanController
         }
     }
 
-    function getLoanTypes()
-    {
-        $loanTypes = $this->loanModel->getLoanTypes();
-        return $loanTypes;
-    }
 
     function checkEligibility()
     {
@@ -94,7 +89,8 @@ class OnlineLoanController
     {
         if (isset($_POST["apply"])) {
             if (!empty($_POST['inputLoanAmount'])) {
-                $loan_type = $_POST['inputLoanType'];
+                $loan_type_data = $this->loanModel->getLoanType($_POST['inputLoanType']);
+                $loan_type=$loan_type_data['loan_plan_id'];
                 $customer_NIC = $login;
                 $amount = $_POST["inputLoanAmount"];
                 $year =$_POST["inputYear"];
@@ -106,10 +102,20 @@ class OnlineLoanController
                 $fd_id = $_POST["inputFDNo"];
                 $mode = "online";
                 $liability=$amount;
+                $monthly_instalment= round($amount/$duration+($amount*$loan_type_data['interest_rate']*0.01*$duration)/12);
+
 
                 if($this->loanEligible($duration,$amount,$fd_id))
                 {
-                    $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id);
+                    
+                    $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id,$monthly_instalment);
+                    if(!empty($result)){
+                        
+                        // echo '<script type="text/javascript">alert("Success");</script>';
+                        echo '<script>window.location.href="../Views/loanSuccess.php"</script>';
+                    }
+                }else{
+                    echo '<script type="text/javascript">alert("You not eligibale for this loan.Try again!!");</script>';
                 }
 
 
@@ -127,7 +133,8 @@ class OnlineLoanController
         if ($duration <= $fd_duration && $amount < 500000 && $amount <= $fd_amount * 0.6) {
             return true;
         } else {
-            $_SESSION['error_message'] = "You not eligibale for this loan.Try again!!";
+            // $_SESSION['error_message'] = "You not eligibale for this loan.Try again!!";
+            echo '<script type="text/javascript">alert("You not eligibale for this loan.Try again!!");</script>';
             return false;
         }
     }
