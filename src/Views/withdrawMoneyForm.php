@@ -134,7 +134,7 @@ $withdrawContr = new WithdrawController();
         setInputFilter(
             document.getElementById("nic"),
             function(value) {
-                return /^\d*$/.test(value);
+                return /^[0-9v]*$/i.test(value);
             },
             "Must be a valid amount"
         );
