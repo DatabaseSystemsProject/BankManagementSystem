@@ -5,12 +5,12 @@ include_once '../Controllers/moneyTransferController.php';
 include_once '../Models/moneyTransfermodel.php';
 include_once '../Config/db.php';
 include_once '../Helpers/mail.php';
-//$sender_id = $_SESSION['account_no'];
+$sender_id = $_SESSION['account_no'];
 $account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
 // $sender_id = $_SESSION['account_no'];
-$myUrl = strval($account_type) . "Dashboard.php";
-$sender_id = 456;
+$myUrl =  "customerDashboard.php";
+//$sender_id = 456;
 
 if (isset($_POST["submit"])) {
     $controller = new moneyTransferController();
@@ -46,7 +46,7 @@ if (isset($_POST["submit"])) {
 </head>
 
 <body style="background-color: rgb(0,100,180);display:flex;flex-direction:column; ">
-    <!-- <main-header></main-header> -->
+    <main-header></main-header>
     <div class="mt-5">
         <div class="container border border-2 mt-5 p-5 mx-auto bg-light " id="div3">
             <h2>Money Transfer Form</h2>
@@ -189,6 +189,11 @@ if (isset($_POST["submit"])) {
                 document.form1.text1.focus();
                 return false;
             }
+        }
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
         }
     </script>
 </body>

@@ -5,6 +5,7 @@ include_once '../Controllers/lateInstallmentReportController.php';
 include_once '../Models/lateInstallmentReportModel.php';
 session_start();
 
+
 $branchId = $_SESSION['branch_id'];
 $branch_manager_NIC = $_SESSION['branch_manager_NIC'];
 $controller = new lateInstallmentReportController();
