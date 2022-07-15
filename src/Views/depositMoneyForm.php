@@ -2,9 +2,15 @@
 
 include 'base.php';
 include_once("../Controllers/depositMoneyController.php");
-
+session_start();
 $depositMoneyCtrl = new DepositMoneyController();
 $empID = 345666; // remove this when adding session
+
+
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +23,12 @@ $empID = 345666; // remove this when adding session
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-
+<script>
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deposit Money</title>
 </head>
@@ -26,7 +37,7 @@ $empID = 345666; // remove this when adding session
 
 </html>
 <main-header></main-header>
-<div class="container border border-2 m-5 p-5 mx-auto ">
+<div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2>Deposit Money</h2> <br>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="form-row">
@@ -54,10 +65,7 @@ $empID = 345666; // remove this when adding session
     </form>
 </div>
 <script type="text/javascript">
-    function gotoDashboard() {
-        var url = <?php echo (json_encode($myUrl)); ?>;
-        window.location.href = url;
-    }
+    
     //deposit cannot be negative
     //account should exist
 </script>

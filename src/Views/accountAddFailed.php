@@ -25,10 +25,10 @@
             <div class="card-body" style="display: flex; flex-direction:column;">
                 <h2 class="card-title mx-auto">Something Went Wrong</h2>
                 <i class="bi bi-emoji-frown mx-auto" style="font-size: 5vw;"></i>
-                <p class="card-text mx-auto">Do you want to try again?</p>
+                <!-- <p class="card-text mx-auto">Do you want to try again?</p> -->
                 <div class="mx-auto">
-                    <a href="addIndividualCustomer.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
-                    <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
+                    <!-- <a href="addIndividualCustomer.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a> -->
+                    <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">Try Again</a>
                 </div>
             </div>
         </div>

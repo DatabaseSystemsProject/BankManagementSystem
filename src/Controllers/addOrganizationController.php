@@ -57,5 +57,10 @@ class addOrganizationController
         $email = $this->orgModel->getEmail($orgRegNo);
         return $email;
     }
+    public function getName($orgRegNo)
+    {
+        $name = $this->orgModel->getName($orgRegNo);
+        return $name;
+    }
 }
 ?>
