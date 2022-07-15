@@ -11,9 +11,6 @@
   <script src="base.js"></script>
   <link rel="icon" type="image/x-icon" href="../Resources/Images/icon.png">
   <link rel="stylesheet" href="../CSS/base.css">
-  <title>Document</title>
-
-
 </head>
 
 <body>

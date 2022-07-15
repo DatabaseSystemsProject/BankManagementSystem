@@ -41,5 +41,10 @@ class individualCustomerController
         $nicList = $this->customerModel->getAllNIC();
         return $nicList;
     }
+    public function getName($customerNIC)
+    {
+        $name = $this->customerModel->getName($customerNIC);
+        return $name;
+    }
 }
 ?>

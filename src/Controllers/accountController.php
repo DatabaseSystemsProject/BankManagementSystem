@@ -159,5 +159,135 @@ class AccountController
         $password = substr(str_shuffle($string),0,8);
         return $password;
     }
+    public function getAccountDetails($accountNo)
+    {
+        $details =$this->accountModel->getAccountDetails($accountNo);
+        return $details;
+    }
+    //transactions
+    public function addIndividualAccountT()
+    {
+        if(isset($_POST["addAccount"])){
+            //if(!empty($_POST["inputOrgName"]))
+            //$accountNo = $this->generateAccountNo(1);
+            $accountType = $_POST['SOrC'];
+            $customerNIC = $_POST['inputNIC'];
+            $branch = $_POST['branch'];
+            $plan = 0;
+            if($accountType == 1){
+                $plan = $_POST['plan'];
+            }
+            $balance = $_POST['inputAmount'];
+            $password = $this->generatePassword();
+
+            //echo $accountNo." - ".$accountType." - ".$customerNIC." - ".$branch." - ".$plan." - ".$balance." - ".$password." ";
+
+            $result = $this->accountModel->addIndividualAccountT($customerNIC,$accountType,$balance,$branch,$password,$plan);
+            if($result){
+                echo "account added";
+                $accountTypeToMail = "";
+                if($accountType == 1){
+                    //$this->accountModel->addSavingsPlan($accountNo,$plan);
+                    $accountTypeToMail = "Savings Account";
+                }
+                elseif($accountType == 2){
+                    //$this->accountModel->addCheckbook($accountNo);
+                    $accountTypeToMail = "Checking Account";
+                }
+                //send email to owner 
+                $subject = $this->mailer->generateMailSubject($accountTypeToMail);
+                $body = $this->mailer->generateMailBody($result,$password,$accountTypeToMail);
+                $receiver = $this->customerModel->getEmailAddress($customerNIC);
+                $receiver = $receiver['email'];
+
+                $this->mailer->sendMail($receiver,$subject,$body);
+            }else{
+                echo "error occured";
+            }
+    
+        }
+    }
+    public function addChildAccountT()
+    {
+        if(isset($_POST["addAccount"])){
+            //$accountNo = $this->generateAccountNo(1);
+            $accountType = 3; //child savings account
+
+            $NIC_childID = (explode("|",$_POST['inputNIC']));
+            $guardianNIC = $NIC_childID[0];
+            $childID = $NIC_childID[1];
+
+            $branch = $_POST['branch'];
+            $plan = $_POST['plan'];
+            $balance = $_POST['inputAmount'];
+            $password = $this->generatePassword();
+
+            //echo $accountNo." - ".$accountType." - ".$customerNIC." - ".$branch." - ".$plan." - ".$balance." - ".$password." ";
+
+            $result = $this->accountModel->addChildAccountT($guardianNIC,$accountType,$balance,$branch,$password,$childID,$plan);
+            if($result){
+                echo "account added";
+                $accountTypeToMail = "Child Savings Account";
+                //$this->accountModel->addSavingsPlan($accountNo,$plan);
+                //$this->accountModel->addChildSavingsAccount($accountNo,$childID);
+                //send email to owner 
+                $subject = $this->mailer->generateMailSubject($accountTypeToMail);
+                $body = $this->mailer->generateMailBody($result,$password,$accountTypeToMail);
+                $receiver = $this->customerModel->getEmailAddress($guardianNIC); // email will be sent to the guardian
+                $receiver = $receiver['email'];
+
+                $this->mailer->sendMail($receiver,$subject,$body);
+            }else{
+                echo "error occured";
+            }
+    
+        }
+    }
+    public function addOrgAccountT()
+    {
+        if(isset($_POST["addAccount"])){
+            //if(!empty($_POST["inputOrgName"]))
+            //$accountNo = $this->generateAccountNo(2);
+            $accountType = $_POST['SOrC'];
+            $orgRegNo = $_POST['inputRegNo'];
+            $customerNIC = $this->orgModel->getFirstStakeholderNIC($orgRegNo);
+            $branch = $_POST['branch'];
+            $plan = 0;
+            if($accountType == 1)
+            {
+                $plan = $_POST['plan'];
+            }
+            $balance = $_POST['inputAmount'];
+            $password = $this->generatePassword();
+
+            //echo $accountNo." - ".$accountType." - ".$customerNIC." - ".$branch." - ".$plan." - ".$balance." - ".$password." ";
+
+            $result = $this->accountModel->addOrgAccountT($customerNIC,$accountType,$balance,$branch,$password,$plan,$orgRegNo);
+            if($result){
+                echo "account added";
+                $accountTypeToMail = "";
+                if($accountType == 1){
+                    //$this->accountModel->addSavingsPlan($accountNo,$plan);
+                    $accountTypeToMail = "Organization Savings Account";
+                }
+                elseif($accountType == 2){
+                    //$this->accountModel->addCheckbook($accountNo);
+                    $accountTypeToMail = "Organization Checking Account";
+                }
+                //add to orgaccount table
+                //$this->accountModel->addOrgAccount($orgRegNo,$accountNo);
+                //send email to owner 
+                $subject = $this->mailer->generateMailSubject($accountTypeToMail);
+                $body = $this->mailer->generateMailBody($result,$password,$accountTypeToMail);
+                $receiver = $this->orgModel->getEmail($orgRegNo);
+                $receiver = $receiver['email'];
+
+                $this->mailer->sendMail($receiver,$subject,$body);
+            }else{
+                echo "error occured";
+            }
+    
+        }
+    }
 }
 ?>

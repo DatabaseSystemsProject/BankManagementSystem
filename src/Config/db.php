@@ -11,7 +11,7 @@ class Connector
 
     private function __construct()
     {
-        $connection = mysqli_connect("localhost", "root", "", "testing");
+        $connection = mysqli_connect("localhost", "root", "", "bank_7_15");
         $this->connec = $connection;
         if (!$connection) {
             echo ("connection error" . mysqli_connect_error() . "<br/>");
