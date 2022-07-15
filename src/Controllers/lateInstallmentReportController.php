@@ -54,4 +54,9 @@ class lateInstallmentReportController
     {
         return $this->year;
     }
+
+    public function getBranchs()
+    {
+        return $this->getBranchs();
+    }
 }

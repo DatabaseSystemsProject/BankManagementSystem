@@ -160,7 +160,7 @@ $staffLogged = $loginController->staffLogin();
         if ($customerLogged || $staffLogged) {
             // echo '<script type="text/javascript">alert("Success");</script>';
         } else {
-            echo '<script type="text/javascript">alert("Invalid credentials");</script>';
+            // echo '<script type="text/javascript">alert("Invalid credentials");</script>';
         }
     }
     ?>
