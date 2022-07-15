@@ -1,15 +1,16 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION["login_type"])) {
-//     header("Location: ./login.php");
-// }
+if (!isset($_SESSION["authenticated"])) {
+    header("Location: ./login.php");
+}
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
 if (isset($_POST["exit"])) {
     header("Location: ./customerDashboard.php");
 }
+$myUrl =  "customerDashboard.php";
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +75,11 @@ if (isset($_POST["exit"])) {
         },
         "Must be a valid number"
     );
+
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
 </script>
 
 
