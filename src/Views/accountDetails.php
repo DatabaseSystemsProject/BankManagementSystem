@@ -2,9 +2,11 @@
 
 include 'base.php';
 include_once ("../Controllers/accountController.php");
+session_start();
 
 $accountCtrl = new AccountController();
-$accountNo = 60001;// hardcoded for now
+//$accountNo = 10001;// hardcoded for now
+$accountNo = $_SESSION['account_no'];
 
 ?>
 <!DOCTYPE html>
@@ -58,7 +60,7 @@ $accountNo = 60001;// hardcoded for now
 
 </html>
 <main-header></main-header>
-<div class="container border border-2 m-5 p-5 mx-auto ">
+<div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2 style="text-align: center;"> Account Details </h2> <br>
     <?php
         $details = $accountCtrl->getAccountDetails($accountNo);
@@ -87,10 +89,6 @@ $accountNo = 60001;// hardcoded for now
             <tr>
                 <td>Branch</td>
                 <td><?= $details['branch_name']; ?></td>
-            </tr>
-            <tr>
-                <td>Owner Type </td>
-                <td><?= $details['owner_type']; ?></td>
             </tr>
         </table>
         <?php

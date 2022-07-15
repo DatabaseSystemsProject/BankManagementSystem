@@ -5,9 +5,12 @@ include_once("../Controllers/depositMoneyController.php");
 session_start();
 $depositMoneyCtrl = new DepositMoneyController();
 $empID = 345666; // remove this when adding session
+
+
 $account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
 $myUrl = strval($account_type) . "Dashboard.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -34,7 +37,7 @@ $myUrl = strval($account_type) . "Dashboard.php";
 
 </html>
 <main-header></main-header>
-<div class="container border border-2 m-5 p-5 mx-auto ">
+<div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2>Deposit Money</h2> <br>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="form-row">

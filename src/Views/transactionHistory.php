@@ -2,9 +2,11 @@
 
 include 'base.php';
 include_once ("../Controllers/transactionHistoryController.php");
+session_start();
 
 $transactionHistoryCtrl = new transactionHistoryController();
-$accountNo = 60001;// hardcoded for now
+//$accountNo = 10001;// hardcoded for now
+$accountNo = $_SESSION['account_no'];
 
 ?>
 <!DOCTYPE html>
@@ -54,11 +56,11 @@ $accountNo = 60001;// hardcoded for now
 
 </html>
 <main-header></main-header>
-<div class="container border border-2 m-5 p-5 mx-auto ">
+<div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2 style="text-align: center;"> Transaction History </h2> <br>
     <form action="" method = "post" enctype = "multipart/form-data">
         
-    <div class="form-row">
+    <!-- <div class="form-row">
         <div class="form-group col-md-6">
             <label for="start_date"> Start Date : </label>
             <input type="date" class="form-control" id="start_date" name="start_date" placeholder="Start Date" required>
@@ -67,7 +69,7 @@ $accountNo = 60001;// hardcoded for now
             <label for="end_date"> End Date : </label>
             <input type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date" required>
         </div>
-    </div>
+    </div> -->
     <!-- <button type="submit" name="generate" class="btn btn-primary"> Generate Report </button>  -->
     <table>
         <tr>
