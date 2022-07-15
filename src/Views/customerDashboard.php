@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 include 'base.php';
-include_once ("../Controllers/individualCustomerController.php");
-include_once ("../Controllers/accountController.php");
+include_once("../Controllers/individualCustomerController.php");
+include_once("../Controllers/accountController.php");
 session_start();
 
 $customerCtrl = new individualCustomerController();
@@ -14,7 +14,8 @@ $accountCtrl = new AccountController();
 // $ownerType = "personal";
 $accountNo = $_SESSION['account_no'];
 $customerNIC = $_SESSION['login'];
-$ownerType = $_SESSION['account_type'];
+$ownerType = $_SESSION['login_type'];
+$myUrl =  "customerDashboard.php";
 
 $accountType = $accountCtrl->getAccountDetails($accountNo)['acc_type_name'];
 
@@ -50,12 +51,12 @@ $customerName = $customerCtrl->getName($customerNIC);
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
                     <?php
                     $str = "organization";
-                     if(strcmp($ownerType,$str) == 0){
-                         $orgName = $accountCtrl->getOrgName($accountNo);
-                        ?><h1><?= $orgName['org_name']; ?></h1><?php
-                     }
-                    ?>
-                    <h1><?= $customerName["title"]." ".$customerName["f_name"]; ?></h1>
+                    if (strcmp($ownerType, $str) == 0) {
+                        $orgName = $accountCtrl->getOrgName($accountNo);
+                    ?><h1><?= $orgName['org_name']; ?></h1><?php
+                                                        }
+                                                            ?>
+                    <h1><?= $customerName["title"] . " " . $customerName["f_name"]; ?></h1>
                     <h1 style="margin-top: 10px;"><?= $customerName["l_name"]; ?></h1>
                 </div>
             </div>
@@ -134,34 +135,39 @@ $customerName = $customerCtrl->getName($customerNIC);
                     // $act = "savings";
                     // if(strcmp($accountType, $act)==0)
                     // {
-                        ?>
-                        <a href="loanApplyOnline.php">
-                            <div class="card" style="width: 16rem;height:12rem;">
-                                <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                    <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                    <p class="action" style="margin-top:-40%; margin-bottom:-20%">Online Loan Application</p>
-                                </div>
+                    ?>
+                    <a href="loanApplyOnline.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">Online Loan Application</p>
                             </div>
-                        </a>
-                        <a href="customer.php">
-                            <div class="card" style="width: 16rem;height:12rem;">
-                                <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                    <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                    <p class="action" style="margin-top:-40%; margin-bottom:-20%">Fixed Deposits</p>
-                                </div>
+                        </div>
+                    </a>
+                    <a href="customerFdDisplay.php">
+                        <div class="card" style="width: 16rem;height:12rem;">
+                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
+                                <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
+                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">Fixed Deposits</p>
                             </div>
-                        </a>
-                        <?php
+                        </div>
+                    </a>
+                    <?php
                     //}
                     ?>
-                    
+
                 </div>
 
             </div>
 
 
         </div>
-
+        <script>
+            function gotoDashboard() {
+                var url = <?php echo (json_encode($myUrl)); ?>;
+                window.location.href = url;
+            }
+        </script>
 </body>
 
 </html>

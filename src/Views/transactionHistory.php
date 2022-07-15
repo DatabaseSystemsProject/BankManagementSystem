@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 include 'base.php';
-include_once ("../Controllers/transactionHistoryController.php");
+include_once("../Controllers/transactionHistoryController.php");
 session_start();
 
 $transactionHistoryCtrl = new transactionHistoryController();
 //$accountNo = 10001;// hardcoded for now
 $accountNo = $_SESSION['account_no'];
+$myUrl =  "customerDashboard.php";
 
 ?>
 <!DOCTYPE html>
@@ -32,19 +33,20 @@ $accountNo = $_SESSION['account_no'];
 
     <style>
         table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
         }
 
-        td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
         }
 
         tr:nth-child(even) {
-        background-color: #dddddd;
+            background-color: #dddddd;
         }
     </style>
 
@@ -58,9 +60,9 @@ $accountNo = $_SESSION['account_no'];
 <main-header></main-header>
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2 style="text-align: center;"> Transaction History </h2> <br>
-    <form action="" method = "post" enctype = "multipart/form-data">
-        
-    <!-- <div class="form-row">
+    <form action="" method="post" enctype="multipart/form-data">
+
+        <!-- <div class="form-row">
         <div class="form-group col-md-6">
             <label for="start_date"> Start Date : </label>
             <input type="date" class="form-control" id="start_date" name="start_date" placeholder="Start Date" required>
@@ -70,43 +72,46 @@ $accountNo = $_SESSION['account_no'];
             <input type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date" required>
         </div>
     </div> -->
-    <!-- <button type="submit" name="generate" class="btn btn-primary"> Generate Report </button>  -->
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Transaction Type</th>
-            <th>Amount</th>
-        </tr>
+        <!-- <button type="submit" name="generate" class="btn btn-primary"> Generate Report </button>  -->
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+            </tr>
 
-        <?php
-            $transactionHistory = $transactionHistoryCtrl ->getTransactionHistory($accountNo);
-            if($transactionHistory->num_rows > 0){
-                while($row = $transactionHistory->fetch_assoc()) {
-                    ?>
+            <?php
+            $transactionHistory = $transactionHistoryCtrl->getTransactionHistory($accountNo);
+            if ($transactionHistory->num_rows > 0) {
+                while ($row = $transactionHistory->fetch_assoc()) {
+            ?>
                     <tr>
                         <td><?= $row["datetime"]; ?></td>
                         <td><?= $row["transaction_type"]; ?></td>
                         <td><?= $row["amount"]; ?></td>
                     </tr>
-                    <?php
+            <?php
                 }
             }
-        ?>
+            ?>
 
-    </table>
-    
+        </table>
+
     </form>
 </div>
 <script type="text/javascript">
-    
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
     //validate to make sure the age matches the savings plan
     //initial deposit should be greater than minimum amount
     //cant hv another savings account
 </script>
 
 <?php
-    
-?> 
+
+?>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

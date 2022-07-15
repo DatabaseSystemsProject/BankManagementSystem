@@ -1,9 +1,10 @@
 <?php include 'base.php';
 
 session_start();
-$account_type = $_SESSION["account_type"];
+$account_type = $_SESSION["loan_type"];
 // $account_type="customer";
 $url = strval($account_type) . "Dashboard.php";
+$myUrl =  "customerDashboard.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,12 +34,17 @@ $url = strval($account_type) . "Dashboard.php";
                 <i class="bi bi-emoji-smile mx-auto" style="font-size: 5vw; margin-bottom:-1%"></i>
                 <p class="card-text mx-auto">Thank you!</p>
                 <div class="mx-auto">
-                    <a href="<?php echo $url; ?>" class="btn btn-primary mx-auto" style="width:10vw">Exit</a>
+                    <a href="<?php echo $myUrl; ?>" class="btn btn-primary mx-auto" style="width:10vw">Exit</a>
                 </div>
             </div>
         </div>
     </main>
-
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 </body>
 
 </html>

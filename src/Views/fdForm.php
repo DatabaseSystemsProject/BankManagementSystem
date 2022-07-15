@@ -138,21 +138,22 @@ if ($isSuccess) {
             </form>
 
         </div>
+        <?php
+        if ($validity == true && isset($_POST["submit1"])) {
+
+            $array = $controller->autoFill();
+        } else {
+            if (isset($_POST["submit1"])) {
+                $_SESSION['error_message'] = "Invalid Input";
+                echo '<p style="color:#dc3545; font-size:2rem; align-self:center;text-align:center;">' . $_SESSION['error_message'] . '</p>';
+                unset($_SESSION['error_message']);
+            }
+        }
+
+        ?>
     </div>
 
-    <?php
-    if ($validity == true && isset($_POST["submit1"])) {
 
-        $array = $controller->autoFill();
-    } else {
-        if (isset($_POST["submit1"])) {
-            $_SESSION['error_message'] = "Invalid Input";
-            echo '<p style="color:#dc3545; font-size:2rem; align-self:center">' . $_SESSION['error_message'] . '</p>';
-            unset($_SESSION['error_message']);
-        }
-    }
-
-    ?>
 
 
 
