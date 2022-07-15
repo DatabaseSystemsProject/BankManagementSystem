@@ -10,13 +10,8 @@ $myUrl = strval($account_type) . "Dashboard.php";
 $loanController = new RegularLoanController();
 $check = $loanController->checkEligibility();
 
-// $login = $_SESSION['login'];
-// $login = 123456;
-// $user_type = "personal";
-// $user_id = 111111111;
-// $login=111111111;
-// $user_id = 11111111;
-// $login=11111111;
+$login = $_SESSION['login'];
+
 
 
 
@@ -358,9 +353,7 @@ if (isset($_SESSION['error_message'])) {
             var chkYes = document.getElementById("TaxYes");
             var inputTaxNo = document.getElementById("inputTaxdata");
             inputTaxNo.hidden = chkYes.checked ? false : true;
-            if (!inputTaxNo.hidden) {
-                inputTaxNo.focus();
-            } else {
+            if (inputTaxNo.hidden) {
                 inputTaxNo.value = null;
             }
         };
