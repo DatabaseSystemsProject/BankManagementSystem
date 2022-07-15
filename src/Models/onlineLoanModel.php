@@ -102,10 +102,12 @@ class OnlineLoanModle
             $stmt->bind_param("isdiddss", $loan_type, $customer_NIC, $amount, $duration, $liability, $monthly_instalment, $type, $tax_no);
             $result = $stmt->execute();
 
+
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
                 $state = false;
             } else {
+                $id = $this->conn->insert_id;
                 $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
                 $start_month = date("m") + 1;
@@ -133,7 +135,7 @@ class OnlineLoanModle
                             VALUES (?,?,?,?,?)";
 
                     $stmt = $this->conn->prepare($sql);
-                    $stmt->bind_param("isiii", $loan_id, $month, $year, $ins_no, $paid);
+                    $stmt->bind_param("isiii", $id, $month, $year, $ins_no, $paid);
                     $result = $stmt->execute();
 
                     if (!$result) {
@@ -147,9 +149,6 @@ class OnlineLoanModle
 
             // $sql2 = "SELECT loan_id FROM loan ORDER BY loan_id DESC LIMIT 1;";
             // $id = mysqli_query($this->conn, $sql2)->fetch_assoc()["loan_id"];
-
-            $id = $this->conn->insert_id;
-            var_dump($id);
 
 
 
