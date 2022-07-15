@@ -1,13 +1,9 @@
 <?php
 
 include 'base.php';
-<<<<<<< HEAD
-include_once("../Controllers/individualCustomerController.php");
-=======
 include_once ("../Controllers/individualCustomerController.php");
 include_once ("../Controllers/accountController.php");
 session_start();
->>>>>>> bf12cc2777a36b99f2592c90ac9ad490477fe893
 
 $customerCtrl = new individualCustomerController();
 $accountCtrl = new AccountController();
@@ -135,17 +131,11 @@ $customerName = $customerCtrl->getName($customerNIC);
                         </div>
                     </a>
                     <?php
-<<<<<<< HEAD
-                    if ($accountType == "savings") {
-                    ?>
-                        <a href="onlineLoanApplicationForm.php">
-=======
                     // $act = "savings";
                     // if(strcmp($accountType, $act)==0)
                     // {
                         ?>
                         <a href="loanApplyOnline.php">
->>>>>>> bf12cc2777a36b99f2592c90ac9ad490477fe893
                             <div class="card" style="width: 16rem;height:12rem;">
                                 <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                     <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
@@ -161,13 +151,8 @@ $customerName = $customerCtrl->getName($customerNIC);
                                 </div>
                             </div>
                         </a>
-<<<<<<< HEAD
-                    <?php
-                    }
-=======
                         <?php
                     //}
->>>>>>> bf12cc2777a36b99f2592c90ac9ad490477fe893
                     ?>
 
                 </div>
