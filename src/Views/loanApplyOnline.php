@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'base.php';
 include "../Controllers/onlineLoanController.php";
 
@@ -8,9 +9,9 @@ $check = $loanController->checkEligibility();
 // $account_type = "organization";
 // $account_no = 456;
 // $login = 111111112;
-$account_type = $_SESSION['account_type'];
+$account_type = $_SESSION['login_type'];
 $account_no = $_SESSION['account_no'];
-$login=$_SESSION['login'];
+$login = $_SESSION['login'];
 // $account_no = 11111111;
 // $login=11111111;
 
@@ -38,7 +39,7 @@ if (isset($_SESSION['error_message'])) {
 
 <body style="background-color: rgb(0,0,205);">
 
-    <!-- <main-header></main-header> -->
+    <main-header></main-header>
 
     <div class="mt-5">
         <div class="container border border-2 m-5 p-5 mx-auto bg-light ">
@@ -198,8 +199,8 @@ if (isset($_SESSION['error_message'])) {
                             if ($account_type == "organization") { ?>
                                 <option value="business">Business</option>
                             <?php
-                            }else{?>
-                            <option value="personal">Personal</option>
+                            } else { ?>
+                                <option value="personal">Personal</option>
                             <?php
                             }
                             ?>

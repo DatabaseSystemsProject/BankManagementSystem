@@ -2,7 +2,7 @@
 session_start();
 $account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
-$myUrl = strval($account_type) . "Dashboard.php"; ?>
+$myUrl =  "customerDashboard.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 

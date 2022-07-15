@@ -9,7 +9,7 @@ if (isset($_POST['logout'])) {
 }
 
 
-$account_type = $_SESSION['account_type'];
+$account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
 $myUrl = strval($account_type) . "Dashboard.php";
 $staff_controller = new StaffDashboardController();
@@ -96,36 +96,12 @@ $name = $staff_member['f_name'];
                         </div>
 
                     </a>
-                    <a href="viewCustomers.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                <i class="bi bi-people" style="font-size:100px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -50%; margin-bottom:-20%">View Customers</p>
-                            </div>
-                        </div>
-
-                    </a>
+                   
 
                 </div>
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
-                    <a href="viewReports.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
-                                <i class="bi bi-clipboard-data" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top:-40%; margin-bottom:-20%">View Reports</p>
-                            </div>
-                        </div>
-
-                    </a>
-                    <a href="loans.php">
-                        <div class="card" style="width: 16rem;height:12rem;">
-                            <div class="card-body" style="align-self:center;display:flex;flex-direction:column">
-                                <i class="bi bi-cash-coin" style="font-size:80px;align-self:center;margin-top:-10%"></i>
-                                <p class="action" style="margin-top: -27%; margin-bottom:-15%">Loan Section</p>
-                            </div>
-                        </div>
-
-                    </a>
+                    
+                    
                 </div>
 
             </div>

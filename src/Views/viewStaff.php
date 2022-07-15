@@ -1,11 +1,14 @@
 <?php
 include 'base.php';
 include '../Controllers/viewStaffController.php';
-
-$staffController=new StaffController;
-$account_type = "personal";
-$account_no = 123;
-$login = 111111111;
+session_start();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+$staffController = new StaffController;
+//$account_type = "personal";
+//$account_no = 123;
+//$login = 111111111;
 
 
 
@@ -48,19 +51,19 @@ if (isset($_SESSION['error_message'])) {
                 </tr>
             </thead>
             <tbody id="myTable">
-                <?php 
-                $resultStaff=$staffController->getStaff();
-                foreach($resultStaff as $member):?>
-                <tr>
-                    <td><?php echo $member['user_NIC'];?></td>
-                    <td><?php echo $member['branch_name'];?></td>
-                    <td><?php echo $member['f_name'].' '.$member['l_name'];?></td>
-                    <td><?php echo $member['email'];?></td>
-                    <td><?php echo $member['contact_number'];?></td>
-                    <td><?php echo $member['staff_type_name'];?></td>
-                </tr>
+                <?php
+                $resultStaff = $staffController->getStaff();
+                foreach ($resultStaff as $member) : ?>
+                    <tr>
+                        <td><?php echo $member['user_NIC']; ?></td>
+                        <td><?php echo $member['branch_name']; ?></td>
+                        <td><?php echo $member['f_name'] . ' ' . $member['l_name']; ?></td>
+                        <td><?php echo $member['email']; ?></td>
+                        <td><?php echo $member['contact_number']; ?></td>
+                        <td><?php echo $member['staff_type_name']; ?></td>
+                    </tr>
                 <?php endforeach ?>
-                
+
             </tbody>
         </table>
     </div>
@@ -74,6 +77,11 @@ if (isset($_SESSION['error_message'])) {
                 });
             });
         });
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
     </script>
 
 

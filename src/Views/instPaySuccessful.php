@@ -1,5 +1,8 @@
 <?php include 'base.php';
 session_start();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 unset($_SESSION["loan_details"]);
 ?>
 <!DOCTYPE html>
@@ -42,7 +45,12 @@ unset($_SESSION["loan_details"]);
             </div>
         </div>
     </main>
-
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@ $accountCtrl = new AccountController();
 $accountNo = $_SESSION['account_no'];
 $customerNIC = $_SESSION['login'];
 $ownerType = $_SESSION['login_type'];
+$myUrl =  "customerDashboard.php";
 
 $accountType = $accountCtrl->getAccountDetails($accountNo)['acc_type_name'];
 
@@ -53,8 +54,8 @@ $customerName = $customerCtrl->getName($customerNIC);
                     if (strcmp($ownerType, $str) == 0) {
                         $orgName = $accountCtrl->getOrgName($accountNo);
                     ?><h1><?= $orgName['org_name']; ?></h1><?php
-                                                            }
-                                                                ?>
+                                                        }
+                                                            ?>
                     <h1><?= $customerName["title"] . " " . $customerName["f_name"]; ?></h1>
                     <h1 style="margin-top: 10px;"><?= $customerName["l_name"]; ?></h1>
                 </div>
@@ -143,7 +144,7 @@ $customerName = $customerCtrl->getName($customerNIC);
                             </div>
                         </div>
                     </a>
-                    <a href="customer.php">
+                    <a href="customerFdDisplay.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
@@ -161,7 +162,12 @@ $customerName = $customerCtrl->getName($customerNIC);
 
 
         </div>
-
+        <script>
+            function gotoDashboard() {
+                var url = <?php echo (json_encode($myUrl)); ?>;
+                window.location.href = url;
+            }
+        </script>
 </body>
 
 </html>

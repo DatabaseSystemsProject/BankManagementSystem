@@ -85,16 +85,18 @@ class ReguarLoanModel
     function submitApplication($loan_type, $customer_NIC, $amount, $duration, $liability, $type, $tax_no, $reg_no, $g_full_name, $g_nic, $g_passport, $g_email, $g_mobile, $loan_status, $req_staff_id, $savings_acc_no, $monthly_instalment)
     {
         $mysqli = $this->conn;
+        $state = true;
         /* Start transaction */
         $mysqli->begin_transaction();
         try {
             $sql = "INSERT INTO loan (loan_type,customer_NIC,amount,duration,liability,	monthly_installment,type,tax_no) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param("isdiddss", $loan_type, $customer_NIC, $amount, $duration, $liability,$monthly_instalment, $type, $tax_no);
+            $stmt->bind_param("isdiddss", $loan_type, $customer_NIC, $amount, $duration, $liability, $monthly_instalment, $type, $tax_no);
             $result = $stmt->execute();
 
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
+                $state = false;
             }
 
 
@@ -106,7 +108,7 @@ class ReguarLoanModel
             // mysqli_query($this->conn, $sql3);
 
             $id = $mysqli->insert_id;
-            var_dump($id);
+            // var_dump($id);
 
             $sql = "INSERT INTO regular_loan (loan_id,guarantor_name,guarantor_NIC,guarantor_pass_no,guarantor_mobile,guarantor_email,loan_status,requested_staff_id,savings_acc_no) VALUES(?,?,?,?,?,?,?,?,?);";
             $stmt = $mysqli->prepare($sql);
@@ -114,28 +116,32 @@ class ReguarLoanModel
             $result = $stmt->execute();
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
+                $state = false;
             }
             $stmt->close();
 
             if (!empty($reg_no)) {
-                var_dump($reg_no);
+                // var_dump($reg_no);
 
                 $sql = "INSERT INTO business_loan (loan_id,reg_no) VALUES(?,?);";
                 $stmt = $mysqli->prepare($sql);
-                $stmt->bind_param("ii", $id, $reg_no);
+                $stmt->bind_param("is", $id, $reg_no);
                 $result = $stmt->execute();
-                
-            if (!$result) {
-                echo "Error: " . mysqli_error($this->conn) . ".";
-            }
-            
+
+                if (!$result) {
+                    echo "Error: " . mysqli_error($this->conn) . ".";
+                    $state = false;
+                }
+
 
                 $stmt->close();
             }
 
-             /* If code reaches this point without errors then commit the data in the database */
-            $mysqli->commit();
-            return $result;
+            /* If code reaches this point without errors then commit the data in the database */
+            if ($state) {
+                $mysqli->commit();
+                return $result;
+            }
         } catch (mysqli_sql_exception $exception) {
             $mysqli->rollback();
 

@@ -4,7 +4,10 @@ session_start();
 include "base.php";
 include "../Controllers/staffRegisterController.php";
 
+$superuser_NIC = $_SESSION['login'];
 $staffRegContr = new staffRegisterController();
+
+$myUrl = "superuserDashboard.php";
 
 ?>
 
@@ -27,6 +30,13 @@ $staffRegContr = new staffRegisterController();
             background-color: white;
         }
     </style>
+
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 </head>
 
 <body>

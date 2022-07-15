@@ -93,6 +93,7 @@ class OnlineLoanModle
     function submitApplication($loan_type, $customer_NIC, $amount, $duration, $liability, $type, $tax_no, $reg_no, $fd_id, $monthly_instalment)
     {
         $mysqli = $this->conn;
+        $state = true;
         /* Start transaction */
         $mysqli->begin_transaction();
         try {
@@ -103,6 +104,43 @@ class OnlineLoanModle
 
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
+                $state = false;
+            } else {
+                $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+
+                $start_month = date("m") + 1;
+                $year = date("Y");
+
+                for ($i = 1; $i <= $duration; $i++) {
+                    $j = $i % 12;
+                    $no = $j - 1 + $start_month - 1;
+                    if ($no <= 11) {
+                        $month = $months[$no];
+                        if ($month == "January" && $i != 1) {
+                            $year = $year + 1;
+                        }
+                    } else {
+                        $month = $months[$no - 12];
+                        if ($month == "January" && $i != 1) {
+                            $year = $year + 1;
+                        }
+                    }
+
+                    $ins_no = $i;
+                    $paid = 0;
+
+                    $sql = "INSERT INTO loan_installment(loan_id, month, year, installment_no, paid)
+                            VALUES (?,?,?,?,?)";
+
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bind_param("isiii", $loan_id, $month, $year, $ins_no, $paid);
+                    $result = $stmt->execute();
+
+                    if (!$result) {
+                        $state = FALSE;
+                        echo "Error: " . mysqli_error($this->conn) . ".";
+                    }
+                }
             }
 
 
@@ -122,6 +160,7 @@ class OnlineLoanModle
 
             if (!$result) {
                 echo "Error: " . mysqli_error($this->conn) . ".";
+                $state = false;
             }
 
 
@@ -136,6 +175,7 @@ class OnlineLoanModle
 
                 if (!$result) {
                     echo "Error: " . mysqli_error($this->conn) . ".";
+                    $state = false;
                 }
 
 
@@ -143,8 +183,10 @@ class OnlineLoanModle
             }
 
             /* If code reaches this point without errors then commit the data in the database */
-            $mysqli->commit();
-            return $result;
+            if ($state) {
+                $mysqli->commit();
+                return $result;
+            }
         } catch (mysqli_sql_exception $exception) {
             $mysqli->rollback();
 
