@@ -3,6 +3,10 @@ session_start();
 include 'base.php';
 include '../Controllers/cardController.php';
 $cardContr = new CardController();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -136,6 +140,11 @@ $cardContr = new CardController();
         }
         wrapper.addEventListener('input', validate);
         validate();
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
     </script>
 
 </body>
