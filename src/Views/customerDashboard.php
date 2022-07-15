@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="four col-md-3">
-                            <div class="counter-box colored">  <span class="counter" id="counter" data-val="225">6</span>
+                            <div class="counter-box colored"> <span class="counter" id="counter" data-val="225">6</span>
                                 <p>Available Classes</p>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="dash1" style="display: flex;flex-direction: row ;align-self: center;justify-content:space-evenly;">
 
-                    <a href="atm.php">
+                    <a href="atm0.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-credit-card" style="font-size:100px;align-self:center;margin-top:-10%"></i>
