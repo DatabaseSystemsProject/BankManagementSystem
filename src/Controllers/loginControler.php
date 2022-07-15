@@ -37,6 +37,7 @@ class LoginController
                         $_SESSION['login_type'] = $acc_type;
                         $_SESSION['account_no'] = $acc_no;
                         $_SESSION['login'] = $nic;
+                        $_SESSION["authenticated"] = "logged in";
                         header('location:customerDashboard.php');
 
                         return true;
@@ -49,6 +50,7 @@ class LoginController
                         $_SESSION['login_type'] = $acc_type;
                         $_SESSION['account_no'] = $acc_no;
                         $_SESSION['login'] = $nic;
+                        $_SESSION["authenticated"] = "logged in";
                         header('location:customerDashboard.php');
 
                         return true;
