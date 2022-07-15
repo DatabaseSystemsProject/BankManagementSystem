@@ -25,14 +25,16 @@ class FDMOdel
     public function checkID($id)
     {
 
-        $stmt = "SELECT * FROM savings_account WHERE savings_acc_no='$id';";
-        $result = mysqli_query($this->conn, $stmt);
+        $sql = "SELECT * FROM savings_account WHERE savings_acc_no=?;";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        // $result = mysqli_query($this->conn, $stmt);
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
-                // echo 'found!';
                 return true;
             } else {
-                // echo 'not found';
                 return false;
             }
         } else {

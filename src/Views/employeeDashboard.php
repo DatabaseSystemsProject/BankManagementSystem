@@ -1,5 +1,7 @@
 <?php
-
+// if (!isset($_SESSION['login'])) {
+//     header("Location:login.php");
+// }
 include_once 'base.php';
 include_once '../Config/db.php';
 include_once '../Models/employeeDashboardMOdel.php';
