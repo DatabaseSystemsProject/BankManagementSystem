@@ -86,9 +86,14 @@ class AtmController extends Controller
                         $remainingbalance = $result["balance"] -  $amount;
 
                         if ($remainingbalance > 0) {
-                            $this->atmModel->updateWithdrawalCount($_SESSION["account_no"], $newWithdrawalAmount);
-                            $this->atmModel->updateAccountBalance($_SESSION["account_no"], $remainingbalance);
-                            header("Location: ../Views/atm0.php");
+
+                            $res = $this->atmModel->withdrawAndUpdateBalance($_SESSION["account_no"], $newWithdrawalAmount, $remainingbalance);
+                            if ($res) {
+                                header("Location: ../Views/withdrawSuccessCus.php");
+                            } else {
+                                $_SESSION['error_message'] = "Withdrawal Failed";
+                                header("Location: ../Views/atm3.php");
+                            }
                         } else {
                             $_SESSION['error_message'] = "Not enough balance in the account";
                             header("Location: ../Views/atm3.php");
@@ -107,8 +112,13 @@ class AtmController extends Controller
                     $amount = $_POST["amount"];
                     $remainingbalance = $result["balance"] -  $amount;
                     if ($remainingbalance > 0) {
-                        $this->atmModel->updateAccountBalance($_SESSION["account_no"], $remainingbalance);
-                        header("Location: ../Views/atm0.php");
+                        $res = $this->atmModel->updateCheckingBalance($_SESSION["account_no"], $remainingbalance);
+                        if ($res) {
+                            header("Location: ../Views/withdrawSuccessCus.php");
+                        } else {
+                            $_SESSION['error_message'] = "Withdrawal Failed";
+                            header("Location: ../Views/atm3.php");
+                        }
                     } else {
                         $_SESSION['error_message'] = "Not enough balance in the account";
                         header("Location: ../Views/atm3.php");

@@ -3,7 +3,9 @@ session_start();
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
-
+if (isset($_POST["exit"])) {
+    header("Location: ./customerDashboard.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +36,10 @@ $atm_contr = new AtmController();
                     }
                     ?>
                     <input type="text" name="pinNo" class="form-control" id="pinNum" style="margin-bottom:30px">
-                    <button type="submit" name="submit" class="btn btn-primary" id="btn2" style="margin-bottom:-30px">Enter</button>
+                    <div class="d-grid gap-3 ">
+                        <button type="submit" name="submit" class="btn btn-primary shadow" id="btn2">Enter</button>
+                        <button type="submit" class="btn btn-danger shadow col-3 mx-auto" id="exit" name="exit">Cancel</button>
+                    </div>
 
                 </div>
             </div>
