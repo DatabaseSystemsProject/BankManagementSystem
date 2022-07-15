@@ -48,15 +48,8 @@ class OnlineLoanController
             $this->duration = $this->year*12+$this->month;
             $this->amount = $_POST["inputLoanAmount"];
             $this->fd_id = $_POST["inputFD"];
-            $result = $this->loanModel->getFixedDepositeData(intval($this->fd_id));
-            $fd_duration = $result["duration"];
-            $fd_amount = $result["amount"];
-            if ($this->duration <= $fd_duration && $this->amount < 500000 && $this->amount <= $fd_amount * 0.6) {
-                return true;
-            } else {
-                $_SESSION['error_message'] = "You not eligibale for this loan.Try again!!";
-                return false;
-            }
+            return $this->loanEligible($this->duration,$this->amount,$this->fd_id);
+            
         }
     }
 
@@ -114,10 +107,28 @@ class OnlineLoanController
                 $mode = "online";
                 $liability=$amount;
 
+                if($this->loanEligible($duration,$amount,$fd_id))
+                {
+                    $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id);
+                }
 
-               $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id);
+
+               
 
             }
+        }
+    }
+
+    function loanEligible($duration,$amount,$fd_id)
+    {
+        $result = $this->loanModel->getFixedDepositeData(intval($fd_id));
+        $fd_duration = $result["remaining_months"];
+        $fd_amount = $result["amount"];
+        if ($duration <= $fd_duration && $amount < 500000 && $amount <= $fd_amount * 0.6) {
+            return true;
+        } else {
+            $_SESSION['error_message'] = "You not eligibale for this loan.Try again!!";
+            return false;
         }
     }
 }
