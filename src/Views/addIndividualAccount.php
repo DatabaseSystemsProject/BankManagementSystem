@@ -65,8 +65,7 @@ $accountCtrl = new AccountController();
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputNIC">Select Account Holder NIC</label>
-                <select class="chosen" name="inputNIC" id="inputNIC" >
-                    <option value="************">************</option>
+                <select class="chosen" name="inputNIC" id="inputNIC" required>
                     <?php
                     $nicList = $individualCtrl->getNIClist();
                     if($nicList->num_rows > 0){
@@ -102,8 +101,9 @@ $accountCtrl = new AccountController();
                 </select> -->
                 <select name="plan" id="plan" >
                     <?php
-                    $age = 18;
-                    $planList = $savingsPlanCtrl->getsavingsPlans($age);
+                    //$age = 18;
+                    //$planList = $savingsPlanCtrl->getsavingsPlans($age);
+                    $planList = $savingsPlanCtrl->getsavingsPlans(1);
                     foreach($planList as $plan)
                     {
                         ?><option value="<?= $plan[0]; ?>"><?= $plan[1]."s of age ".$plan[3]." or above | Interest: ".$plan[2]."% |Minimum Balance: ".$plan[4]."Rs/="; ?></option><?php
@@ -139,7 +139,7 @@ $accountCtrl = new AccountController();
 </script>
 
 <?php
-    $accountCtrl->addIndividualAccount();
+    $accountCtrl->addIndividualAccountT();
 ?> 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

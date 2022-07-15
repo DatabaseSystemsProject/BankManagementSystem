@@ -24,6 +24,7 @@ if (isset($_POST['logout'])) {
   <link rel="stylesheet" href="../CSS/base.css">
 
 
+
   <!-- <script>
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
@@ -31,6 +32,7 @@ if (isset($_POST['logout'])) {
     </script> -->
 
   
+
 
 
 
