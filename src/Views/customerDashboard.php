@@ -14,7 +14,7 @@ $accountCtrl = new AccountController();
 // $ownerType = "personal";
 $accountNo = $_SESSION['account_no'];
 $customerNIC = $_SESSION['login'];
-$ownerType = $_SESSION['account_type'];
+$ownerType = $_SESSION['login_type'];
 $myUrl =  "customerDashboard.php";
 
 $accountType = $accountCtrl->getAccountDetails($accountNo)['acc_type_name'];
@@ -42,7 +42,7 @@ $customerName = $customerCtrl->getName($customerNIC);
 </head>
 
 <body>
-    <!-- <main-header></main-header> -->
+    <main-header></main-header>
 
     <div class=" float-sm main-cont mt-5">
         <div class="main-container" style="display:flex;">

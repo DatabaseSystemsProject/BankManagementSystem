@@ -9,7 +9,7 @@ if (isset($_POST['logout'])) {
 }
 
 
-$account_type = $_SESSION['account_type'];
+$account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
 $myUrl = strval($account_type) . "Dashboard.php";
 $staff_controller = new StaffDashboardController();
