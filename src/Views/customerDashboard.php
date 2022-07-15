@@ -42,7 +42,7 @@ $customerName = $customerCtrl->getName($customerNIC);
 </head>
 
 <body>
-    <main-header></main-header>
+    <!-- <main-header></main-header> -->
 
     <div class=" float-sm main-cont mt-5">
         <div class="main-container" style="display:flex;">
