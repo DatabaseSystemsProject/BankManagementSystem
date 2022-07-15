@@ -25,7 +25,7 @@ $unpaidMonths = null;
 
 <body style="background-color: rgb(0,0,205);">
     <main-header></main-header>
-    <div style="margin-top:57px !important; border-radius:6px;" class="container border border-2 mt-1 p-4 mx-auto bg-light">
+    <div style="margin-top:77px !important; border-radius:6px;" class="container border border-2 mt-1 p-4 mx-auto bg-light">
         <form action="loanInstallmentForm.php" method="post" id="myForm" class="form mx-auto">
             <div class="form-group">
                 <div class="row col-md-6 align-items-center mx-auto">
@@ -42,17 +42,17 @@ $unpaidMonths = null;
 
             ?>
         </form>
-        <?php
-        if (isset($_POST["check"])) {
-            $loanInsController->checkLoanID();
-        }
 
-        if (isset($_POST["pay"])) {
-            $loanInsController->payInstallment();
-        }
-        ?>
-        
     </div>
+    <?php
+    if (isset($_POST["check"])) {
+        $loanInsController->checkLoanID();
+    }
+    if (isset($_POST["pay"])) {
+        $loanInsController->payInstallment();
+    }
+
+    ?>
 </body>
 
 </html>

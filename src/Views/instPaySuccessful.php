@@ -19,7 +19,7 @@ unset($_SESSION["loan_details"]);
     <link rel="stylesheet" href="../CSS/insufficientBalance.css">
 </head>
 
-<body>
+<body style="background-color: rgb(0,0,205);">
 
     <main-header></main-header>
     <main>
@@ -27,15 +27,15 @@ unset($_SESSION["loan_details"]);
 
             <div class="card-body" style="display: flex; flex-direction:column;">
                 <h2 class="card-title mx-auto">
-                    <?php
-                    if (isset($_SESSION["Updated"])) {
-                        echo '<p style="color:green; font-size:1.2rem; padding:0px">' . $_SESSION["Updated"] . '</p>';
-                        unset($_SESSION["Updated"]);
-                    }
-                    ?>
+
                 </h2>
                 <i class="bi bi-emoji-smile mx-auto" style="font-size: 5vw; margin-bottom:-1%"></i>
-
+                <?php
+                if (isset($_SESSION["Updated"])) {
+                    echo '<p class="card-text mx-auto" style="color:green;">' . $_SESSION["Updated"] . '</p>';
+                    unset($_SESSION["Updated"]);
+                }
+                ?>
                 <div class="mx-auto">
                     <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">Exit</a>
                 </div>

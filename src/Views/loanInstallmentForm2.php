@@ -1,4 +1,4 @@
-<div style="margin-top:1px !important; border-radius:5px;" class="container border border-2 m p-5 mx-auto bg-light" id="hidDiv">
+<div style="margin-top:20px !important; border-radius:5px;" class="container border border-2 m p-5 mx-auto bg-light" id="hidDiv">
     <?php
 
     if (isset($_SESSION["uptodate"])) {
@@ -90,11 +90,9 @@
     </form>
 
 </div>
-<?php
-if (isset($_POST["pay"])) {
-    $loanInsController->payInstallment();
-}
-?>
+
+
+
 
 <script>
     var passedArray = <?php echo json_encode($_SESSION["loan_details"]); ?>;

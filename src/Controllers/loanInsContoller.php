@@ -22,7 +22,7 @@ class LoanInsController extends Controller
                 return;
             } else {
                 $_SESSION["loan_details"] = $result;
-                $_SESSION["success"] = "successful";
+
                 $this->checkUnpaidInstallments();
                 return;
             }
@@ -62,7 +62,7 @@ class LoanInsController extends Controller
             if ($remainingLiability >= 0) {
                 $this->loanInsModel->updateLoanLiability($_SESSION["loan_details"]["loan_id"], $remainingLiability);
                 $this->loanInsModel->updateInstallment($_SESSION["loan_details"]["loan_id"], $_POST["insNo"]);
-                $_SESSION["Updated"] = "payment done successfully";
+                $_SESSION["Updated"] = "Payment done successfully";
                 echo '<script>window.location.href="../Views/instPaySuccessful.php"</script>';
             }
         }

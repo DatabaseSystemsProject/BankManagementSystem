@@ -32,7 +32,6 @@ if (isset($_SESSION['error_message'])) {
 </head>
 
 <body style="background-color: rgb(0,0,205);">
-
     <!-- <main-header></main-header> -->
     <div class="mt-5">
         <div class="container border border-2 m-5 p-5 mx-auto bg-light ">
@@ -67,9 +66,7 @@ if (isset($_SESSION['error_message'])) {
     </div>
 
 
-
     <div class="container border border-2 m-5 p-5 mx-auto bg-light " id="div3" hidden>
-
         <h2>Loan Application Form</h2>
 
         <form method="post">
