@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION["login_type"])) {
+    header("Location: ./login.php");
+}
 include 'base.php';
 include '../Controllers/withdrawController.php';
 $withdrawContr = new WithdrawController();
