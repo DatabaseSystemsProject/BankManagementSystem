@@ -35,10 +35,10 @@ if (isset($_POST["submit"])) {
     <main-header></main-header>
     <div style="margin-top: 5rem;">
         <div class="container border border-2 m-5 p-5 mx-auto bg-light " style="margin-top: 50px;">
-            <h2 style="color:black ;">Late Loan Installment Report </h2>
+            <h2 style="color:black ;text-align:center;">Late Loan Installment Report </h2>
             <form id="myForm" action="lateLoanInstallmentReport.php" method="post">
-                <div class="form-row mt-5">
-                    <div class="form-group col-md-5">
+                <div class="form-row mt-5" style="margin:auto ;align-self:center;">
+                    <div class="form-group col-md-6">
                         <label for="year">Year</label>
                         <select id="year" name="year" class="form-select form-select-sm" style="height:2.5rem ;font-size:medium" required>
                             <option value=0>choose</option>
@@ -47,7 +47,7 @@ if (isset($_POST["submit"])) {
                         </select>
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-6">
                         <label for="month">Month</label>
                         <select id="month" name="month" class="form-select form-select-sm" style="height:2.5rem ;font-size:medium" required>
                             <option value=0>choose</option>
@@ -73,7 +73,7 @@ if (isset($_POST["submit"])) {
 
         <div class="container border border-2 m-5 p-5 mx-auto bg-light " id="div3" hidden>
 
-            <h2>Online Late Loan Installment report for <?php echo $controller->getYear() . " " . $controller->getMonth() ?></h2>
+            <h2 style="text-align: center;">Online Late Loan Installment report for <?php echo $controller->getYear() . " " . $controller->getMonth() ?></h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -111,7 +111,7 @@ if (isset($_POST["submit"])) {
 
     <div class="container border border-2 m-5 p-5 mx-auto bg-light " id="div4" hidden>
 
-        <h2>Regular Late Loan Installment report for <?php echo $controller->getYear() . " " . $controller->getMonth() ?></h2>
+        <h2 style="text-align: center;">Regular Late Loan Installment report for <?php echo $controller->getYear() . " " . $controller->getMonth() ?></h2>
         <table class="table">
             <thead>
                 <tr>
