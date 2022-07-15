@@ -7,8 +7,8 @@ include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
 if (isset($_POST["exit"])) {
-    if (isset($_SESSION["account_type"])) {
-        unset($_SESSION["account_type"]);
+    if (isset($_SESSION["accountType"])) {
+        unset($_SESSION["accountType"]);
     }
     header("Location: ./customerDashboard.php");
 }
