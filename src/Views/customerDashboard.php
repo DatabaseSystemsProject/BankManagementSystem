@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 include 'base.php';
-include_once ("../Controllers/individualCustomerController.php");
+include_once("../Controllers/individualCustomerController.php");
 
 $customerCtrl = new individualCustomerController();
 
@@ -40,7 +40,7 @@ $customerName = $customerCtrl->getName($customerNIC);
             <div class="sidebar" style="display:flex;flex-direction:column;">
                 <div class="ms-3" style="position: fixed; text-align: center;">
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
-                    <h1><?= $customerName["title"]." ".$customerName["f_name"]; ?></h1>
+                    <h1><?= $customerName["title"] . " " . $customerName["f_name"]; ?></h1>
                     <h1 style="margin-top: 10px;"><?= $customerName["l_name"]; ?></h1>
                 </div>
             </div>
@@ -116,9 +116,8 @@ $customerName = $customerCtrl->getName($customerNIC);
                         </div>
                     </a>
                     <?php
-                    if($accountType == "savings")
-                    {
-                        ?>
+                    if ($accountType == "savings") {
+                    ?>
                         <a href="onlineLoanApplicationForm.php">
                             <div class="card" style="width: 16rem;height:12rem;">
                                 <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
@@ -135,10 +134,10 @@ $customerName = $customerCtrl->getName($customerNIC);
                                 </div>
                             </div>
                         </a>
-                        <?php
+                    <?php
                     }
                     ?>
-                    
+
                 </div>
 
             </div>

@@ -4,9 +4,12 @@ include 'base.php';
 include '../Controllers/cardController.php';
 $cardContr = new CardController();
 $result = $cardContr->getCardDetails($_SESSION["account_no"]);
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 if (isset($_POST["exit"])) {
     if (isset($_SESSION["account_no"])) {
-        unset($_SESSION["account_no"]);
+        // unset($_SESSION["account_no"]);
     }
     header("Location: ./employeeDashboard.php");
 }
@@ -48,7 +51,12 @@ if (isset($_POST["exit"])) {
             </div>
         </div>
     </main>
-
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 </body>
 
 </html>

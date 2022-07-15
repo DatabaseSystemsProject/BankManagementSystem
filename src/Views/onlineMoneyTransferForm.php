@@ -6,6 +6,10 @@ include_once '../Models/moneyTransfermodel.php';
 include_once '../Config/db.php';
 include_once '../Helpers/mail.php';
 //$sender_id = $_SESSION['account_no'];
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+// $sender_id = $_SESSION['account_no'];
+$myUrl = strval($account_type) . "Dashboard.php";
 $sender_id = 456;
 
 if (isset($_POST["submit"])) {
@@ -33,6 +37,12 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+
 </head>
 
 <body style="background-color: rgb(0,100,180);display:flex;flex-direction:column; ">
