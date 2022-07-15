@@ -12,7 +12,7 @@ class Connector
     private function __construct()
     {
 
-        $connection = mysqli_connect("localhost", "root", "", "phoenix_trust_bank_final1");
+        $connection = mysqli_connect("localhost", "root", "", "phoenix_trust_bank");
 
         $this->connec = $connection;
         if (!$connection) {
