@@ -25,7 +25,6 @@ class OnlineLoanController
 
 
         $fdAcc = $this->loanModel->getFixedDepositeID($acc_no);
-        var_dump($fdAcc);
         if (!is_null($fdAcc)) {
             return $fdAcc;
         } else {
