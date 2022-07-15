@@ -23,13 +23,24 @@ if (isset($_POST['logout'])) {
   <link rel="icon" type="image/x-icon" href="../Resources/Images/icon.png">
   <link rel="stylesheet" href="../CSS/base.css">
 
-  <title>Document</title>
+
+
+  <!-- <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script> -->
+
+  
+
+
+
 
 
 
 </head>
 
-<body>
+<body style="background-image: linear-gradient(to right,#00007d,#0042db,#0076ff);">
 
 
   <main>

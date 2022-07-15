@@ -3,8 +3,10 @@ include_once 'base.php';
 include_once '../Config/db.php';
 include_once '../Controllers/lateInstallmentReportController.php';
 include_once '../Models/lateInstallmentReportModel.php';
+session_start();
 
-$branchId = 1;
+$branchId = $_SESSION['branch_id'];
+$branch_manager_NIC = $_SESSION['branch_manager_NIC'];
 $controller = new lateInstallmentReportController();
 
 if (isset($_POST["submit"])) {

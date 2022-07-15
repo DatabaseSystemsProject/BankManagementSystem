@@ -1,6 +1,7 @@
 <?php 
 
 include 'base.php';
+require("validateCustomer.php");
 include_once ("../Controllers/childController.php");
 include_once ("../Controllers/individualCustomerController.php");
 
@@ -48,23 +49,23 @@ $guardianCtrl = new individualCustomerController();
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="inputFirstName">First Name</label>
-                <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name">
+                <input type="text" class="form-control" id="inputFirstName" name="inputFirstName" placeholder="First Name" required>
             </div>
             <div class="form-group col-md-3">
                 <label for="inputMiddleName">Middle Name</label>
-                <input type="text" class="form-control" id="inputMiddleName" name="inputMiddleName" placeholder="Middle Name">
+                <input type="text" class="form-control" id="inputMiddleName" name="inputMiddleName" placeholder="Middle Name" required>
             </div>
             <div class="form-group col-md-3">
                 <label for="inputLastName">Last Name</label>
-                <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name">
+                <input type="text" class="form-control" id="inputLastName" name="inputLastName" placeholder="Last Name" required>
             </div>
         </div>
         <br>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputNIC">Guardian NIC</label> 
-                <select class="chosen" name="guardianNIC" id="guardianNIC" >
-                    <option value="************">************</option>
+                <select class="chosen" name="guardianNIC" id="guardianNIC" required>
+                    <!-- <option value="************">************</option> -->
                     <?php
                     $nicList = $guardianCtrl->getNIClist();
                     if($nicList->num_rows > 0){
@@ -102,7 +103,7 @@ $guardianCtrl = new individualCustomerController();
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputDoB">Date of Birth</label>
-                <input type="date" class="form-control" id="inputDoB" name="inputDoB" placeholder="Date of Birth">
+                <input type="date" class="form-control" id="inputDoB" name="inputDoB" placeholder="Date of Birth" required>
             </div>
         </div>
          
@@ -117,6 +118,7 @@ $guardianCtrl = new individualCustomerController();
 </script>
 <?php
     $childCtrl->addChild();
+    //validation done
 ?> 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

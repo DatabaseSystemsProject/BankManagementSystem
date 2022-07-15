@@ -6,7 +6,8 @@ session_start();
 $loanController = new RegularLoanController();
 $check = $loanController->checkEligibility();
 
-$login = $_SESSION['login'];
+// $login = $_SESSION['login'];
+$login=123456;
 // $user_type = "personal";
 // $user_id = 111111111;
 // $login=111111111;
@@ -105,13 +106,13 @@ if (isset($_SESSION['error_message'])) {
                 <div class="row">
                     <legend class="col-form-label col-sm-3 pt-0">Tax Payer?</legend>
 
-                    <div class="form-check col-sm-2">
+                    <div class="form-check col-sm-3">
                         <input class="form-check-input" type="radio" name="TaxYes" id="TaxYes" value="yes" onclick="EnableDisableTextBox()" checked>
                         <label class="form-check-label" for="TaxYes">
                             Yes
                         </label>
                     </div>
-                    <div class="form-check col-sm-2">
+                    <div class="form-check col-sm-3">
                         <input class="form-check-input" type="radio" name="TaxYes" id="TaxNo" value="no" onclick="EnableDisableTextBox()">
                         <label class="form-check-label" for="TaxNo">
                             No
@@ -133,7 +134,7 @@ if (isset($_SESSION['error_message'])) {
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNIC">Registration number </label>
-                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" required>
+                            <input type="text" class="form-control" id="inputRegNo" placeholder="Reg No" name="inputRegNo" value="" >
                         </div>
                     </div>
 
@@ -148,11 +149,13 @@ if (isset($_SESSION['error_message'])) {
                         <select id="inputLoanType" class="custom-select mr-sm-2" name="inputLoanType" required>
                             <!-- <option>Choose...</option> -->
                             <?php
-                            $loanTypes = $loanController->getLoanTypes();
-                            foreach ($loanTypes as $type) : ?>
-                                <option value="<?php echo $type['loan_plan_id'] ?>"><?php echo $type['loan_plan_name'] ?></option>
+                            if ($account_type == "organization") { ?>
+                                <option value="business">Business</option>
                             <?php
-                            endforeach;
+                            }else{?>
+                            <option value="personal">Personal</option>
+                            <?php
+                            }
                             ?>
                         </select>
                     </div>
@@ -385,7 +388,7 @@ if (isset($_SESSION['error_message'])) {
             sav_acc_no.value = passedArray["sav_acc_no"];
             org_name.value = passedArray["org_name"];
             reg_no.value = passedArray["reg_no"];
-            console.log(org_name.value);
+            console.log(reg_no.value);
 
 
 

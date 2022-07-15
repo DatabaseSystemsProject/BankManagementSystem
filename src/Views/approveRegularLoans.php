@@ -6,16 +6,18 @@ include "../Controllers/approveRegularLoansController.php";
 
 $arl_ctrl = new ApproveRegularLoansController();
 
-$branch_manager_NIC = '802365415V'; // hardcoded for demonstration
+$branch_manager_NIC = $_SESSION['branch_manager_NIC'];
+//$branch_manager_NIC = '802365415V'; // hardcoded for demonstration
 
 $branch_id = $arl_ctrl->getBranchID($branch_manager_NIC);
 $branch_name = $arl_ctrl->getBranchName($branch_manager_NIC);
 
-if (isset($_GET['approve_loan_id']) && isset($_GET['approve_bmID'])) {
+if (isset($_GET['approve_loan_id']) && isset($_GET['approve_bmID']) && isset($_GET['dur'])) {
     $loan_id = $_GET['approve_loan_id'];
     $branch_manager_NIC = $_GET['approve_bmID'];
+    $duration = $_GET['dur'];
 
-    $arl_ctrl->approveLoan($loan_id, $branch_manager_NIC);
+    $arl_ctrl->approveLoan($loan_id, $branch_manager_NIC, $duration);
 }
 
 if (isset($_GET['reject_loan_id']) && isset($_GET['reject_bmID'])) {
@@ -92,7 +94,7 @@ if (isset($_GET['reject_loan_id']) && isset($_GET['reject_bmID'])) {
                             <td> <?php echo $liability ?> </td>
                             <td> <?php echo $guarantor_name ?> </td>
                             <td>
-                                <a href="approveRegularLoans.php?approve_loan_id=<?php echo $loan_id?>&approve_bmID=<?php echo $branch_manager_NIC?>" class="btn btn-primary"> Approve </a>
+                                <a href="approveRegularLoans.php?approve_loan_id=<?php echo $loan_id?>&approve_bmID=<?php echo $branch_manager_NIC?>&dur=<?php echo $duration?>" class="btn btn-primary"> Approve </a>
                                 <a href="approveRegularLoans.php?reject_loan_id=<?php echo $loan_id?>&reject_bmID=<?php echo $branch_manager_NIC?>" class="btn btn-danger"> Reject </a>  
                             </td>
                         </tr>

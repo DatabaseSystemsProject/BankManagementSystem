@@ -26,16 +26,40 @@ class LoanInsModel
 
     public function getUnpaidInstallments($loanID)
     {
-        $sql = "SELECT * FROM loan_installment WHERE loan_id = ? AND paid = 0 ";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $loanID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // $sql = "SELECT * FROM loan_installment WHERE loan_id = ? AND paid = 0 ";
+        // $stmt = $this->conn->prepare($sql);
+        // $stmt->bind_param("i", $loanID);
+        // $stmt->execute();
+        // $result1 = $stmt->get_result();
+        // $unpaidArray = array();
+        // while ($row = $result1->fetch_assoc()) {
+        //     $monthNoYear = array("month" => $row["month"], "installment_no" => $row["installment_no"], "year" => $row["year"]);
+        //     array_push($unpaidArray, $monthNoYear);
+        // }
+
+        $month = date('F');
+        $year = (int)date('Y');
+
+        $sql2 = "SELECT installment_no FROM loan_installment WHERE loan_id = ? AND month = ? AND year = ?";
+        $stmt2 = $this->conn->prepare($sql2);
+        $stmt2->bind_param("isi", $loanID, $month, $year);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result()->fetch_assoc();
+        $currentInsNo = $result2["installment_no"];
+
+        $sql3 = "SELECT * FROM loan_installment WHERE loan_id = ? AND paid = 0 AND installment_no <= '$currentInsNo'";
+        $stmt3 = $this->conn->prepare($sql3);
+        $stmt3->bind_param("i", $loanID);
+        $stmt3->execute();
+        $result3 = $stmt3->get_result();
+
         $unpaidArray = array();
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result3->fetch_assoc()) {
             $monthNoYear = array("month" => $row["month"], "installment_no" => $row["installment_no"], "year" => $row["year"]);
             array_push($unpaidArray, $monthNoYear);
         }
+
+
         return $unpaidArray;
     }
 

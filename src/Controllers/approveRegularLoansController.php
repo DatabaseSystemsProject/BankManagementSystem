@@ -31,8 +31,8 @@ class ApproveRegularLoansController {
     }
 
 
-    public function approveLoan($loan_id, $branch_manager_NIC){
-        $this->arl_model->approveLoan($loan_id, $branch_manager_NIC);
+    public function approveLoan($loan_id, $branch_manager_NIC, $duration){
+        $this->arl_model->approveLoan($loan_id, $branch_manager_NIC, $duration);
     }
 
 
