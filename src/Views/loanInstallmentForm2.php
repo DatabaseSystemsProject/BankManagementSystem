@@ -20,7 +20,7 @@
                 <input type="text" class="form-control" id="inputNIC" disabled>
             </div>
             <div class="form-group col-md-6">
-                <label style="color:black" for="loanType">Loan type</label>
+                <label style="color:black" for="loanType">Loan Plan</label>
                 <input type="text" class="form-control" id="loanType" disabled>
             </div>
         </div>
@@ -40,6 +40,10 @@
                 <label style="color:black" for="remaining">Total Remaining( with interest )</label>
                 <input type="text" class="form-control" id="remaining" disabled>
             </div>
+            <div class="form-group col-md-6">
+                <label style="color:black" for="duration">Loan Type</label>
+                <input type="text" class="form-control" id="type" disabled>
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-7">
@@ -58,7 +62,7 @@
                     <?php
                     if (isset($_SESSION["installments"])) {
                         foreach ($_SESSION["installments"] as $row) {
-                            echo '<option value="' . $row["installment_no"] . '" >' . $row["month"] . '</option>';
+                            echo '<option value="' . $row["installment_no"] . '" >' . $row["month"] . "-" . $row['year'] . '</option>';
                         }
                     }
                     ?>
@@ -105,15 +109,19 @@
         var duration = document.getElementById("duration");
         var remaining = document.getElementById("remaining");
         var installment = document.getElementById("installment");
+        var type = document.getElementById("type");
 
         inputNIC.value = passedArray["customer_NIC"];
-        loanType.value = passedArray["loan_type"];
+        loanType.value = passedArray["loan_plan_name"];
         amount.value = passedArray["amount"];
         duration.value = passedArray["duration"];
         remaining.value = passedArray["liability"];
         installment.value = passedArray["monthly_installment"];
+        type.value = passedArray["type"];
 
     };
+
+    
 </script>
 
 <?php

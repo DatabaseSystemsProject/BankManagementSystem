@@ -5,6 +5,9 @@ session_start();
 include 'base.php';
 include '../Controllers/withdrawController.php';
 $withdrawContr = new WithdrawController();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 
 
 ?>
@@ -17,7 +20,7 @@ $withdrawContr = new WithdrawController();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
+    <title>Withdraw Money</title>
 </head>
 
 <body style="background-color: rgb(0,0,205);">
@@ -151,6 +154,11 @@ $withdrawContr = new WithdrawController();
         }
         wrapper.addEventListener('input', validate);
         validate();
+
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
     </script>
 
 </body>

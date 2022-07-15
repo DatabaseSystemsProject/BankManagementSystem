@@ -1,8 +1,13 @@
 <?php
+
 include 'base.php';
 include '../Config/db.php';
 include '../Models/fdFormModel.php';
 include '../Controllers/fdFormController.php';
+session_start();
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 
 if (isset($_SESSION['error_message'])) {
     echo '<p style="color:red; font-size:1.2rem; align-self:center">' . $_SESSION['error_message'] . '</p>';
@@ -32,7 +37,12 @@ if ($isSuccess) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        };
+    </script>
     <title>FD form</title>
 </head>
 
@@ -149,14 +159,7 @@ if ($isSuccess) {
     <script type="text/javascript">
         const application = document.getElementById("div3");
         var passedArray = <?php echo json_encode($array); ?>;
-        // function EnableDisableTextBox() {
-        //     var chkYes = document.getElementById("TaxYes");
-        //     var inputTaxNo = document.getElementById("inputTaxNo");
-        //     inputTaxNo.disabled = chkYes.checked ? false : true;
-        //     if (!inputTaxNo.disabled) {
-        //         inputTaxNo.focus();
-        //     }
-        // };
+
 
 
         function showApplication() {
@@ -172,9 +175,7 @@ if ($isSuccess) {
             var mobile = document.getElementById("inputMobile");
             var address = document.getElementById("address");
 
-            // var amount = document.getElementById("inputLoanAmount");
-            // var sav_acc_no = document.getElementById("inputAccNo");
-            // var fd_no = document.getElementById("inputFDNo");
+
 
             full_name.value = passedArray["full_name"];
             nic.value = passedArray["nic"];
@@ -183,18 +184,9 @@ if ($isSuccess) {
             mobile.value = passedArray["contact_number"];
             address.value = passedArray["address"];
 
-            // amount.value = passedArray["amount"];
-            // sav_acc_no.value = passedArray["sav_acc_no"];
-            // fd_no.value = passedArray["fd_no"];
+
 
         };
-
-        // var form = document.getElementById("myForm1");
-
-        // function handleForm(event) {
-        //     event.preventDefault();
-        // }
-        // form.addEventListener('submit', handleForm);
     </script>
 
     <?php

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'base.php';
 include_once '../Controllers/moneyTransferController.php';
 include_once '../Models/moneyTransfermodel.php';
