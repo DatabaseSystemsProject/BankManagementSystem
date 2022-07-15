@@ -71,5 +71,18 @@ class addOrganizationModel
         }
         return $result;
     }
+    function getName($orgRegNo)
+    {
+        $sql = "SELECT org_name FROM organization WHERE reg_no = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $orgRegNo);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if (!$result) {
+            echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        return $result;
+    }
 }
 ?>
