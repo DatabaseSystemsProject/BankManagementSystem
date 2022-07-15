@@ -101,8 +101,9 @@ $accountCtrl = new AccountController();
                 </select> -->
                 <select name="plan" id="plan" >
                     <?php
-                    $age = 18;
-                    $planList = $savingsPlanCtrl->getsavingsPlans($age);
+                    //$age = 18;
+                    //$planList = $savingsPlanCtrl->getsavingsPlans($age);
+                    $planList = $savingsPlanCtrl->getsavingsPlans(1);
                     foreach($planList as $plan)
                     {
                         ?><option value="<?= $plan[0]; ?>"><?= $plan[1]."s of age ".$plan[3]." or above | Interest: ".$plan[2]."% |Minimum Balance: ".$plan[4]."Rs/="; ?></option><?php

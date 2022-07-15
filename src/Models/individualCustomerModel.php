@@ -19,9 +19,11 @@ class IndividualCustomerModel
         $result = $stmt->execute();
 
         if (!$result) {
-            echo "Error: " . mysqli_error($this->conn) . ".";
+            return FALSE;
+            //echo "Error: " . mysqli_error($this->conn) . ".";
         }
         else{
+            return TRUE;
             // $customer_type_id = 1; //personal
             // $sql="INSERT INTO customer(user_NIC,customer_type_id) VALUES (?,?)";
             // $stmt = $this->conn->prepare($sql);
@@ -64,6 +66,19 @@ class IndividualCustomerModel
             echo "Error: " . mysqli_error($this->conn) . ".";
         }
         return $result;
+    }
+    function getAge($customerNIC)
+    {
+        $sql = "SELECT age FROM customer_age WHERE user_NIC = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $customerNIC);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if (!$result) {
+            echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        return $result['age'];
     }
 
 }

@@ -33,7 +33,7 @@ $accountCtrl = new AccountController();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Account</title>
+    <title>Add Organization Bank Account</title>
 </head>
 
 <body>
