@@ -26,7 +26,7 @@ class LoginModel
     }
     function getOrganization($account)
     {
-        $sql = "SELECT reg_no FROM org_bankaccount where account_no=?";
+        $sql = "SELECT org_regNo FROM org_bankaccount where account_no=?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $account);
         $stmt->execute();

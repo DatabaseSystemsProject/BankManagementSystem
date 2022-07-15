@@ -27,18 +27,23 @@ class RegularLoanController
                     $owners = $this->loanModel->getStackholder($this->reg_no, $this->applicant);
 
                     if (!empty($owners)) {
+                        $_SESSION['customer_account_type']="organization";
                         return true;
                     } else {
+                        echo '<script type="text/javascript">alert("You are not apply loan from this account.");</script>';
                         return false;
                     }
                 } else {
-                    if ($this->applicant = $accountResult['customer_NIC']) {
+                    if ($this->applicant == $accountResult['customer_NIC']) {
+                        $_SESSION['customer_account_type']="personal";
                         return true;
                     } else {
+                        echo '<script type="text/javascript">alert("NIC did not match.");</script>';
                         return false;
                     }
                 }
             } else {
+                echo '<script type="text/javascript">alert("Invalid account number or NIC.");</script>';
                 return false;
             }
         }
@@ -109,7 +114,7 @@ class RegularLoanController
                 $loan_status = "requested";
                 $req_staff_id = $login;
                 $monthly_instalment = round($amount / $duration + ($amount * $loan_type_data['interest_rate'] * 0.01 * $duration) / 12);
-                var_dump($reg_no, $monthly_instalment);
+                // var_dump($loan_type);
 
 
 
@@ -117,7 +122,7 @@ class RegularLoanController
 
                 $result = $this->loanModel->submitApplication($loan_type, $customer_NIC, $amount, $duration, $liability, $mode, $tax_no, $reg_no, $g_full_name, $g_nic, $g_passport, $g_email, $g_mobile, $loan_status, $req_staff_id, $savings_acc_no, $monthly_instalment);
                 if (!empty($result)) {
-                    echo "success";
+                    // echo "success";
                     // echo '<script type="text/javascript">alert("Success");</script>';
                     echo '<script>window.location.href="../Views/loanSuccess.php"</script>';
                 }

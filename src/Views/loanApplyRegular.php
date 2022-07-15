@@ -31,7 +31,7 @@ if (isset($_SESSION['error_message'])) {
             window.location.href = url;
         };
     </script>
-    <title>Onlin Loan</title>
+    <title>Regular Loan</title>
 </head>
 
 <body style="background-color: rgb(0,0,205);">
@@ -119,8 +119,8 @@ if (isset($_SESSION['error_message'])) {
                         </label>
                     </div>
                     <div class="form-group col-sm-5" id="inputTaxdata">
-                        <label for="inputTaxNo.">Tax Number</label>
-                        <input type="email" class="form-control" id="inputTaxNo" placeholder="Tax No" name="inputTaxNo">
+                        <label for="inputTaxNo">Tax Number</label>
+                        <input type="text" class="form-control" id="inputTaxNo" placeholder="Tax No" name="inputTaxNo">
                     </div>
                 </div>
             </div>
@@ -146,15 +146,16 @@ if (isset($_SESSION['error_message'])) {
                 <div class="form-row mt-3">
                     <div class="form-group " id="loanType">
                         <label for="inputLoanType">Loan Type</label>
-                        <select id="inputLoanType" class="custom-select mr-sm-2" name="inputLoanType" required>
+                        <select id="inputLoanType" class="custom-select mr-sm-2" name="inputLoanType">
                             <!-- <option>Choose...</option> -->
                             <?php
-                            if ($account_type == "organization") { ?>
+                            if ($_SESSION['customer_account_type'] == "organization") { ?>
                                 <option value="business">Business</option>
                             <?php
                             } else { ?>
                                 <option value="personal">Personal</option>
                             <?php
+                            unset($_SESSION['customer_account_type']);
                             }
                             ?>
                         </select>
@@ -274,7 +275,7 @@ if (isset($_SESSION['error_message'])) {
         function showOrg() {
 
             document.getElementById("orgData").style.display = "block";
-            document.getElementById("loanType").style.display = "none";
+       
         };
 
         function showApplication() {
@@ -326,7 +327,7 @@ if (isset($_SESSION['error_message'])) {
         echo "<script type='text/javascript'>showOrg();</script>";
     }
     if (isset($_POST["apply"])) {
-        echo "Set";
+        // echo "Set";
         $loanController->submitAppication($login);
     }
 
