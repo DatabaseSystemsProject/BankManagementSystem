@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 include 'base.php';
 include '../Controllers/withdrawController.php';
 $withdrawContr = new WithdrawController();
@@ -29,7 +31,7 @@ $withdrawContr = new WithdrawController();
                 echo '<p style="color:red; font-size:1.2rem; padding:0px;">' . $_SESSION['error_message'] . '</p>';
                 unset($_SESSION['error_message']);
             }
-             ?>
+            ?>
             <div class="form-group col-md-10 ">
                 <label style="color:black" for="amount">Account Number </label>
                 <input type="text" class="form-control inputs" name="accountNo" id="accountNo">

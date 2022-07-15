@@ -179,56 +179,6 @@ if (isset($_POST["submit"])) {
                 return false;
             }
         }
-        // const confirmation = document.getElementById("confirmDetails");
-
-        // function showConfirmaion() {
-
-        //     var x = document.getElementById("confirmDetails");
-        //     x.style.display = "block";
-
-        //     var y = document.getElementById("apply");
-        //     y.style.display = "none";
-
-        //     var accountNumber = document.getElementById("accountNumber");
-        //     var fullName = document.getElementById("fullName");
-        //     var inputEmail = document.getElementById("inputEmail");
-        //     var amount = document.getElementById("amount");
-
-        //     accountNumber.disabled = true;
-        //     fullName.disabled = true;
-        //     inputEmail.disabled = true;
-        //     amount.disabled = true;
-
-        // };
-
-        // function cancelTransfer() {
-        //     sessionStorage.cancelTransfer = 'true';
-
-        //     var x = document.getElementById("confirmDetails");
-        //     x.style.display = "none";
-
-        //     var y = document.getElementById("apply");
-        //     y.style.display = "block";
-
-        //     var accountNumber = document.getElementById("accountNumber");
-        //     var fullName = document.getElementById("fullName");
-        //     var inputEmail = document.getElementById("inputEmail");
-        //     var amount = document.getElementById("amount");
-
-        //     accountNumber.disabled = false;
-        //     fullName.disabled = false;
-        //     inputEmail.disabled = false;
-        //     amount.disabled = false;
-        // }
-
-
-
-        // var form = document.getElementById("myForm");
-
-        // function handleForm(event) {
-        //     event.preventDefault();
-        // }
-        // form.addEventListener('cancel', handleForm);
     </script>
 </body>
 

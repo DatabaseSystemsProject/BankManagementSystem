@@ -15,7 +15,7 @@ class MoneyTransferMOdel
     {
 
         if (mysqli_query($this->conn, $stmt)) {
-            echo ("successfull");
+            //echo ("successfull");
         } else {
             echo ("error" . mysqli_error($this->conn));
         }
@@ -109,7 +109,7 @@ class MoneyTransferMOdel
             }
 
 
-            $transaction_type = 5;
+            $transaction_type = 3;
             $stmt5 = $this->conn->prepare("INSERT INTO transaction(transaction_type,source ,destination,amount) VALUES (?,?,?,?)");
             $stmt5->bind_param("iiid", $transaction_type, $senderId, $id, $transferredAmount);
             $res5 = $stmt5->execute();

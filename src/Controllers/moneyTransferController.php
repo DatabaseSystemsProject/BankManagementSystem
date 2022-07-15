@@ -39,8 +39,6 @@ class moneyTransferController
         if ($this->checkBalanceAvailability($senderId, $transferredAmount) == true) {
             if ($this->checkWithdrawalCount($senderId) == true) {
                $this->model->updateAmount($id, $transferredAmount, $senderId); 
-                // $this->model->updateWithdrawalCount($senderId);
-                // $this->model->updateTransactionTable($senderId, $id, $transferredAmount);
                 $senderEmail = $this->model->getCustomerEmail($senderId);
                 $senderEmailBody = "You have transferred Rs. " . $transferredAmount . " amount of money to account number " . $id;
                 $this->mailSender->sendMail($senderEmail, "Money Transfer", $senderEmailBody);
