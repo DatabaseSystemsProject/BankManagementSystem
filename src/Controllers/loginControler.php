@@ -31,7 +31,7 @@ class LoginController
                 if ($acc_type == 'organization') {
                     $reg_no = $this->loginModel->getOrganization($account['account_no']);
 
-                    $stackholder = $this->loginModel->getStackholder($reg_no['reg_no'], $nic);
+                    $stackholder = $this->loginModel->getStackholder($reg_no['org_regNo'], $nic);
                     if (!empty($stackholder)) {
 
                         $_SESSION['login_type'] = $acc_type;
