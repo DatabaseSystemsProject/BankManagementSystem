@@ -7,6 +7,8 @@ include "../Models/onlineLoanModel.php";
 class OnlineLoanController
 {
     private $loanModel;
+    private $year;
+    private $month;
     private $duration;
     private $fd_id;
     private $amount;
@@ -31,28 +33,18 @@ class OnlineLoanController
         }
     }
 
-    function getLoanTypes()
-    {
-        $loanTypes = $this->loanModel->getLoanTypes();
-        return $loanTypes;
-    }
 
     function checkEligibility()
     {
         if (isset($_POST["check"]) ) {
 
-            $this->duration = $_POST["inputLoanDuration"];
+            $this->year=$_POST["inputYear"];
+            $this->month=$_POST["inputMonth"];
+            $this->duration = $this->year*12+$this->month;
             $this->amount = $_POST["inputLoanAmount"];
             $this->fd_id = $_POST["inputFD"];
-            $result = $this->loanModel->getFixedDepositeData(intval($this->fd_id));
-            $fd_duration = $result["duration"];
-            $fd_amount = $result["amount"];
-            if ($this->duration <= $fd_duration && $this->amount < 500000 && $this->amount <= $fd_amount * 0.6) {
-                return true;
-            } else {
-                $_SESSION['error_message'] = "You not eligibale for this loan.Try again!!";
-                return false;
-            }
+            return $this->loanEligible($this->duration,$this->amount,$this->fd_id);
+            
         }
     }
 
@@ -75,11 +67,13 @@ class OnlineLoanController
         $array["duration"] = $this->duration;
         $array["sav_acc_no"] = $account_no;
         $array["fd_no"] = $this->fd_id;
+        $array["year"]=$this->year;
+        $array["month"]=$this->month;
 
 
-        if($resultAcc["customer_type_name"]=="organization")
+        if($resultAcc["owner_type_name"]=="organization")
         {
-            $reg_no=$this->loanModel->getRegNo($account_no)['reg_no'];
+            $reg_no=$this->loanModel->getRegNo($account_no)['org_regNo'];
             $resultOrg = $this->loanModel->getOgranization($reg_no);
             $array["org_name"] = $resultOrg["org_name"];
             $array["reg_no"]=$reg_no;
@@ -94,21 +88,54 @@ class OnlineLoanController
     function submitAppication($login)
     {
         if (isset($_POST["apply"])) {
-            if (!empty($_POST['inputLoanAmount']) && !empty($_POST['inputLoanDuration'])) {
-                $loan_type = $_POST['inputLoanType'];
+            if (!empty($_POST['inputLoanAmount'])) {
+                $loan_type_data = $this->loanModel->getLoanType($_POST['inputLoanType']);
+                $loan_type=$loan_type_data['loan_plan_id'];
                 $customer_NIC = $login;
                 $amount = $_POST["inputLoanAmount"];
-                $duration =$_POST["inputLoanDuration"] ;
+                $year =$_POST["inputYear"];
+                $month=$_POST["inputMonth"];
+                $duration=$year*12+$month;
+                // $duration =$_POST["inputLoanDuration"] ;
                 $tax_no = $_POST['inputTaxNo'];
                 $reg_no = $_POST['inputRegNo'];
                 $fd_id = $_POST["inputFDNo"];
                 $mode = "online";
                 $liability=$amount;
+                $monthly_instalment= round($amount/$duration+($amount*$loan_type_data['interest_rate']*0.01*$duration)/12);
 
 
-               $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id);
+                if($this->loanEligible($duration,$amount,$fd_id))
+                {
+                    
+                    $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id,$monthly_instalment);
+                    if(!empty($result)){
+                        
+                        // echo '<script type="text/javascript">alert("Success");</script>';
+                        echo '<script>window.location.href="../Views/loanSuccess.php"</script>';
+                    }
+                }else{
+                    echo '<script type="text/javascript">alert("You not eligibale for this loan.Try again!!");</script>';
+                }
+
+
+               
 
             }
+        }
+    }
+
+    function loanEligible($duration,$amount,$fd_id)
+    {
+        $result = $this->loanModel->getFixedDepositeData(intval($fd_id));
+        $fd_duration = $result["remaining_months"];
+        $fd_amount = $result["amount"];
+        if ($duration <= $fd_duration && $amount < 500000 && $amount <= $fd_amount * 0.6) {
+            return true;
+        } else {
+            // $_SESSION['error_message'] = "You not eligibale for this loan.Try again!!";
+            echo '<script type="text/javascript">alert("You not eligibale for this loan.Try again!!");</script>';
+            return false;
         }
     }
 }

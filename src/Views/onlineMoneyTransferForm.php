@@ -4,7 +4,7 @@ include_once '../Controllers/moneyTransferController.php';
 include_once '../Models/moneyTransfermodel.php';
 include_once '../Config/db.php';
 include_once '../Helpers/mail.php';
-
+//$sender_id = $_SESSION['account_no'];
 $sender_id = 456;
 
 if (isset($_POST["submit"])) {
@@ -35,7 +35,7 @@ if (isset($_POST["submit"])) {
 </head>
 
 <body style="background-color: rgb(0,100,180);display:flex;flex-direction:column; ">
-    <main-header></main-header>
+    <!-- <main-header></main-header> -->
     <div class="mt-5">
         <div class="container border border-2 mt-5 p-5 mx-auto bg-light " id="div3">
             <h2>Money Transfer Form</h2>
@@ -179,56 +179,6 @@ if (isset($_POST["submit"])) {
                 return false;
             }
         }
-        // const confirmation = document.getElementById("confirmDetails");
-
-        // function showConfirmaion() {
-
-        //     var x = document.getElementById("confirmDetails");
-        //     x.style.display = "block";
-
-        //     var y = document.getElementById("apply");
-        //     y.style.display = "none";
-
-        //     var accountNumber = document.getElementById("accountNumber");
-        //     var fullName = document.getElementById("fullName");
-        //     var inputEmail = document.getElementById("inputEmail");
-        //     var amount = document.getElementById("amount");
-
-        //     accountNumber.disabled = true;
-        //     fullName.disabled = true;
-        //     inputEmail.disabled = true;
-        //     amount.disabled = true;
-
-        // };
-
-        // function cancelTransfer() {
-        //     sessionStorage.cancelTransfer = 'true';
-
-        //     var x = document.getElementById("confirmDetails");
-        //     x.style.display = "none";
-
-        //     var y = document.getElementById("apply");
-        //     y.style.display = "block";
-
-        //     var accountNumber = document.getElementById("accountNumber");
-        //     var fullName = document.getElementById("fullName");
-        //     var inputEmail = document.getElementById("inputEmail");
-        //     var amount = document.getElementById("amount");
-
-        //     accountNumber.disabled = false;
-        //     fullName.disabled = false;
-        //     inputEmail.disabled = false;
-        //     amount.disabled = false;
-        // }
-
-
-
-        // var form = document.getElementById("myForm");
-
-        // function handleForm(event) {
-        //     event.preventDefault();
-        // }
-        // form.addEventListener('cancel', handleForm);
     </script>
 </body>
 

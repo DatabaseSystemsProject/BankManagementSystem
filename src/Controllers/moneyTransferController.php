@@ -38,17 +38,18 @@ class moneyTransferController
     {
         if ($this->checkBalanceAvailability($senderId, $transferredAmount) == true) {
             if ($this->checkWithdrawalCount($senderId) == true) {
-                $this->model->updateAmount($id, $transferredAmount, $senderId);
-                $this->model->updateWithdrawalCount($senderId);
-                $this->model->updateTransactionTable($senderId, $id, $transferredAmount);
+               $this->model->updateAmount($id, $transferredAmount, $senderId); 
                 $senderEmail = $this->model->getCustomerEmail($senderId);
                 $senderEmailBody = "You have transferred Rs. " . $transferredAmount . " amount of money to account number " . $id;
                 $this->mailSender->sendMail($senderEmail, "Money Transfer", $senderEmailBody);
+                $receiverEmailBody = "Account Number " . $senderId . " has transferred Rs. " . $transferredAmount . " of money to your account " . $id;
                 if ($this->email != null) {
-                    $receiverEmailBody = "Account Number " . $senderId . " has transferred Rs. " . $transferredAmount . " of money to your account " . $id;
                     $this->mailSender->sendMail($this->email, "Money Transfer", $receiverEmailBody);
+                } else {
+                    $receiverEmail = $this->model->getCustomerEmail($id);
+                    $this->mailSender->sendMail($receiverEmail, "Money Transfer", $receiverEmailBody);
                 }
-                header("Location: transferSuccess.php");
+                // header("Location: transferSuccess.php");
             } else {
                 header("Location: withdrawalLimitExceeded.php");
             }

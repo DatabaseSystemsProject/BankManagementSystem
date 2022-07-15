@@ -37,3 +37,11 @@ body {
     background: red;
     color: white;
   }
+
+  .hidden{
+    display: none;
+  }
+
+  .show{
+    display: block;
+  }

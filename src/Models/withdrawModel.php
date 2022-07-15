@@ -1,9 +1,9 @@
 <?php
-
 include "../Config/db.php";
 
-class AtmModel
+class WithdrawModel
 {
+
     private $conn;
 
     function __construct()
@@ -12,41 +12,17 @@ class AtmModel
         $this->conn = $connector->getConnector();
     }
 
-    public function getPin($pin)
+    public function checkDetails($accountNo)
     {
-        $sql = "SELECT * FROM card WHERE pin_no = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $pin);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        return $result;
-    }
 
-    public function getCardNo($cardNo)
-    {
-        $sql = "SELECT * FROM card WHERE card_no = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $cardNo);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        return $result;
-    }
-
-    public function getAccount($accountNo, $accountType)
-    {
         $sql = "SELECT * FROM account JOIN account_type ON account.account_type_id = account_type.acc_type_id WHERE account_no = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $accountNo);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
-        if (trim(strtolower($result["acc_type_name"]), " ")  == trim(strtolower($accountType), " ")) {
-            return true;
-        } else {
-            return false;
-        }
+        return $result;
     }
 
-    // 
     public function getSavingsAcc($accountNo)
     {
         $sql = "SELECT * FROM account JOIN savings_account ON account.account_no = savings_account.savings_acc_no WHERE account_no = ?";
@@ -61,7 +37,7 @@ class AtmModel
     {
         $sql = "UPDATE savings_account SET withdrawal_count = ? WHERE savings_acc_no =?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $newWithdrawalAmount, $accountNo);
+        $stmt->bind_param("di", $newWithdrawalAmount, $accountNo);
         $stmt->execute();
         return;
     }
@@ -70,7 +46,7 @@ class AtmModel
     {
         $sql = "UPDATE account SET balance = ? WHERE account_no =?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $remainingbalance, $accountNo);
+        $stmt->bind_param("di", $remainingbalance, $accountNo);
         $stmt->execute();
         return;
     }
@@ -85,14 +61,27 @@ class AtmModel
         $result = $stmt->get_result()->fetch_assoc();
         return $result;
     }
-    public function withdrawAndUpdateBalance($account_no, $newWithdrawalCount, $remainingbalance)
+
+    public function updateTransactionTable($senderId, $amount, $employeeID)
     {
+        $transaction_type = 1;
+        $stmt = $this->conn->prepare("INSERT INTO transaction(transaction_type,source,amount,teller) VALUES (?,?,?,?)");
+        $stmt->bind_param("iidi", $transaction_type, $senderId, $amount, $employeeID);
+        $stmt->execute();
+        return;
+    }
+
+    public function withdrawAndUpdateTransaction($account_no, $newWithdrawalCount, $remainingbalance, $amount, $employee_id)
+    {
+        $transaction_type = 1;
+
         mysqli_begin_transaction($this->conn);
         try {
             mysqli_autocommit($this->conn, FALSE);
             $sql1 = "UPDATE savings_account SET withdrawal_count = ? WHERE savings_acc_no =?";
             $sql2 = "UPDATE account SET balance = ? WHERE account_no =?";
-    
+            $sql3 = "INSERT INTO transaction(transaction_type,source,amount,teller) VALUES (?,?,?,?)";
+
             $state = true;
 
             $stmt1 = $this->conn->prepare($sql1);
@@ -109,6 +98,12 @@ class AtmModel
                 $state = false;
             }
 
+            $stmt3 = $this->conn->prepare($sql3);
+            $stmt3->bind_param("iidi", $transaction_type, $account_no, $amount, $employee_id);
+            $res3 = $stmt3->execute();
+            if (!$res3) {
+                $state = false;
+            }
             if ($state) {
                 mysqli_commit($this->conn);
                 return true;
@@ -122,13 +117,15 @@ class AtmModel
         }
     }
 
-    public function updateCheckingBalance($account_no, $remainingbalance)
+    public function updateBalanceAndUpdateTransaction($account_no, $remainingbalance, $amount, $employee_id)
     {
+        $transaction_type = 1;
 
         mysqli_begin_transaction($this->conn);
         try {
             mysqli_autocommit($this->conn, FALSE);
             $sql2 = "UPDATE account SET balance = ? WHERE account_no =?";
+            $sql3 = "INSERT INTO transaction(transaction_type,source,amount,teller) VALUES (?,?,?,?)";
 
             $state = true;
 
@@ -139,6 +136,12 @@ class AtmModel
                 $state = false;
             }
 
+            $stmt3 = $this->conn->prepare($sql3);
+            $stmt3->bind_param("iidi", $transaction_type, $account_no, $amount, $employee_id);
+            $res3 = $stmt3->execute();
+            if (!$res3) {
+                $state = false;
+            }
             if ($state) {
                 mysqli_commit($this->conn);
                 return true;

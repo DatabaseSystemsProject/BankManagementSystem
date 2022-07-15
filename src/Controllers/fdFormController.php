@@ -89,11 +89,12 @@ class FDController
 
             $fd_type_rate_array = $this->model->selectFdrateById($this->fd_type_id);
             $fd_type_rate = $fd_type_rate_array['interest_rate'];
+            $fd_type_duration = $fd_type_rate_array['duration'];
             //echo $fd_type_rate;
             $monthly_interest = $this->fd_amount * ($fd_type_rate / 100) / 12;
             //echo $monthly_interest;
             //echo $this->accountNumber;
-            $this->model->insertFdAccountDetails($this->accountNumber, $this->fd_type_id, $this->fd_amount, $monthly_interest);
+            $this->model->insertFdAccountDetails($this->accountNumber, $this->fd_type_id, $this->fd_amount, $monthly_interest, $fd_type_duration);
             return true;
         } else {
             return false;

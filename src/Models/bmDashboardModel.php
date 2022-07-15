@@ -14,7 +14,8 @@ class bmDashboardModel {
         
         $sql = "SELECT s.f_name AS first_name,
                        s.l_name AS last_name,
-                       b.branch_name AS branch_name
+                       b.branch_name AS branch_name,
+                       b.branch_id AS branch_id
                 FROM staff s
                 JOIN branch b ON b.branch_id = s.branch_id
                 WHERE s.user_NIC = ?";

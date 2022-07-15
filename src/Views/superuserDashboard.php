@@ -1,4 +1,22 @@
-<?php include 'base.php' ?>
+<?php include 'base.php';
+include "../Controllers/staffDashboardControler.php";
+session_start();
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('location:login.php');
+}
+
+
+$account_type = $_SESSION['account_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
+$staff_controller = new StaffDashboardController();
+$staff_member = $staff_controller->staffDetails($login);
+$name = $staff_member['f_name'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +42,8 @@
             <div class="sidebar" style="display:flex;flex-direction:column;">
                 <div class="ms-3" style="position: fixed; text-align: center;">
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
-                    <h1>Thinira</h1>
-                    <h1 style="margin-top: 10px;">Wanasinghe</h1>
+                    <h1><?php echo $staff_member['f_name']; ?></h1>
+                    <h1 style="margin-top: 10px;"><?php echo $staff_member['l_name']; ?></h1>
                 </div>
             </div>
 
@@ -33,26 +51,26 @@
                 <div class=" bankName">
                     <img src="../Resources/Images/logoBlack.png" alt="no title">
                 </div>
-                <div class="container my-3">
+                <div class="container my-3" hidden>
                     <div class="row">
                         <div class="four col-md-3">
-                            <div class="counter-box colored"> <span class="counter" id="counter" >4</span>
+                            <div class="counter-box colored"> <span class="counter" id="counter">4</span>
                                 <p>Registered Students</p>
                             </div>
                         </div>
                         <div class="four col-md-3">
-                            <div class="counter-box"><span class="counter" id="counter" >5</span>
+                            <div class="counter-box"><span class="counter" id="counter">5</span>
                                 <p>Registered Teachers</p>
                             </div>
                         </div>
                         <div class="four col-md-3">
-                            <div class="counter-box colored"> <span class="counter" id="counter" >6</span>
+                            <div class="counter-box colored"> <span class="counter" id="counter">6</span>
                                 <p>Available Classes</p>
                             </div>
                         </div>
 
                         <div class="four col-md-3">
-                            <div class="counter-box"><span class="counter" id="counter" >7</span>
+                            <div class="counter-box"><span class="counter" id="counter">7</span>
                                 <p>Advertiesments</p>
                             </div>
                         </div>
@@ -61,7 +79,7 @@
                 </div>
                 <div class="dash1" style="display: flex;flex-direction: row ;align-self: center;justify-content:space-evenly;">
 
-                    <a href="addAccountForm.php">
+                    <a href="staffRegister.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-person-plus-fill" style="font-size:100px;align-self:center;margin-top:-10%"></i>
@@ -115,6 +133,13 @@
 
         </div>
     </div>
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
+
     <!-- <script>
         let counts=setInterval(updated);
         let upto=0;

@@ -1,4 +1,10 @@
-<?php include 'base.php' ?>
+<?php include 'base.php';
+
+session_start();
+// $account_type=$_SESSION["account_type"];
+$account_type="customer";
+$url=strval($account_type)."Dashboard.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,13 +27,13 @@
     <main-header></main-header>
     <main>
         <div class="card mx-auto" style="width: 50rem; height:27rem; margin: 0; position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+
             <div class="card-body" style="display: flex; flex-direction:column;">
-                <h2 class="card-title mx-auto">Insufficient Balance!</h2>
-                <i class="bi bi-emoji-frown mx-auto" style="font-size: 5vw;"></i>
-                <p class="card-text mx-auto">Do you wish to make another transfer?</p>
+                <h2 class="card-title mx-auto">Loan Applied Successfully!</h2>
+                <i class="bi bi-emoji-smile mx-auto" style="font-size: 5vw; margin-bottom:-1%"></i>
+                <p class="card-text mx-auto">Thank you!</p>
                 <div class="mx-auto">
-                    <a href="onlineMoneyTransferForm.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
-                    <a href="customerDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
+                    <a href="<?php echo $url; ?>" class="btn btn-primary mx-auto" style="width:10vw">Exit</a>
                 </div>
             </div>
         </div>

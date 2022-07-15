@@ -3,6 +3,9 @@ session_start();
 include "base.php";
 include "../Controllers/atmController.php";
 $atm_contr = new AtmController();
+if (isset($_POST["exit"])) {
+    header("Location: ./customerDashboard.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +25,7 @@ $atm_contr = new AtmController();
         <div class="bankName">
             <img src="../Resources/Images/logoBlack.png" alt="no title">
         </div>
-        <form method="post">
+        <form method="post" action="./atm0.php">
             <div id="form1" class="container-md d-flex flex-column col-md-8 form1 form mx-auto" action="">
                 <div class="header">Welcome to Phoenix Trust Bank</div>
 
@@ -35,15 +38,18 @@ $atm_contr = new AtmController();
                     }
                     ?>
                     <input type="text" name="cardNo" class="form-control" id="cardNo" style="margin-bottom:30px">
-                    <button type="submit" class="btn btn-primary " id="Next1" name="submit" style="margin-bottom:-20px">Enter</button>
-
+                    <div class="d-grid gap-3 ">
+                        <button type="submit" class="btn btn-primary shadow" id="Next1" name="submit">Enter</button>
+                        <button type="submit" class="btn btn-danger shadow col-3 mx-auto" id="exit" name="exit">Exit</button>
+                    </div>
                 </div>
-            </div>
         </form>
 
         <?php
         $atm_contr->checkCardNo();
+
         ?>
+
 
     </div>
 </body>
