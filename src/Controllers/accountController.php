@@ -218,10 +218,9 @@ class AccountController
                     $receiver = $receiver['email'];
 
                     $this->mailer->sendMail($receiver,$subject,$body);
-                    echo '<script>window.location.href="../Views/customerAddSuccess.php"</script>';
+                    echo '<script>window.location.href="../Views/accountAddSuccess.php"</script>';
                 }else{
-                    $FormType = 1;
-                    echo '<script>window.location.href="../Views/customerAddSuccess.php?$FormType"</script>';
+                    echo '<script>window.location.href="../Views/accountAddFailed.php?"</script>';
                 }
             }
         }
@@ -256,8 +255,9 @@ class AccountController
                 $receiver = $receiver['email'];
 
                 $this->mailer->sendMail($receiver,$subject,$body);
+                echo '<script>window.location.href="../Views/accountAddSuccess.php"</script>';
             }else{
-                echo "error occured";
+                echo '<script>window.location.href="../Views/accountAddFailed.php?"</script>';
             }
     
         }
@@ -275,6 +275,7 @@ class AccountController
             if($accountType == 1)
             {
                 $plan = $_POST['plan'];
+                //$plan = 5;
             }
             $balance = $_POST['inputAmount'];
             $password = $this->generatePassword();
@@ -302,11 +303,17 @@ class AccountController
                 $receiver = $receiver['email'];
 
                 $this->mailer->sendMail($receiver,$subject,$body);
+                echo '<script>window.location.href="../Views/accountAddSuccess.php"</script>';
             }else{
-                echo "error occured";
+                echo '<script>window.location.href="../Views/accountAddFailed.php?"</script>';
             }
     
         }
     }
+    public function getOrgName($accountNo){
+        $result = $this->accountModel->getOrgName($accountNo);
+        return $result;
+    }
+
 }
 ?>

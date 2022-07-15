@@ -92,7 +92,7 @@ class AccountModel
     }
     function getAccountDetails($accountNo)
     {
-        $sql = "SELECT account_no,acc_type_name,owner_type,date_created,state,balance,branch_name FROM account,account_type,branch WHERE account_no = ? AND account.account_type_id = account_type.acc_type_id AND account.branch_id = branch.branch_id";
+        $sql = "SELECT account_no,customer_NIC,acc_type_name,owner_type_id,date_created,state,balance,branch_name FROM account,account_type,branch WHERE account_no = ? AND account.account_type_id = account_type.acc_type_id AND account.branch_id = branch.branch_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $accountNo);
         $stmt->execute();

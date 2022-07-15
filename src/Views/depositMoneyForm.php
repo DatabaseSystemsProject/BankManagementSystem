@@ -4,7 +4,7 @@ include 'base.php';
 include_once ("../Controllers/depositMoneyController.php");
 
 $depositMoneyCtrl = new DepositMoneyController();
-$empID = "725636654v"; // remove this when adding session
+$empID = 345666; // remove this when adding session
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ $empID = "725636654v"; // remove this when adding session
 
 </html>
 <main-header></main-header>
-<div class="container border border-2 m-5 p-5 mx-auto ">
+<div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2>Deposit Money</h2> <br>
     <form action="" method = "post" enctype = "multipart/form-data">
         <div class="form-row">

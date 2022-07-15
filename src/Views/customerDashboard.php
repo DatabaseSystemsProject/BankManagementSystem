@@ -2,13 +2,21 @@
 
 include 'base.php';
 include_once ("../Controllers/individualCustomerController.php");
+include_once ("../Controllers/accountController.php");
+session_start();
 
 $customerCtrl = new individualCustomerController();
+$accountCtrl = new AccountController();
 
-$accountNo = 60001;
-$customerNIC = 199978564732;
-$accountType = "savings";
-$ownerType = "personal";
+// $accountNo = 60001;
+// $customerNIC = 199978564732;
+// $accountType = "savings";
+// $ownerType = "personal";
+$accountNo = $_SESSION['account_no'];
+$customerNIC = $_SESSION['login'];
+$ownerType = $_SESSION['account_type'];
+
+$accountType = $accountCtrl->getAccountDetails($accountNo)['acc_type_name'];
 
 $customerName = $customerCtrl->getName($customerNIC);
 
@@ -40,6 +48,13 @@ $customerName = $customerCtrl->getName($customerNIC);
             <div class="sidebar" style="display:flex;flex-direction:column;">
                 <div class="ms-3" style="position: fixed; text-align: center;">
                     <img src="../Resources/Images/avatar2.png" class="rounded-circle" alt="../Resources/Images/avatar2.png">
+                    <?php
+                    $str = "organization";
+                     if(strcmp($ownerType,$str) == 0){
+                         $orgName = $accountCtrl->getOrgName($accountNo);
+                        ?><h1><?= $orgName['org_name']; ?></h1><?php
+                     }
+                    ?>
                     <h1><?= $customerName["title"]." ".$customerName["f_name"]; ?></h1>
                     <h1 style="margin-top: 10px;"><?= $customerName["l_name"]; ?></h1>
                 </div>
@@ -86,7 +101,7 @@ $customerName = $customerCtrl->getName($customerNIC);
                             </div>
                         </div>
                     </a>
-                    <a href="transferMoney.php">
+                    <a href="onlineMoneyTransferForm.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-cash-coin" style="font-size:100px;align-self:center;margin-top:-10%"></i>
@@ -107,7 +122,7 @@ $customerName = $customerCtrl->getName($customerNIC);
 
                 </div>
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
-                    <a href="atm.php">
+                    <a href="atm0.php">
                         <div class="card" style="width: 16rem;height:12rem;">
                             <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                 <i class="bi bi-credit-card" style="font-size:100px;align-self:center;margin-top:-10%"></i>
@@ -116,10 +131,11 @@ $customerName = $customerCtrl->getName($customerNIC);
                         </div>
                     </a>
                     <?php
-                    if($accountType == "savings")
-                    {
+                    // $act = "savings";
+                    // if(strcmp($accountType, $act)==0)
+                    // {
                         ?>
-                        <a href="onlineLoanApplicationForm.php">
+                        <a href="loanApplyOnline.php">
                             <div class="card" style="width: 16rem;height:12rem;">
                                 <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                     <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
@@ -127,7 +143,7 @@ $customerName = $customerCtrl->getName($customerNIC);
                                 </div>
                             </div>
                         </a>
-                        <a href="fdDetails.php">
+                        <a href="customer.php">
                             <div class="card" style="width: 16rem;height:12rem;">
                                 <div class="card-body" style="align-self: center;display:flex;flex-direction:column">
                                     <i class="bi bi-file-text" style="font-size:80px;align-self:center;margin-top:-10%"></i>
@@ -136,7 +152,7 @@ $customerName = $customerCtrl->getName($customerNIC);
                             </div>
                         </a>
                         <?php
-                    }
+                    //}
                     ?>
                     
                 </div>
