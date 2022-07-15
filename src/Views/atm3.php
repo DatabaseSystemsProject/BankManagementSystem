@@ -9,6 +9,7 @@ $atm_contr = new AtmController();
 if (isset($_POST["exit"])) {
     header("Location: ./customerDashboard.php");
 }
+$myUrl =  "customerDashboard.php";
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +76,11 @@ if (isset($_POST["exit"])) {
         },
         "Must be a valid number"
     );
+
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
 </script>
 
 
