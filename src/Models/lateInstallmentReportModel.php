@@ -54,4 +54,14 @@ class LateInstallmentModel
         //$user = $result->fetch_assoc();
         return $users;
     }
+
+    public function gerBranchs()
+    {
+        $sql = "SELECT branch_id,branch_name FROM branch ;";
+        $result = mysqli_query($this->conn, $sql);
+        if (!$result) {
+            echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        return $result;
+    }
 }

@@ -3,8 +3,13 @@
 session_start();
 $account_type = $_SESSION["loan_type"];
 // $account_type="customer";
-$url = strval($account_type) . "Dashboard.php";
-$myUrl =  "customerDashboard.php";
+if($account_type=="employee"){
+    $myurl = strval($account_type) . "Dashboard.php";
+}else{
+    $myUrl =  "customerDashboard.php";
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
