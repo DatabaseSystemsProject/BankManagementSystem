@@ -10,7 +10,9 @@ $myUrl = strval($account_type) . "Dashboard.php";
 $loanController = new RegularLoanController();
 $check = $loanController->checkEligibility();
 
+
 $login = $_SESSION['login'];
+
 
 
 
