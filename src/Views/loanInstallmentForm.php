@@ -3,7 +3,7 @@ session_start();
 include 'base.php';
 require_once '../Controllers/loanInsContoller.php';
 $loanInsController = new LoanInsController();
-$_SESSION["loanInsController"] = $loanInsController;
+// $_SESSION["loanInsController"] = $loanInsController;
 $unpaidMonths = null;
 ?>
 <!DOCTYPE html>

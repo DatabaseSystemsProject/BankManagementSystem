@@ -92,6 +92,8 @@
 </div>
 
 
+
+
 <script>
     var passedArray = <?php echo json_encode($_SESSION["loan_details"]); ?>;
 
