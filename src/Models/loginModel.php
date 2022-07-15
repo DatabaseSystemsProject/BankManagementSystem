@@ -14,7 +14,9 @@ class LoginModel
 
     function isCustomer($acc_no, $passwrd)
     {
-        $sql = "SELECT * FROM account INNER JOIN owner_type on account.owner_type_id=owner_type.owner_type_id where account_no= ? and acc_password= ?";
+
+        $sql="SELECT * FROM account INNER JOIN owner_type on account.owner_type_id=owner_type.owner_type_id where account_no= ? and acc_password= ?";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("is", $acc_no, $passwrd);
         $stmt->execute();

@@ -20,7 +20,7 @@ private $conn;
     function getRegNo($org_account)
     {
 
-        $sql="SELECT * FROM org_account where account_no= ?";
+        $sql="SELECT * FROM org_bankaccount where account_no= ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $org_account);
         $stmt->execute();
@@ -55,7 +55,7 @@ private $conn;
 
     function getAccount($sav_acc_no)
     {
-        $sql="SELECT * FROM account INNER JOIN customer_type on account.customer_type_id=customer_type.customer_type_id where account_no= ?";
+        $sql="SELECT * FROM account INNER JOIN owner_type on account.owner_type_id=owner_type.owner_type_id where account_no= ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $sav_acc_no);
         $stmt->execute();
@@ -80,19 +80,21 @@ private $conn;
 
     function submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$type,$tax_no,$reg_no,$g_full_name,$g_nic,$g_passport,$g_email,$g_mobile,$loan_status,$req_staff_id,$savings_acc_no)
     {
-        $sql="INSERT INTO loan (loan_type,customer_NIC,amount,duration,liability,type,tax_no) VALUES(?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO loan (loan_type,customer_NIC,amount,duration,liability,type,tax_no) VALUES(?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("isdidss",$loan_type,$customer_NIC,$amount,$duration,$liability,$type,$tax_no );
+        $stmt->bind_param("isdidss", $loan_type, $customer_NIC, $amount, $duration, $liability, $type, $tax_no);
         $stmt->execute();
 
         
 
-        $sql1="LOCK TABLES loan READ;";
-        $sql2="SELECT loan_id FROM loan ORDER BY loan_id DESC LIMIT 1;";
-        $sql3="UNLOCK TABLES;";
+        // $sql1="LOCK TABLES loan READ;";
+        // $sql2="SELECT loan_id FROM loan ORDER BY loan_id DESC LIMIT 1;";
+        // $sql3="UNLOCK TABLES;";
         // mysqli_query($this->conn, $sql1);
-        $id=mysqli_query($this->conn, $sql2)->fetch_assoc()["loan_id"];
+        // $id=mysqli_query($this->conn, $sql2)->fetch_assoc()["loan_id"];
         // mysqli_query($this->conn, $sql3);
+
+        $id=$this->conn->insert_id;
         var_dump($id);
 
         $sql="INSERT INTO regular_loan (loan_id,guarantor_name,guarantor_NIC,guarantor_pass_no,guarantor_mobile,guarantor_email,loan_status,requested_staff_id,savings_acc_no) VALUES(?,?,?,?,?,?,?,?,?);";
