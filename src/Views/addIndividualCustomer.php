@@ -2,6 +2,7 @@
 
 include 'base.php';
 include_once("../Controllers/individualCustomerController.php");
+session_start();
 
 $customerCtrl = new individualCustomerController();
 
