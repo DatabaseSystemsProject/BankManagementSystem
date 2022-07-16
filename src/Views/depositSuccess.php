@@ -1,22 +1,4 @@
-<?php include 'base.php';
-session_start();
-$account_type = $_SESSION['login_type'];
-$login = $_SESSION['login'];
-$myUrl =  "customerDashboard.php";
-if (isset($_SESSION["accountType"])) {
-    unset($_SESSION["accountType"]);
-}
-if (isset($_SESSION["atm0direct"])) {
-    unset($_SESSION["atm0direct"]);
-}
-if (isset($_SESSION["atm1direct"])) {
-    unset($_SESSION["atm1direct"]);
-}
-if (isset($_SESSION["atm2direct"])) {
-    unset($_SESSION["atm2direct"]);
-}
-
-?>
+<?php include 'base.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,23 +21,18 @@ if (isset($_SESSION["atm2direct"])) {
     <main-header></main-header>
     <main>
         <div class="card mx-auto" style="width: 50rem; height:27rem; margin: 0; position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+
             <div class="card-body" style="display: flex; flex-direction:column;">
-                <h2 style="color:green !important" class="card-title mx-auto">Successfully Withdrawn!</h2>
+                <h2 class="card-title mx-auto">Money Deposited Successfully!</h2>
                 <i class="bi bi-emoji-smile mx-auto" style="font-size: 5vw; margin-bottom:-1%"></i>
-                <p class="card-text mx-auto">Do you wish to make another withdrawal?</p>
+                <p class="card-text mx-auto">Do you wish to make another deposit?</p>
                 <div class="mx-auto">
-                    <a href="./atm0.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
-                    <a href="./customerDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
+                    <a href="depositMoneyForm.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
+                    <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
                 </div>
             </div>
         </div>
     </main>
-    <script>
-        function gotoDashboard() {
-            var url = <?php echo (json_encode($myUrl)); ?>;
-            window.location.href = url;
-        };
-    </script>
 
 </body>
 

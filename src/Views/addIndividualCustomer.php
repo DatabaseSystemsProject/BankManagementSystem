@@ -75,25 +75,6 @@ $myUrl = strval($account_type) . "Dashboard.php";
             </div>
         </div>
         <br>
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
-
-                <div class="form-check col-sm-2">
-                    <input class="form-check-input" type="radio" name="radio" id="radio" value="Female" checked>
-                    <label class="form-check-label" for="gridRadios1">
-                        Female
-                    </label>
-                </div>
-                <div class="form-check col-sm-2">
-                    <input class="form-check-input" type="radio" name="radio" id="radio" value="Male">
-                    <label class="form-check-label" for="gridRadios2">
-                        Male
-                    </label>
-                </div>
-            </div>
-
-        </fieldset>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputResidence">Residence</label>
@@ -170,12 +151,6 @@ $myUrl = strval($account_type) . "Dashboard.php";
             <div class="form-group col-md-6">
                 <label for="inputDoB">Date of Birth</label>
                 <input type="date" class="form-control" id="inputDoB" name="inputDoB" placeholder="Date of Birth" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputOccupation">Occupation</label>
-                <input type="text" class="form-control" id="inputOccupation" name="inputOccupation" placeholder="Occupation" required>
             </div>
         </div>
         <div class="form-row">

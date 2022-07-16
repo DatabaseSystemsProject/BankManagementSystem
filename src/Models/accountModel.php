@@ -117,6 +117,8 @@ class AccountModel
 
         try {
             $state = TRUE;
+            //encrypte password
+            $password = md5($password);
 
             $ownerType = 1;//personal
             $sql="INSERT INTO account(customer_NIC,account_type_id,owner_type_id,balance,branch_id,acc_password) VALUES (?,?,?,?,?,?)";
@@ -185,6 +187,8 @@ class AccountModel
 
         try {
             $state = TRUE;
+            //encrypte password
+            $password = md5($password);
 
             $ownerType = 1;//personal
             $sql="INSERT INTO account(customer_NIC,account_type_id,owner_type_id,balance,branch_id,acc_password) VALUES (?,?,?,?,?,?)";
@@ -239,6 +243,8 @@ class AccountModel
 
         try {
             $state = TRUE;
+            //encrypte password
+            $password = md5($password);
 
             $ownerType = 2;//organization
             $sql="INSERT INTO account(customer_NIC,account_type_id,owner_type_id,balance,branch_id,acc_password) VALUES (?,?,?,?,?,?)";
@@ -313,6 +319,39 @@ class AccountModel
             throw $exception;
         }
     }
-    
+    function isEligibleAdult($customerNIC,$account_type)
+    {
+        $sql = "SELECT account_no FROM account WHERE customer_NIC = ? AND account_type_id =?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si",$customerNIC,$account_type);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        if($result){
+            return FALSE;
+        }
+        return TRUE;
+    }
+    function isEligibleChild($childID)
+    {
+        $sql = "SELECT account_no FROM child_saving WHERE child_id = ? ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i",$childID);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if($result){
+            return FALSE;
+        }
+        return TRUE;
+    }
+    function isValidAccount($accountNo)
+    {
+        $sql = "SELECT account_no FROM account WHERE account_no = ? ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i",$accountNo);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result;
+    }
 }
 ?>

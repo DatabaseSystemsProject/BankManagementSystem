@@ -87,7 +87,7 @@ $myUrl =  "customerDashboard.php";
             ?>
                     <tr>
                         <td><?= $row["datetime"]; ?></td>
-                        <td><?= $row["transaction_type"]; ?></td>
+                        <td><?= $row["transaction_type_name"]; ?></td>
                         <td><?= $row["amount"]; ?></td>
                     </tr>
             <?php

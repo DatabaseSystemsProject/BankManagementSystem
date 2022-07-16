@@ -1,22 +1,4 @@
-<?php include 'base.php';
-session_start();
-$account_type = $_SESSION['login_type'];
-$login = $_SESSION['login'];
-$myUrl =  "customerDashboard.php";
-if (isset($_SESSION["accountType"])) {
-    unset($_SESSION["accountType"]);
-}
-if (isset($_SESSION["atm0direct"])) {
-    unset($_SESSION["atm0direct"]);
-}
-if (isset($_SESSION["atm1direct"])) {
-    unset($_SESSION["atm1direct"]);
-}
-if (isset($_SESSION["atm2direct"])) {
-    unset($_SESSION["atm2direct"]);
-}
-
-?>
+<?php include 'base.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +6,7 @@ if (isset($_SESSION["atm2direct"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success</title>
+    <title>Failed</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -39,23 +21,18 @@ if (isset($_SESSION["atm2direct"])) {
     <main-header></main-header>
     <main>
         <div class="card mx-auto" style="width: 50rem; height:27rem; margin: 0; position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+
             <div class="card-body" style="display: flex; flex-direction:column;">
-                <h2 style="color:green !important" class="card-title mx-auto">Successfully Withdrawn!</h2>
-                <i class="bi bi-emoji-smile mx-auto" style="font-size: 5vw; margin-bottom:-1%"></i>
-                <p class="card-text mx-auto">Do you wish to make another withdrawal?</p>
+                <h2 class="card-title mx-auto">Something Went Wrong</h2>
+                <i class="bi bi-emoji-frown mx-auto" style="font-size: 5vw;"></i>
+                <!-- <p class="card-text mx-auto">Do you want to try again?</p> -->
                 <div class="mx-auto">
-                    <a href="./atm0.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a>
-                    <a href="./customerDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">NO</a>
+                    <!-- <a href="addIndividualCustomer.php" class="btn btn-primary mx-auto" style="width:10vw">YES</a> -->
+                    <a href="employeeDashboard.php" class="btn btn-primary mx-auto" style="width:10vw">Try Again</a>
                 </div>
             </div>
         </div>
     </main>
-    <script>
-        function gotoDashboard() {
-            var url = <?php echo (json_encode($myUrl)); ?>;
-            window.location.href = url;
-        };
-    </script>
 
 </body>
 

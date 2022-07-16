@@ -12,9 +12,9 @@ if (isset($_POST["exit"])) {
     }
     header("Location: ./customerDashboard.php");
 }
+$myUrl =  "customerDashboard.php";
 ?>
 
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,5 +60,11 @@ if (isset($_POST["exit"])) {
 
 
 <script src="./atm.js"></script>
+<script>
+    function gotoDashboard() {
+        var url = <?php echo (json_encode($myUrl)); ?>;
+        window.location.href = url;
+    }
+</script>
 
 </html>

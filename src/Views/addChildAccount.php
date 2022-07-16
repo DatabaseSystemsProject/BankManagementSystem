@@ -6,6 +6,7 @@ include_once("../Controllers/branchController.php");
 include_once("../Controllers/savingsPlanController.php");
 include_once("../Controllers/accountController.php");
 include_once("../Controllers/childController.php");
+session_start();
 
 $individualCtrl = new individualCustomerController();
 $branchCtrl = new BranchController();
@@ -53,6 +54,11 @@ $myUrl = strval($account_type) . "Dashboard.php";
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2> Add Child Savings Account </h2> <br>
     <form action="" method="post" enctype="multipart/form-data">
+            <?php if (isset($_SESSION['error_message'])) {
+                echo '<p style="color:red; font-size:1.2rem; padding:0px;">' . $_SESSION['error_message'] . '</p>';
+                unset($_SESSION['error_message']);
+            }
+            ?>
         <div class="form-row">
             <div class="form-group col-md-8">
                 <label for="inputNIC">Enter Guardian NIC to select a child</label>
@@ -92,8 +98,8 @@ $myUrl = strval($account_type) . "Dashboard.php";
                 </select> -->
             <select name="plan" id="plan">
                 <?php
-                $age = 18;
-                $planList = $savingsPlanCtrl->getsavingsPlans($age);
+                //$age = 18;
+                $planList = $savingsPlanCtrl->getsavingsPlans(1);
                 foreach ($planList as $plan) {
                 ?><option value="<?= $plan[0]; ?>"><?= $plan[1] . "s of age " . $plan[3] . " or above | Interest: " . $plan[2] . "% |Minimum Balance: " . $plan[4] . "Rs/="; ?></option><?php
                                                                                                                                                                                     }
