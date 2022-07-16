@@ -5,6 +5,7 @@ include_once("../Helpers/mail.php");
 include_once("../Models/individualCustomerModel.php");
 include_once("../Models/addOrganizationModel.php");
 include_once("../Models/savingsPlanModel.php");
+include_once("../Models/childModel.php");
 
 class AccountController
 {
@@ -13,6 +14,7 @@ class AccountController
     private $customerModel;
     private $orgModel;
     private $savingsPlanModel;
+    private $childModel;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class AccountController
         $this->customerModel = new IndividualCustomerModel();
         $this->orgModel = new addOrganizationModel();
         $this->savingsPlanModel = new SavingsPlanModel();
+        $this->childModel = new ChildModel();
     }
 
     public function addIndividualAccount()
@@ -179,6 +182,20 @@ class AccountController
                 $branch = $_POST['branch'];
                 $plan = 0;
                 $balance = $_POST['inputAmount'];
+                //check eligibility
+                $isEligible = $this->accountModel->isEligibleAdult($customerNIC,$accountType);
+                if(!$isEligible){
+                    $replyType = "Checking Account";
+                    if($accountType == 1){
+                        $replyType = "Savings Account";
+                    }
+                    //echo "You already have a ".$replyType." account in our Bank.";
+                    $_SESSION['error_message'] = "You already have a ".$replyType." account in our Bank.";
+                    echo '<script>window.location.href="../Views/addIndividualAccount.php?error=accountExists"</script>';
+                    return;
+                    
+                }
+
                 if($accountType == 1){
                     $plan = $_POST['plan'];
 
@@ -188,10 +205,16 @@ class AccountController
                     $suitablePlanID = $suitablePlan['savings_plan_id'];
                     $minamount = $suitablePlan['minimum_amount'];
                     if($suitablePlanID != $plan){
-                        echo $suitablePlanID."-".$minamount."You are not eligible for this plan";
+                        // echo "You are not eligible for this plan";
+                        // return;
+                        $_SESSION['error_message'] = "You are not eligible for this savings plan";
+                        echo '<script>window.location.href="../Views/addIndividualAccount.php?error=accountExists"</script>';
                         return;
                     }elseif($minamount > $balance){
-                        echo "Minimum Initial Deposit for this savings plan is ".$minamount." Rs/=";
+                        // echo "Minimum Initial Deposit for this savings plan is ".$minamount." Rs/=";
+                        // return;
+                        $_SESSION['error_message'] = "Minimum Initial Deposit for this savings plan is ".$minamount." Rs/=";
+                        echo '<script>window.location.href="../Views/addIndividualAccount.php?error=InvalidMinBalance"</script>';
                         return;
                     }
                 }
@@ -228,36 +251,67 @@ class AccountController
     public function addChildAccountT()
     {
         if(isset($_POST["addAccount"])){
-            //$accountNo = $this->generateAccountNo(1);
-            $accountType = 3; //child savings account
+            if(!empty($_POST['inputNIC']) && !empty($_POST['branch']) && !empty($_POST['plan'])){
+                //$accountNo = $this->generateAccountNo(1);
+                $accountType = 3; //child savings account
 
-            $NIC_childID = (explode("|",$_POST['inputNIC']));
-            $guardianNIC = $NIC_childID[0];
-            $childID = $NIC_childID[1];
+                $NIC_childID = (explode("|",$_POST['inputNIC']));
+                $guardianNIC = $NIC_childID[0];
+                $childID = $NIC_childID[1];
 
-            $branch = $_POST['branch'];
-            $plan = $_POST['plan'];
-            $balance = $_POST['inputAmount'];
-            $password = $this->generatePassword();
+                $branch = $_POST['branch'];
+                $plan = $_POST['plan'];
+                $balance = $_POST['inputAmount'];
+                $password = $this->generatePassword();
+                //check eligibility
+                $isEligible = $this->accountModel->isEligibleChild($childID);
+                if(!$isEligible){
+                    //echo "You already have a child savings account in our bank";
+                    //echo '<script type="text/javascript">alert("You already have a child savings account in our bank");</script>';
+                    $_SESSION['error_message'] = "You already have a child savings account in our bank";
+                    echo '<script>window.location.href="../Views/addChildAccount.php?error=invalidAccount"</script>';
+                    return;
+                    //return;
+                }
 
-            //echo $accountNo." - ".$accountType." - ".$customerNIC." - ".$branch." - ".$plan." - ".$balance." - ".$password." ";
+                //validate for plan
+                    $age = $this->childModel->getAge($childID);
+                    $suitablePlan = $this->savingsPlanModel->selectPersonalPlans($age);
+                    $suitablePlanID = $suitablePlan['savings_plan_id'];
+                    $minamount = $suitablePlan['minimum_amount'];
+                    if($suitablePlanID != $plan){
+                        // echo "You are not eligible for this plan";
+                        // return;
+                        $_SESSION['error_message'] = "You are not eligible for this savings plan";
+                        echo '<script>window.location.href="../Views/addChildAccount.php?error=invalidSavingsPlan"</script>';
+                        return;
+                    }elseif($minamount > $balance){
+                        // echo "Minimum Initial Deposit for this savings plan is ".$minamount." Rs/=";
+                        // return;
+                        $_SESSION['error_message'] = "Minimum Initial Deposit for this savings plan is ".$minamount." Rs/=";
+                        echo '<script>window.location.href="../Views/addChildAccount.php?error=invalidMinBalance"</script>';
+                        return;
+                    }
 
-            $result = $this->accountModel->addChildAccountT($guardianNIC,$accountType,$balance,$branch,$password,$childID,$plan);
-            if($result){
-                echo "account added";
-                $accountTypeToMail = "Child Savings Account";
-                //$this->accountModel->addSavingsPlan($accountNo,$plan);
-                //$this->accountModel->addChildSavingsAccount($accountNo,$childID);
-                //send email to owner 
-                $subject = $this->mailer->generateMailSubject($accountTypeToMail);
-                $body = $this->mailer->generateMailBody($result,$password,$accountTypeToMail);
-                $receiver = $this->customerModel->getEmailAddress($guardianNIC); // email will be sent to the guardian
-                $receiver = $receiver['email'];
+                //echo $accountNo." - ".$accountType." - ".$customerNIC." - ".$branch." - ".$plan." - ".$balance." - ".$password." ";
 
-                $this->mailer->sendMail($receiver,$subject,$body);
-                echo '<script>window.location.href="../Views/accountAddSuccess.php"</script>';
-            }else{
-                echo '<script>window.location.href="../Views/accountAddFailed.php?"</script>';
+                $result = $this->accountModel->addChildAccountT($guardianNIC,$accountType,$balance,$branch,$password,$childID,$plan);
+                if($result){
+                    echo "account added";
+                    $accountTypeToMail = "Child Savings Account";
+                    //$this->accountModel->addSavingsPlan($accountNo,$plan);
+                    //$this->accountModel->addChildSavingsAccount($accountNo,$childID);
+                    //send email to owner 
+                    $subject = $this->mailer->generateMailSubject($accountTypeToMail);
+                    $body = $this->mailer->generateMailBody($result,$password,$accountTypeToMail);
+                    $receiver = $this->customerModel->getEmailAddress($guardianNIC); // email will be sent to the guardian
+                    $receiver = $receiver['email'];
+
+                    $this->mailer->sendMail($receiver,$subject,$body);
+                    echo '<script>window.location.href="../Views/accountAddSuccess.php"</script>';
+                }else{
+                    echo '<script>window.location.href="../Views/accountAddFailed.php?"</script>';
+                }
             }
     
         }
@@ -284,7 +338,7 @@ class AccountController
 
             $result = $this->accountModel->addOrgAccountT($customerNIC,$accountType,$balance,$branch,$password,$plan,$orgRegNo);
             if($result){
-                echo "account added";
+                //echo "account added";
                 $accountTypeToMail = "";
                 if($accountType == 1){
                     //$this->accountModel->addSavingsPlan($accountNo,$plan);
