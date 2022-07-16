@@ -19,7 +19,7 @@ if (isset($_POST["submit"])) {
         $controller->updateBalance($data[0], $data[1], $sender_id);
     } else {
         $_SESSION['error_message'] = "Invalid account number";
-        echo '<p style="color:red; font-size:3rem; align-self:center; margin-bottom:-4%;">' . $_SESSION['error_message'] . '</p>';
+        echo '<p style="color:red; font-size:3rem; align-self:center; margin-bottom:-4%;text-align:center;">' . $_SESSION['error_message'] . '</p>';
         unset($_SESSION['error_message']);
     }
 }

@@ -15,7 +15,7 @@ $login = $_SESSION['login'];
 // $account_no = 11111111;
 // $login=11111111;
 
-
+$myUrl =  "customerDashboard.php";
 
 if (isset($_SESSION['error_message'])) {
     echo '<p style="color:red; font-size:1.2rem; align-self:center">' . $_SESSION['error_message'] . '</p>';
@@ -33,6 +33,12 @@ if (isset($_SESSION['error_message'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 
     <title>Online Loan</title>
 </head>

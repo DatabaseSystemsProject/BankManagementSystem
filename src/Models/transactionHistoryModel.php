@@ -27,7 +27,8 @@ class TransactionHistoryModel
 
     function getTransactionHistory($accountNo)
     {
-        $sql = "SELECT * FROM transaction WHERE source = ? OR destination = ?"; // add date later if necessary
+        //$sql = "SELECT * FROM transaction WHERE source = ? OR destination = ?"; // add date later if necessary
+        $sql = "SELECT * FROM transaction INNER JOIN transaction_type ON transaction.transaction_type = transaction_type.transaction_type_id WHERE source = ? OR destination = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ii",$accountNo,$accountNo);
         $stmt->execute();

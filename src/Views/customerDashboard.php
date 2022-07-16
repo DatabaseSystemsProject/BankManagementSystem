@@ -53,7 +53,7 @@ $customerName = $customerCtrl->getName($customerNIC);
                     $str = "organization";
                     if (strcmp($ownerType, $str) == 0) {
                         $orgName = $accountCtrl->getOrgName($accountNo);
-                    ?><h1><?= $orgName['org_name']; ?></h1><?php
+                    ?><h1></h1><?php
                                                         }
                                                             ?>
                     <h1><?= $customerName["title"] . " " . $customerName["f_name"]; ?></h1>
