@@ -132,9 +132,8 @@ $customerName = $customerCtrl->getName($customerNIC);
                         </div>
                     </a>
                     <?php
-                    // $act = "savings";
-                    // if(strcmp($accountType, $act)==0)
-                    // {
+                     if(trim($accountType) == trim("savings"))
+                     {
                     ?>
                     <a href="loanApplyOnline.php">
                         <div class="card" style="width: 16rem;height:12rem;">
@@ -153,7 +152,7 @@ $customerName = $customerCtrl->getName($customerNIC);
                         </div>
                     </a>
                     <?php
-                    //}
+                    }
                     ?>
 
                 </div>
