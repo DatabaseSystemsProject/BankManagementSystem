@@ -23,16 +23,16 @@ class  WithdrawController extends Controller
             echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=invalidNIC"</script>';
             return;
         } else {
-            $_SESSION["account_no"] = $result["account_no"];
-            $_SESSION["account_type"] = trim($result["acc_type_name"], " ");
+            $_SESSION["accountNum"] = $result["account_no"];
+            $_SESSION["accountType"] = trim($result["acc_type_name"], " ");
             $this->withdraw();
             return;
         }
     }
     public function withdraw()
     {
-        if ($_SESSION["account_type"] == "savings") {
-            $result = $this->withdrawModel->getSavingsAcc($_SESSION["account_no"]);
+        if ($_SESSION["accountType"] == "savings") {
+            $result = $this->withdrawModel->getSavingsAcc($_SESSION["accountNum"]);
             if (trim($result["state"], " ") == "active") {
                 if ($result["withdrawal_count"] < 5) {
                     $newWithdrawalCount = $result["withdrawal_count"] + 1;
@@ -41,14 +41,13 @@ class  WithdrawController extends Controller
 
                     if ($remainingbalance > 0) {
                         $employee_id = $_SESSION["login"];
-                        $res = $this->withdrawModel->withdrawAndUpdateTransaction($_SESSION["account_no"], $newWithdrawalCount, $remainingbalance, $amount, $employee_id);
+                        $res = $this->withdrawModel->withdrawAndUpdateTransaction($_SESSION["accountNum"], $newWithdrawalCount, $remainingbalance, $amount, $employee_id);
                         if ($res) {
                             echo '<script>window.location.href="../Views/withdrawSuccess.php"</script>';
                         } else {
                             $_SESSION['error_message'] = "Withdrawal Failed";
                             echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=withdrawalfailed"</script>';
                         }
-                        return;
                     } else {
                         $_SESSION['error_message'] = "Not enough balance in the account";
                         echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=insufficientbalance"</script>';
@@ -64,18 +63,19 @@ class  WithdrawController extends Controller
                 echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=inactive"</script>';
                 return;
             }
-        } else if ($_SESSION["account_type"] == "checking") {
-            $result = $this->withdrawModel->getCheckingAcc($_SESSION["account_no"]);
+        } else if ($_SESSION["accountType"] == "checking") {
+            $result = $this->withdrawModel->getCheckingAcc($_SESSION["accountNum"]);
             if (trim($result["state"], " ") == "active") {
                 $amount = $_POST["amount"];
                 $remainingbalance = $result["balance"] -  $amount;
                 if ($remainingbalance > 0) {
                     $employee_id = $_SESSION["login"];
-                    $res = $this->withdrawModel->updateBalanceAndUpdateTransaction($_SESSION["account_no"], $remainingbalance, $amount, $employee_id);
+                    $res = $this->withdrawModel->updateBalanceAndUpdateTransaction($_SESSION["accountNum"], $remainingbalance, $amount, $employee_id);
                     if ($res) {
                         echo '<script>window.location.href="../Views/withdrawSuccess.php"</script>';
                     } else {
                         $_SESSION['error_message'] = "Withdrawal Failed";
+                        echo '<script>window.location.href="../Views/withdrawMoneyForm.php?error=withdrawalfailed"</script>';
                     }
                 } else {
                     $_SESSION['error_message'] = "Not enough balance in the account";
