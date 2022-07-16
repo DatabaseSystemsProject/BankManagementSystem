@@ -110,8 +110,8 @@ class OnlineLoanController
                     $result= $this->loanModel->submitApplication($loan_type,$customer_NIC,$amount,$duration,$liability,$mode,$tax_no,$reg_no,$fd_id,$monthly_instalment);
                     if(!empty($result)){
                         
-                        // echo '<script type="text/javascript">alert("Success");</script>';
-                        echo '<script>window.location.href="../Views/loanSuccess.php"</script>';
+                        echo '<script type="text/javascript">alert("Success");</script>';
+                        // echo '<script>window.location.href="../Views/loanSuccess.php"</script>';
                     }
                 }else{
                     echo '<script type="text/javascript">alert("You not eligibale for this loan.Try again!!");</script>';
