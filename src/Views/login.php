@@ -99,10 +99,11 @@ $staffLogged = $loginController->staffLogin();
                             <div class="col-lg-6 h-100 ">
 
                                 <div class="card-body p-md-5 mx-md-4 my-4" style="background-image: linear-gradient(to right,#00007d,#0042db,#0076ff);">
-                                    <h4>Our online system will...</h4>
-                                    <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <h4 style="color: white;">We are...</h4>
+                                    <p class="small mb-0" style="color: white;">Pheonix Trust Bank is a small, high secure, private bank in Seychelles. Now we are in the online system. Customer can 
+                                        handle there account easily via our online system. Manage transactions, view loan deatail and even apply for online loans under certain conditions
+                                         are noe available.
+                                    </p>
 
                                     <div class="text-center pt-1 mb-5 pb-1">
                                         <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button" id='customerLog' onclick="customerShow()">Log

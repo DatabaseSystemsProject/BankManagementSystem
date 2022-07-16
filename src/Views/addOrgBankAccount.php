@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'base.php';
 include_once("../Controllers/addOrganizationController.php");
 include_once("../Controllers/branchController.php");
@@ -10,7 +10,9 @@ $orgCtrl = new addOrganizationController();
 $branchCtrl = new BranchController();
 $savingsPlanCtrl = new SavingsPlanController();
 $accountCtrl = new AccountController();
-
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 
 ?>
 <!DOCTYPE html>

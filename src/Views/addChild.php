@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'base.php';
 require("validateCustomer.php");
 include_once("../Controllers/childController.php");
@@ -7,7 +7,13 @@ include_once("../Controllers/individualCustomerController.php");
 
 $childCtrl = new ChildController();
 $guardianCtrl = new individualCustomerController();
-
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('location:login.php');
+}
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 ?>
 
 <!DOCTYPE html>

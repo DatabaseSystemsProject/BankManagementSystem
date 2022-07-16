@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'base.php';
 include_once("../Controllers/addOrganizationController.php");
 include_once("../Controllers/individualCustomerController.php");
@@ -7,7 +7,9 @@ session_start();
 
 $orgCtrl = new addOrganizationController();
 $individualCtrl = new individualCustomerController();
-
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +25,9 @@ $individualCtrl = new individualCustomerController();
 
     <script>
         function gotoDashboard() {
-        var url = <?php echo (json_encode($myUrl)); ?>;
-        window.location.href = url;
-    }
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
     </script>
 
     <meta charset="UTF-8">

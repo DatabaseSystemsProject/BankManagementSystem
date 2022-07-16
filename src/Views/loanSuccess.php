@@ -1,10 +1,10 @@
 <?php include 'base.php';
 
 session_start();
-$account_type = $_SESSION["loan_type"];
+$account_type = $_SESSION["login_type"];
 // $account_type="customer";
 if($account_type=="employee"){
-    $myurl = strval($account_type) . "Dashboard.php";
+    $myurl = "employeeDashboard.php";
 }else{
     $myUrl =  "customerDashboard.php";
 }
