@@ -26,7 +26,6 @@ class  WithdrawController extends Controller
             $_SESSION["accountNum"] = $result["account_no"];
             $_SESSION["accountType"] = trim($result["acc_type_name"], " ");
             $this->withdraw();
-            return;
         }
     }
     public function withdraw()

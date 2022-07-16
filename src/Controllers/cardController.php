@@ -23,6 +23,10 @@ class CardController extends Controller
             $_SESSION['error_message'] = "NIC not registered for the account number";
             echo '<script>window.location.href="../Views/createCard.php"</script>';
             return;
+        } else if ($result["account_type_id"] == 3) {
+            $_SESSION['error_message'] = "Cannot create cards for child savings";
+            echo '<script>window.location.href="../Views/createCard.php"</script>';
+            return;
         } else {
             $card = $this->cardModel->getDetails($_POST['accountNo']);
             if ($card != null) {

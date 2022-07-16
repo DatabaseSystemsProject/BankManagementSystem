@@ -85,7 +85,7 @@ class WithdrawModel
             $state = true;
 
             $stmt1 = $this->conn->prepare($sql1);
-            $stmt1->bind_param("di", $newWithdrawalCount, $account_no);
+            $stmt1->bind_param("ii", $newWithdrawalCount, $account_no);
             $res1 = $stmt1->execute();
             if (!$res1) {
                 $state = false;
