@@ -9,6 +9,9 @@ $customerCtrl = new individualCustomerController();
 if (isset($_POST["registerCustomer"])) {
     $customerCtrl->addCustomer();
 }
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 
 ?>
 
@@ -23,6 +26,12 @@ if (isset($_POST["registerCustomer"])) {
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Customer</title>
@@ -66,25 +75,6 @@ if (isset($_POST["registerCustomer"])) {
             </div>
         </div>
         <br>
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
-
-                <div class="form-check col-sm-2">
-                    <input class="form-check-input" type="radio" name="radio" id="radio" value="Female" checked>
-                    <label class="form-check-label" for="gridRadios1">
-                        Female
-                    </label>
-                </div>
-                <div class="form-check col-sm-2">
-                    <input class="form-check-input" type="radio" name="radio" id="radio" value="Male">
-                    <label class="form-check-label" for="gridRadios2">
-                        Male
-                    </label>
-                </div>
-            </div>
-
-        </fieldset>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputResidence">Residence</label>
@@ -165,12 +155,6 @@ if (isset($_POST["registerCustomer"])) {
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputOccupation">Occupation</label>
-                <input type="text" class="form-control" id="inputOccupation" name="inputOccupation" placeholder="Occupation" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
                 <label for="inputContactNo">Contact No.</label>
                 <input type="text" class="form-control" id="inputContactNo" name="inputContactNo" placeholder="Contact No." required>
             </div>
@@ -183,10 +167,7 @@ if (isset($_POST["registerCustomer"])) {
 </div>
 
 <script type="text/javascript">
-    function gotoDashboard() {
-        var url = <?php echo (json_encode($myUrl)); ?>;
-        window.location.href = url;
-    }
+
     //form validation TODO
     //test if an adult
     //test email , tp, and nic
