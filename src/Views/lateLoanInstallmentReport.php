@@ -7,7 +7,7 @@ session_start();
 
 
 $branchId = $_SESSION['branch_id'];
-$branch_manager_NIC = $_SESSION['branch_manager_NIC'];
+//$branch_manager_NIC = $_SESSION['branch_manager_NIC'];
 $controller = new lateInstallmentReportController();
 
 if (isset($_POST["submit"])) {
@@ -42,7 +42,7 @@ $myUrl = "branch managerDashboard.php";
             window.location.href = url;
         }
     </script>
-    
+
 </head>
 
 <body style="background-color: rgb(16, 131, 246);">
