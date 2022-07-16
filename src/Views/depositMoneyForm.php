@@ -4,12 +4,14 @@ include 'base.php';
 include_once("../Controllers/depositMoneyController.php");
 session_start();
 $depositMoneyCtrl = new DepositMoneyController();
-$empID = 345666; // remove this when adding session
+//$empID = 345666; // remove this when adding session
 
 
 $account_type = $_SESSION['login_type'];
 $login = $_SESSION['login'];
 $myUrl = strval($account_type) . "Dashboard.php";
+
+$empID = $login;
 
 
 ?>

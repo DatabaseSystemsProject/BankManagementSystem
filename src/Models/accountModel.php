@@ -117,6 +117,8 @@ class AccountModel
 
         try {
             $state = TRUE;
+            //encrypte password
+            $password = md5($password);
 
             $ownerType = 1;//personal
             $sql="INSERT INTO account(customer_NIC,account_type_id,owner_type_id,balance,branch_id,acc_password) VALUES (?,?,?,?,?,?)";
@@ -185,6 +187,8 @@ class AccountModel
 
         try {
             $state = TRUE;
+            //encrypte password
+            $password = md5($password);
 
             $ownerType = 1;//personal
             $sql="INSERT INTO account(customer_NIC,account_type_id,owner_type_id,balance,branch_id,acc_password) VALUES (?,?,?,?,?,?)";
@@ -239,6 +243,8 @@ class AccountModel
 
         try {
             $state = TRUE;
+            //encrypte password
+            $password = md5($password);
 
             $ownerType = 2;//organization
             $sql="INSERT INTO account(customer_NIC,account_type_id,owner_type_id,balance,branch_id,acc_password) VALUES (?,?,?,?,?,?)";
