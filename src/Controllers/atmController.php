@@ -37,7 +37,7 @@ class AtmController extends Controller
                     $_SESSION['error_message'] = "Invalid card number";
                     header("Location: ../Views/atm0.php");
                 } else {
-                    $_SESSION["account_no"] = $result["account_no"];
+                    $_SESSION["accountNumber"] = $result["account_no"];
                     $_SESSION["atm0direct"] = "direct from atm0";
                     header("Location: ../Views/atm1.php");
                 }
@@ -52,7 +52,7 @@ class AtmController extends Controller
     {
         if (isset($_POST["checking"])) {
             $_SESSION["accountType"] = "checking";
-            $result = $this->atmModel->getAccount($_SESSION["account_no"], "checking");
+            $result = $this->atmModel->getAccount($_SESSION["accountNumber"], "checking");
             if (!$result) {
                 $_SESSION['error_message'] = "No checking account ";
                 header("Location: ../Views/atm2.php");
@@ -62,7 +62,7 @@ class AtmController extends Controller
             }
         } else if (isset($_POST["savings"])) {
             $_SESSION["accountType"] = "savings";
-            $result = $this->atmModel->getAccount($_SESSION["account_no"], "savings");
+            $result = $this->atmModel->getAccount($_SESSION["accountNumber"], "savings");
             if (!$result) {
                 $_SESSION['error_message'] = "No savings account ";
                 header("Location: ../Views/atm2.php");
@@ -82,7 +82,7 @@ class AtmController extends Controller
     {
         if (!empty($_POST["amount"])) {
             if ($_SESSION["accountType"] == "savings") {
-                $result = $this->atmModel->getSavingsAcc($_SESSION["account_no"]);
+                $result = $this->atmModel->getSavingsAcc($_SESSION["accountNumber"]);
                 if (trim($result["state"], " ") == "active") {
                     if ($result["withdrawal_count"] < 5) {
                         $newWithdrawalAmount = $result["withdrawal_count"] + 1;
@@ -91,7 +91,7 @@ class AtmController extends Controller
 
                         if ($remainingbalance > 0) {
 
-                            $res = $this->atmModel->withdrawAndUpdateBalance($_SESSION["account_no"], $newWithdrawalAmount, $remainingbalance);
+                            $res = $this->atmModel->withdrawAndUpdateBalance($_SESSION["accountNumber"], $newWithdrawalAmount, $remainingbalance);
                             if ($res) {
                                 header("Location: ../Views/withdrawSuccessCus.php");
                             } else {
@@ -111,12 +111,12 @@ class AtmController extends Controller
                     header("Location: ../Views/atm3.php");
                 }
             } else if ($_SESSION["accountType"] == "checking") {
-                $result = $this->atmModel->getCheckingAcc($_SESSION["account_no"]);
+                $result = $this->atmModel->getCheckingAcc($_SESSION["accountNumber"]);
                 if (trim($result["state"], " ") == "active") {
                     $amount = $_POST["amount"];
                     $remainingbalance = $result["balance"] -  $amount;
                     if ($remainingbalance > 0) {
-                        $res = $this->atmModel->updateCheckingBalance($_SESSION["account_no"], $remainingbalance);
+                        $res = $this->atmModel->updateCheckingBalance($_SESSION["accountNumber"], $remainingbalance);
                         if ($res) {
                             header("Location: ../Views/withdrawSuccessCus.php");
                         } else {
