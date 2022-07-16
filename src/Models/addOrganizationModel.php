@@ -19,8 +19,9 @@ class addOrganizationModel
         $result = $stmt->execute();
 
         if (!$result) {
-            echo "Error: " . mysqli_error($this->conn) . ".";
-        }
+            return FALSE;
+            //echo "Error: " . mysqli_error($this->conn) . ".";
+        }return TRUE;
     }
 
     function addStakeholder($orgRegNo,$stakeholderNIC)
@@ -31,8 +32,9 @@ class addOrganizationModel
         $result = $stmt->execute();
 
         if (!$result) {
-            echo "Error: " . mysqli_error($this->conn) . ".";
-        }
+            return FALSE;
+            //echo "Error: " . mysqli_error($this->conn) . ".";
+        }return TRUE;
     }
 
     function getStakeholders($orgRegNo)
