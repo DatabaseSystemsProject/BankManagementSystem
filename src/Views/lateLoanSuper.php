@@ -7,7 +7,8 @@ session_start();
 
 
 $controller = new lateInstallmentReportController();
-
+$branchs=$controller->getBranchs();
+var_dump($branchs);
 if (isset($_POST["submit"])) {
     $controller->getMonthAndYear();
     $details_online = $controller->getOnlineLateLoanInstallments($branchId);
@@ -82,8 +83,9 @@ $myUrl = "branch managerDashboard.php";
                         <label for="month">Branch</label>
                         <select id="branch" name="branch" class="form-select form-select-sm" style="height:2.5rem ;font-size:medium" required>
                             <option value=0>choose</option>
-                            <?php $branchs=$controller->getBranchs();
-                            
+                            <?php 
+                            $branchs=$controller->getBranchs();
+                            var_dump($branchs);
                             foreach($branchs as $branch):
                             ?>
                             <option value="<?php echo $branch['branch_id'] ?>"><?php echo $branch['branch_name']?></option>
