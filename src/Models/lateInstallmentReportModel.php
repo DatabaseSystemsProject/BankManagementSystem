@@ -54,13 +54,12 @@ class LateInstallmentModel
         //$user = $result->fetch_assoc();
         return $users;
     }
-
+//for superuser
     public function getBranchs()
     {
         $sql = "SELECT branch_id,branch_name FROM branch;";
-        $stmt = $this->conn->prepare($sql);
-        $result=$stmt->execute();
-        // $result = mysqli_query($this->conn, $sql);
+
+        $result = mysqli_query($this->conn, $sql);
         if (!$result) {
             echo "Error: " . mysqli_error($this->conn) . ".";
         }

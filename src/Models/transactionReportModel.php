@@ -177,7 +177,29 @@ class TransactionReportModel{
 
         return $result;
     }
-    
+
+    //for superuser
+    public function getBranchs()
+    {
+        $sql = "SELECT branch_id,branch_name FROM branch;";
+
+        $result = mysqli_query($this->conn, $sql);
+        if (!$result) {
+            echo "Error: " . mysqli_error($this->conn) . ".";
+        }
+        return $result;
+    }
+    public function getBranchByID($branch_id){
+        
+        $sql = "SELECT branch_name FROM branch where branch_id =?";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $branch_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        
+        return $result;
+    }
     
 }
 
