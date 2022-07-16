@@ -19,7 +19,7 @@ class LoginController
         if (isset($_POST["customerLog"])) {
 
             $acc_no = $_POST['account_no'];
-            $passwrd = $_POST['passwordC'];
+            $passwrd = md5($_POST['passwordC']);
             $nic = $_POST['nic'];
 
             //check whether there is an account with the given password
@@ -72,7 +72,7 @@ class LoginController
         if (isset($_POST["staffLog"])) {
 
             $user_name = $_POST['user_name'];
-            $passwrd = $_POST['passwordS'];
+            $passwrd = md5($_POST['passwordS']);
             $account = $this->loginModel->isStaff($user_name, $passwrd);
 
             if (!empty($account)) {
