@@ -57,6 +57,7 @@ class lateInstallmentReportController
 
     public function getBranchs()
     {
+        // header('location:employeeDashboard.php');
         return $this->getBranchs();
     }
 }
