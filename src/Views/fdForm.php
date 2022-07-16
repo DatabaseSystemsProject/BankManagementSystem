@@ -50,7 +50,7 @@ if ($isSuccess) {
     <main-header></main-header>
     <div class="mt-5">
         <div class="container border border-2 m-5 p-5 mx-auto bg-light " style="margin-top: 50px;">
-            <h2>First, check customers' eligibility for applying a loan </h2>
+            <h2>First, check customers' eligibility for applying a Fixed Deposit Form </h2>
             <form id="myForm" action="fdForm.php" method="post">
                 <div class="form-row mt-3">
                     <div class="form-group col-md-6">
