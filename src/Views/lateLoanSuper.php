@@ -1,22 +1,20 @@
 <?php
 include_once 'base.php';
 include_once '../Config/db.php';
-include_once '../Controllers/lateInstallmentReportController.php';
+include_once '../Controllers/lateLoanSuperController.php';
 include_once '../Models/lateInstallmentReportModel.php';
 session_start();
 
 
-$controller = new lateInstallmentReportController();
-$branchs=$controller->getBranchs();
-var_dump($branchs);
+$controller = new lateLoanSuperController();
 if (isset($_POST["submit"])) {
     $controller->getMonthAndYear();
-    $details_online = $controller->getOnlineLateLoanInstallments($branchId);
+    $details_online = $controller->getOnlineLateLoanInstallments();
     //$rows = count($details_online);
-    $details_regular = $controller->getRegularLateLoanInstallments($branchId);
+    $details_regular = $controller->getRegularLateLoanInstallments();
 }
 
-$myUrl = "branch managerDashboard.php";
+$myUrl = "superuserDashboard.php";
 ?>
 
 <!DOCTYPE html>
@@ -46,11 +44,11 @@ $myUrl = "branch managerDashboard.php";
 
 <body style="background-color: rgb(16, 131, 246);">
 
-    <!-- <main-header></main-header> -->
+    <main-header></main-header>
     <div style="margin-top: 5rem;">
         <div class="container border border-2 m-5 p-5 mx-auto bg-light " style="margin-top: 50px;">
             <h2 style="color:black ;text-align:center;">Late Loan Installment Report </h2>
-            <form id="myForm" action="lateLoanInstallmentReport.php" method="post">
+            <form id="myForm"  method="post">
                 <div class="form-row mt-5" style="margin:auto ;align-self:center;">
                     <div class="form-group col-md-6">
                         <label for="year">Year</label>

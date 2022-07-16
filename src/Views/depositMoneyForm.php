@@ -40,10 +40,15 @@ $myUrl = strval($account_type) . "Dashboard.php";
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2>Deposit Money</h2> <br>
     <form action="" method="post" enctype="multipart/form-data">
+            <?php if (isset($_SESSION['error_message'])) {
+                echo '<p style="color:red; font-size:1.2rem; padding:0px;">' . $_SESSION['error_message'] . '</p>';
+                unset($_SESSION['error_message']);
+            }
+            ?>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputAccNo">Account Number</label>
-                <input type="text" class="form-control" id="inputAccNo" name="inputAccNo" placeholder="Account Number" required>
+                <input type="number" class="form-control" id="inputAccNo" name="inputAccNo" placeholder="Account Number" required>
             </div>
         </div>
         <div class="form-row">

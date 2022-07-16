@@ -11,11 +11,12 @@ include_once '../Models/lateInstallmentReportModel.php';
 // echo $details['loan_id'];
 
 
-class lateInstallmentReportController
+class lateLoanSuperController
 {
     private $model;
     private $month;
     private $year;
+    private $branchId;
 
     function __construct()
     {
@@ -27,21 +28,22 @@ class lateInstallmentReportController
         if (isset($_POST["submit"])) {
             $this->month = $_POST['month'];
             $this->year = $_POST['year'];
+            $this->branchId=$_POST['branch'];
             // echo $this->month;
             // echo $this->year;
         }
     }
 
-    public function getOnlineLateLoanInstallments($branchId)
+    public function getOnlineLateLoanInstallments()
     {
-        $details = $this->model->getOnlineLateInstallments($this->month, $this->year, $branchId);
+        $details = $this->model->getOnlineLateInstallments($this->month, $this->year, $this->branchId);
         //echo $details['loan_id'];
         return $details;
     }
 
-    public function getRegularLateLoanInstallments($branchId)
+    public function getRegularLateLoanInstallments()
     {
-        $details = $this->model->getRegularLateLoanInstallments($this->month, $this->year, $branchId);
+        $details = $this->model->getRegularLateLoanInstallments($this->month, $this->year, $this->branchId);
         //echo $details['loan_id'];
         return $details;
     }
@@ -53,5 +55,10 @@ class lateInstallmentReportController
     public function getYear()
     {
         return $this->year;
+    }
+
+    public function getBranchs()
+    {
+        return $this->model->getBranchs();
     }
 }

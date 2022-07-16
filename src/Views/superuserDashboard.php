@@ -96,12 +96,26 @@ $name = $staff_member['f_name'];
                         </div>
 
                     </a>
-                   
+                    <a href="lateLoanSuper.php" style="text-decoration:none;">
+                        <div class="card" style="width:16rem; height:12rem;">
+                            <div class="card-body" style="align-self:center; display:flex; flex-direction:column;">
+                                <i class="bi bi-clipboard-data" style="font-size:80px; align-self:center; margin-top:-10%;"></i>
+                                <p class="action" style="margin-top:-30%; margin-bottom:-20%; text-align:center;"> Branch Wise Late Loan Installment Report </p>
+                            </div>
+                        </div>
+                    </a>
 
                 </div>
                 <div class="dash2" style="display: flex;flex-direction: row;align-self: center;justify-content:space-evenly;">
                     
-                    
+                <a href="transactionSuper.php" style="text-decoration:none;">
+                        <div class="card" style="width:16rem; height:12rem;">
+                            <div class="card-body" style="align-self:center; display:flex; flex-direction:column;">
+                                <i class="bi bi-clipboard-data" style="font-size:80px; align-self:center; margin-top:-10%;"></i>
+                                <p class="action" style="margin-top:-30%; margin-bottom:-20%; text-align:center;"> Branch Wise Total Transaction Report </p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
             </div>

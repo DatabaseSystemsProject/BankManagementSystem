@@ -5,6 +5,7 @@ include_once("../Controllers/individualCustomerController.php");
 include_once("../Controllers/branchController.php");
 include_once("../Controllers/savingsPlanController.php");
 include_once("../Controllers/accountController.php");
+session_start();
 
 $individualCtrl = new individualCustomerController();
 $branchCtrl = new BranchController();
@@ -49,6 +50,11 @@ $accountCtrl = new AccountController();
 <div class="container border border-2 m-5 p-5 mx-auto bg-light">
     <h2> Add Account </h2> <br>
     <form action="" method="post" enctype="multipart/form-data">
+            <?php if (isset($_SESSION['error_message'])) {
+                echo '<p style="color:red; font-size:1.2rem; padding:0px;">' . $_SESSION['error_message'] . '</p>';
+                unset($_SESSION['error_message']);
+            }
+            ?>
         <fieldset class="form-group">
             <div class="row">
                 <legend class="col-form-label col-sm-2 pt-0">Account Type</legend>
