@@ -9,6 +9,9 @@ $customerCtrl = new individualCustomerController();
 if (isset($_POST["registerCustomer"])) {
     $customerCtrl->addCustomer();
 }
+$account_type = $_SESSION['login_type'];
+$login = $_SESSION['login'];
+$myUrl = strval($account_type) . "Dashboard.php";
 
 ?>
 
@@ -23,6 +26,12 @@ if (isset($_POST["registerCustomer"])) {
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Customer</title>
@@ -183,10 +192,7 @@ if (isset($_POST["registerCustomer"])) {
 </div>
 
 <script type="text/javascript">
-    function gotoDashboard() {
-        var url = <?php echo (json_encode($myUrl)); ?>;
-        window.location.href = url;
-    }
+
     //form validation TODO
     //test if an adult
     //test email , tp, and nic

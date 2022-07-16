@@ -10,6 +10,8 @@ $atm_contr = new AtmController();
 if (isset($_POST["exit"])) {
     header("Location: ./customerDashboard.php");
 }
+
+$myUrl =  "customerDashboard.php";
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +22,13 @@ if (isset($_POST["exit"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/atm.css">
+    <script>
+        function gotoDashboard() {
+            var url = <?php echo (json_encode($myUrl)); ?>;
+            window.location.href = url;
+        }
+    </script>
+
     <title>atm</title>
 </head>
 
